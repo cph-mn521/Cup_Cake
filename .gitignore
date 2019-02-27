@@ -23,7 +23,7 @@
 *.zip
 *.tar.gz
 *.rar
-Delfinen.jar
+Cup_Cake.war
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
@@ -92,3 +92,4 @@ $RECYCLE.BIN/
 *.properties
 /TomCatGuideOne/TomCatGuideOne/target/
 /TestDB_Simple/target/
+/target/
