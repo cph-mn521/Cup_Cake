@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class DB {
 
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-    private static final String URL = "jdbc:mysql://128.199.46.149:3306/cakes";
+    private static final String URL = "jdbc:mysql://128.199.46.149:3306/cupcakes";
     private static final String USER = "testuser";
     private static final String PASSWORD = "password123";
     private static Connection conn = null;
@@ -31,10 +31,10 @@ public class DB {
     public static void main(String[] args) {
         //Test connection
         try {
-            String sql = "SELECT * FROM recipes;";
+            String sql = "SELECT * FROM Bottom;";
             ResultSet rs = getConnection().prepareStatement(sql).executeQuery();
             while (rs.next()) {
-                System.out.println(rs.getString("name")+"'s instructions are:\n"+rs.getString("instructions"));
+                System.out.println(rs.getString("type")+"'s instructions are:\n"+rs.getString("price"));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
