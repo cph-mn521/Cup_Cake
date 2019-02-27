@@ -45,11 +45,11 @@ public class UserDAO {
         try {
             ResultSet rs =stmt.executeQuery(Query);
             while(rs.next()){ // User er en primary key. Kun 1 resultat bør returnes.
-                user = user(
-                    rs.getString(Username),
-                    rs.getString(email),
-                    rs.getString(password),
-                    rs.getDouble(balance)
+                user = new UserDTO(
+                    rs.getString("Username"),
+                    rs.getString("email"),
+                    rs.getString("password"),
+                    rs.getDouble("balance")
                 );
                 
             }
@@ -58,6 +58,7 @@ public class UserDAO {
         }
         catch(SQLException e){
             //Returner et relevant svar. Evt kast fejlen længere op så den kan håndteres i controlleren.
+            return null;
         }
         
         
