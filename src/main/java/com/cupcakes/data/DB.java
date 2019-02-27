@@ -34,7 +34,7 @@ public class DB {
             String sql = "SELECT * FROM Bottom;";
             ResultSet rs = getConnection().prepareStatement(sql).executeQuery();
             while (rs.next()) {
-                System.out.println(rs.getString("type")+"'s instructions are:\n"+rs.getString("price"));
+                System.out.println(rs.getString("type")+" :\n"+rs.getString("price"));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
