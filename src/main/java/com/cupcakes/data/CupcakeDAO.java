@@ -14,13 +14,13 @@ import java.util.List;
  *
  * @author martin
  */
-public class cupcakeDAO {
+public class CupcakeDAO {
 
-    private List<cupcakeDTO> recipes = new ArrayList();
-    private List<ingredientDTO> ingredients;
+    private List<CupcakeDTO> recipes = new ArrayList();
+    private List<IngredientDTO> ingredients;
 
-    public cupcakeDTO getRecipe(String recipeName) {
-        cupcakeDTO recipe = null;
+    public CupcakeDTO getRecipe(String recipeName) {
+        CupcakeDTO recipe = null;
         String query
                 = "SELECT *"
                 + "FROM `recipes`"
@@ -31,13 +31,13 @@ public class cupcakeDAO {
             ResultSet rs = DB.getConnection().createStatement().executeQuery(query);
             while (rs.next()) {
                 ingredients = new ArrayList();
-                recipe = new cupcakeDTO(
+                recipe = new CupcakeDTO(
                         rs.getInt("id"),
                         rs.getString("name"),
                         rs.getString("instructions"),
                         rs.getString("ratings"),
                         ingredients,
-                        new imageDTO(rs.getString("image"), rs.getInt("recipe_id"))
+                        new ImageDTO(rs.getString("image"), rs.getInt("recipe_id"))
                 );
             }
         } catch (SQLException ex) {
@@ -46,7 +46,7 @@ public class cupcakeDAO {
         return recipe;
     }
 
-    public List<cupcakeDTO> getRecipes() {
+    public List<CupcakeDTO> getRecipes() {
 
         String query = "SELECT * FROM `recipes` INNER JOIN `images` ON `recipes`.`id` = `images`.`recipe_id`;";
 
@@ -60,20 +60,20 @@ public class cupcakeDAO {
                     ingredients = new ArrayList();
                     while (rs_ingredients.next()) {
 
-                        ingredients.add(new ingredientDTO(
+                        ingredients.add(new IngredientDTO(
                                 rs_ingredients.getInt("ingredients_id"),
                                 rs_ingredients.getInt("recipe_id"),
                                 rs_ingredients.getString("ingredient"),
                                 rs_ingredients.getString("amount")));
                     }
                 }
-                recipes.add(new cupcakeDTO(
+                recipes.add(new CupcakeDTO(
                         rs.getInt("id"),
                         rs.getString("name"),
                         rs.getString("instructions"),
                         rs.getString("ratings"),
                         ingredients,
-                        new imageDTO(rs.getString("image"), rs.getInt("recipe_id"))
+                        new ImageDTO(rs.getString("image"), rs.getInt("recipe_id"))
                 ));
             }
         } catch (SQLException ex) {
@@ -111,7 +111,7 @@ public class cupcakeDAO {
     }
     
     public static void main(String[] args) {
-        new cupcakeDAO().testAdd();
+        new CupcakeDAO().testAdd();
     }
     
     public void testAdd(){

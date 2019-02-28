@@ -15,17 +15,17 @@ import java.util.List;
 	`ratings` VARCHAR(5) NOT NULL DEFAULT '0%',
  * @author martin
  */
-public class cupcakeDTO {
+public class CupcakeDTO {
 
     private int id;
     private String name;
     private String instructions;
     private String ratings;
-    List<ingredientDTO> ingredients;
-    private imageDTO image;
+    List<IngredientDTO> ingredients;
+    private ImageDTO image;
 
-    public cupcakeDTO(int id, String name, String instructions, String ratings,
-            List<ingredientDTO> ingredients, imageDTO image)
+    public CupcakeDTO(int id, String name, String instructions, String ratings,
+            List<IngredientDTO> ingredients, ImageDTO image)
             {
         this.id = id;
         this.name = name;
@@ -51,11 +51,11 @@ public class cupcakeDTO {
         return ratings;
     }
 
-    public List<ingredientDTO> getIngredients() {
+    public List<IngredientDTO> getIngredients() {
         return ingredients;
     }
 
-    public imageDTO getImage() {
+    public ImageDTO getImage() {
         return image;
     }
     

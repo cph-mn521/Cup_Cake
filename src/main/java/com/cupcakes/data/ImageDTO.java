@@ -10,12 +10,12 @@ package com.cupcakes.data;
     `recipe_id` int NOT NULL,%',
  * @author martin
  */
-public class imageDTO {
+public class ImageDTO {
 
     private String image;
     private int recipe_id;
 
-    public imageDTO(String image, int recipe_id) {
+    public ImageDTO(String image, int recipe_id) {
         this.image = image;
         this.recipe_id = recipe_id;
     }
