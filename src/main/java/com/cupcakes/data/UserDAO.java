@@ -22,8 +22,8 @@ public class UserDAO {
     private DB connector = null;
     private Connection connection;
     private Statement stmt;
-    private List<recipeDTO> recipes = new ArrayList();
-    private List<ingredientDTO> ingredients;
+    private List<CupcakeDTO> recipes = new ArrayList();
+    private List<IngredientDTO> ingredients;
 
     public UserDAO() throws SQLException {
         this.connector = new DB();

@@ -14,13 +14,13 @@ import java.util.List;
  *
  * @author martin
  */
-public class recipeDAO {
+public class CupcakeDAO {
 
-    private List<recipeDTO> recipes = new ArrayList();
-    private List<ingredientDTO> ingredients;
+    private List<CupcakeDTO> recipes = new ArrayList();
+    private List<IngredientDTO> ingredients;
 
-    public recipeDTO getRecipe(String recipeName) {
-        recipeDTO recipe = null;
+    public CupcakeDTO getRecipe(String recipeName) {
+        CupcakeDTO recipe = null;
         String query
                 = "SELECT *"
                 + "FROM `recipes`"
@@ -31,13 +31,13 @@ public class recipeDAO {
             ResultSet rs = DB.getConnection().createStatement().executeQuery(query);
             while (rs.next()) {
                 ingredients = new ArrayList();
-                recipe = new recipeDTO(
+                recipe = new CupcakeDTO(
                         rs.getInt("id"),
                         rs.getString("name"),
                         rs.getString("instructions"),
                         rs.getString("ratings"),
                         ingredients,
-                        new imageDTO(rs.getString("image"), rs.getInt("recipe_id"))
+                        new ImageDTO(rs.getString("image"), rs.getInt("recipe_id"))
                 );
             }
         } catch (SQLException ex) {
@@ -46,7 +46,7 @@ public class recipeDAO {
         return recipe;
     }
 
-    public List<recipeDTO> getRecipes() {
+    public List<CupcakeDTO> getRecipes() {
 
         String query = "SELECT * FROM `recipes` INNER JOIN `images` ON `recipes`.`id` = `images`.`recipe_id`;";
 
@@ -60,20 +60,20 @@ public class recipeDAO {
                     ingredients = new ArrayList();
                     while (rs_ingredients.next()) {
 
-                        ingredients.add(new ingredientDTO(
+                        ingredients.add(new IngredientDTO(
                                 rs_ingredients.getInt("ingredients_id"),
                                 rs_ingredients.getInt("recipe_id"),
                                 rs_ingredients.getString("ingredient"),
                                 rs_ingredients.getString("amount")));
                     }
                 }
-                recipes.add(new recipeDTO(
+                recipes.add(new CupcakeDTO(
                         rs.getInt("id"),
                         rs.getString("name"),
                         rs.getString("instructions"),
                         rs.getString("ratings"),
                         ingredients,
-                        new imageDTO(rs.getString("image"), rs.getInt("recipe_id"))
+                        new ImageDTO(rs.getString("image"), rs.getInt("recipe_id"))
                 ));
             }
         } catch (SQLException ex) {
@@ -83,9 +83,8 @@ public class recipeDAO {
     }
 
     /**
-     * I første omgang er der en metode for hver tabel. Det kan ændres senere
-     * så den benytter en enum til at håndtere tabeller og stadig gøre det let at huske 
-     * tabelnavn når man kalder metoderne
+     * Der er ikke brug for at add'e kager til databasen men det er lavet for at se om det virker
+     * og hvis vi skulle få lyst til at lave nye kager (med gul skimmelost på :-)
      * @param type
      * @param prices 
      */
@@ -112,7 +111,7 @@ public class recipeDAO {
     }
     
     public static void main(String[] args) {
-        new recipeDAO().testAdd();
+        new CupcakeDAO().testAdd();
     }
     
     public void testAdd(){

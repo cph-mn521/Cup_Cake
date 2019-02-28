@@ -5,8 +5,8 @@
  */
 package com.cupcakes.presentation;
 
-import com.cupcakes.data.ingredientDTO;
-import com.cupcakes.data.recipeDTO;
+import com.cupcakes.data.IngredientDTO;
+import com.cupcakes.data.CupcakeDTO;
 import com.cupcakes.logic.Controller;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -61,7 +61,7 @@ public class RecipesCommand extends Command {
             out.println("<body>");
             out.println("<h1><a href=\"http://localhost:8084/cakes2/cakes\" target=\"_self\">Opskrifter:</a></h1>");
             out.println("<br><br>");
-            for (recipeDTO recipe : cc.getRecipes()) {
+            for (CupcakeDTO recipe : cc.getRecipes()) {
                 if (cakename == null || cakename.equals(recipe.getName())) {
 //                    String link = "<a href=\"Control?name=" + recipe.getName() + "\"</a>";
                     String recipeLink = "<a href=\"http://localhost:8084/cakes2/cakes?cake="
@@ -70,7 +70,7 @@ public class RecipesCommand extends Command {
                             + recipe.getName() + "</a>";
                     out.println("<h1>" + recipeLink + "</h1><br>"
                             + "<h3>" + recipe.getInstructions() + "</h3><br>");
-                    for (ingredientDTO ingr : recipe.getIngredients()) {
+                    for (IngredientDTO ingr : recipe.getIngredients()) {
                         out.println("<br><li>" + ingr.getAmount() + " " + ingr.getIngredient() + "</li><br>");
                     }
                     String urle = "<img src=\"" + recipe.getImage().getImage() + "\"  width=\"250\"/>";

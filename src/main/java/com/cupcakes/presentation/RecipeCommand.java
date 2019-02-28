@@ -5,7 +5,7 @@
  */
 package com.cupcakes.presentation;
 
-import com.cupcakes.data.recipeDTO;
+import com.cupcakes.data.CupcakeDTO;
 import com.cupcakes.logic.Controller;
 import java.io.IOException;
 import java.io.PrintWriter;

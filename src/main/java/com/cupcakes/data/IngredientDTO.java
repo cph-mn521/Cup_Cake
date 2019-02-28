@@ -11,14 +11,14 @@ package com.cupcakes.data;
  *
  * @author martin
  */
-public class ingredientDTO {
+public class IngredientDTO {
 
     private int ingredient_id;
     private int recipe_id;
     private String ingredient;
     private String amount;
 
-    public ingredientDTO(int ingredient_id, int recipe_id, String ingredient, String amount) {
+    public IngredientDTO(int ingredient_id, int recipe_id, String ingredient, String amount) {
         this.ingredient_id = ingredient_id;
         this.recipe_id = recipe_id;
         this.ingredient = ingredient;
