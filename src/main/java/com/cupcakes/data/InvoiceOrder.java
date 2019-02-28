@@ -32,14 +32,15 @@ public class InvoiceOrder
     {
         for (LineItems cake : cart.getLineItems())
         {
-            String bottomType = cake.getBottom().getType();
-            String toppingType = cake.getToppings().getType();
+            int bottomId = cake.getBottom().getId();
+            int toppingId = cake.getToppings().getId();
             int quantity = cake.getQuantity();
+            
             try
             {
                 String query
                         = "INSERT INTO `ShoppingCart`(`cart_id`,`bottom_id`,`topping_id`,`quantity`) VALUES"
-                        + "(" + shoppingCartIdCounter + ", " + 1 + ", " + 1 + ", " + quantity + ")";
+                        + "(" + shoppingCartIdCounter + ", " + bottomId + ", " + toppingId + ", " + quantity + ")";
 
                 int result = DB.getConnection().createStatement().executeUpdate(query);
                 System.out.println(result + " rows added");
