@@ -5,8 +5,9 @@
  */
 package com.cupcakes.logic;
 
+import com.cupcakes.data.BottomDTO;
 import com.cupcakes.data.CupcakeDAO;
-import com.cupcakes.data.CupcakeDTO;
+import com.cupcakes.data.ToppingsDTO;
 import java.util.List;
 
 /**
@@ -15,16 +16,11 @@ import java.util.List;
  */
 public class Controller {
 
-//    public List<String> getIngredients();
-//
-//    public ingredientDAO getIngredient();
-
-    public List<CupcakeDTO> getRecipes() {
-        return new CupcakeDAO().getRecipes();
+    public List<BottomDTO> fetchBottoms() {
+        return new CupcakeDAO().getBottoms();
     }
     
-    public CupcakeDTO getRecipe(String recipeName)
-    {
-        return new CupcakeDAO().getRecipe(recipeName);
+    public List<ToppingsDTO> fetchToppings(){
+        return new CupcakeDAO().getToppings();
     }
 }

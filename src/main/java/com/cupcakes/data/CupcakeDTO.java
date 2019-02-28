@@ -5,58 +5,34 @@
  */
 package com.cupcakes.data;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- *	`id` int NOT NULL,
-	`name` VARCHAR(45) NOT NULL,
-	`instructions` VARCHAR(300) NOT NULL,
-	`ratings` VARCHAR(5) NOT NULL DEFAULT '0%',
+ *
  * @author martin
  */
 public class CupcakeDTO {
 
-    private int id;
-    private String name;
-    private String instructions;
-    private String ratings;
-    List<IngredientDTO> ingredients;
-    private ImageDTO image;
+    BottomDTO bottom;
+    ToppingsDTO topping;
+    double totalPrice;
 
-    public CupcakeDTO(int id, String name, String instructions, String ratings,
-            List<IngredientDTO> ingredients, ImageDTO image)
-            {
-        this.id = id;
-        this.name = name;
-        this.instructions = instructions;
-        this.ratings = ratings;
-        this.ingredients = ingredients;
-        this.image = image;
+    public CupcakeDTO(BottomDTO bottom, ToppingsDTO topping) {
+        this.bottom = bottom;
+        this.topping = topping;
+        this.totalPrice = bottom.getPrice()+topping.getPrice();
     }
 
-    public int getId() {
-        return id;
+    public BottomDTO getBottom() {
+        return bottom;
     }
 
-    public String getName() {
-        return name;
+    public ToppingsDTO getTopping() {
+        return topping;
     }
 
-    public String getInstructions() {
-        return instructions;
+    public double getTotalPrice() {
+        return totalPrice;
     }
 
-    public String getRatings() {
-        return ratings;
-    }
-
-    public List<IngredientDTO> getIngredients() {
-        return ingredients;
-    }
-
-    public ImageDTO getImage() {
-        return image;
-    }
-    
 }

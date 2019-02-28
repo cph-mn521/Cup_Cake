@@ -16,77 +16,66 @@ import java.util.List;
  */
 public class CupcakeDAO {
 
-    private List<CupcakeDTO> recipes = new ArrayList();
-    private List<IngredientDTO> ingredients;
+    private List<BottomDTO> bottoms = new ArrayList();
+    private List<ToppingsDTO> toppings = new ArrayList();
 
-    public CupcakeDTO getRecipe(String recipeName) {
-        CupcakeDTO recipe = null;
-        String query
-                = "SELECT *"
-                + "FROM `recipes`"
-                + "INNER JOIN `images`"
-                + "ON images.`recipe_id` = recipes.`id`"
-                + "WHERE recipes.`name` = \"" + recipeName + "\";";
-        try {
-            ResultSet rs = DB.getConnection().createStatement().executeQuery(query);
-            while (rs.next()) {
-                ingredients = new ArrayList();
-                recipe = new CupcakeDTO(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getString("instructions"),
-                        rs.getString("ratings"),
-                        ingredients,
-                        new ImageDTO(rs.getString("image"), rs.getInt("recipe_id"))
-                );
-            }
-        } catch (SQLException ex) {
+//    public CupcakeDTO getCupcakes(String recipeName) {
+//
+//        return recipe;
+//    }
+    /**
+     *
+     * @return liste med alle bunde
+     */
+    public List<BottomDTO> getBottoms() {
 
-        }
-        return recipe;
-    }
-
-    public List<CupcakeDTO> getRecipes() {
-
-        String query = "SELECT * FROM `recipes` INNER JOIN `images` ON `recipes`.`id` = `images`.`recipe_id`;";
+        String query = "SELECT * FROM cupcakes.Bottom;";
 
         try {
             ResultSet rs = DB.getConnection().createStatement().executeQuery(query);
             while (rs.next()) {
-                int s = rs.getInt("id");
-                if (s > 0) {
-                    String query_ingr = "SELECT * FROM cakes.ingredients where `recipe_id` = " + s + ";";
-                    ResultSet rs_ingredients = DB.getConnection().createStatement().executeQuery(query_ingr);
-                    ingredients = new ArrayList();
-                    while (rs_ingredients.next()) {
-
-                        ingredients.add(new IngredientDTO(
-                                rs_ingredients.getInt("ingredients_id"),
-                                rs_ingredients.getInt("recipe_id"),
-                                rs_ingredients.getString("ingredient"),
-                                rs_ingredients.getString("amount")));
-                    }
-                }
-                recipes.add(new CupcakeDTO(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getString("instructions"),
-                        rs.getString("ratings"),
-                        ingredients,
-                        new ImageDTO(rs.getString("image"), rs.getInt("recipe_id"))
+                bottoms.add(new BottomDTO(
+                        rs.getString("type"),
+                        rs.getFloat("price")
                 ));
             }
         } catch (SQLException ex) {
-            System.out.println("Fejl recipeDAO " + ex);
+            System.out.println("Fejl CupcakeDAO.getBottoms " + ex);
         }
-        return recipes;
+        return bottoms;
     }
 
+    
     /**
-     * Der er ikke brug for at add'e kager til databasen men det er lavet for at se om det virker
-     * og hvis vi skulle få lyst til at lave nye kager (med gul skimmelost på :-)
+     *
+     * @return liste med alle toppings
+     */
+    public List<ToppingsDTO> getToppings() {
+
+        String query = "SELECT * FROM cupcakes.Toppings;";
+
+        try {
+            ResultSet rs = DB.getConnection().createStatement().executeQuery(query);
+            while (rs.next()) {
+                toppings.add(new ToppingsDTO(
+                        rs.getString("type"),
+                        rs.getFloat("price")
+                ));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Fejl CupcakeDAO.getBottoms " + ex);
+        }
+        return toppings;
+    }
+
+    
+    /**
+     * Der er ikke brug for at add'e kager til databasen men det er lavet for at
+     * se om det virker og hvis vi skulle få lyst til at lave nye kager (med gul
+     * skimmelost på :-)
+     *
      * @param type
-     * @param prices 
+     * @param prices
      */
     public void addBottom(String type, double prices) {
         String query = "INSERT INTO `Bottom` (`type`, `price`) "
@@ -109,14 +98,14 @@ public class CupcakeDAO {
             System.out.println("Fejl recipeDAO addToDB:\n" + ex);
         }
     }
-    
+
     public static void main(String[] args) {
         new CupcakeDAO().testAdd();
     }
-    
-    public void testAdd(){
+
+    public void testAdd() {
         System.out.println("");
         this.addBottom("NonApple2", 16.3);
-        
+
     }
 }
