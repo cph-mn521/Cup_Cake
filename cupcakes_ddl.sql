@@ -19,15 +19,15 @@ PRIMARY KEY(`user_id`)
 
 CREATE TABLE `Bottom`(
 `bottom_id` INT AUTO_INCREMENT,
-`type` VARCHAR(45) NOT NULL,
-`price` FLOAT(10),
+`type` VARCHAR(45) UNIQUE NOT NULL,
+`price` FLOAT(10) UNSIGNED,
 PRIMARY KEY(`bottom_id`)
 );
 
 CREATE TABLE `Toppings`(
 `topping_id` INT AUTO_INCREMENT,
-`type` VARCHAR(45),
-`price` FLOAT(10),
+`type` VARCHAR(45) UNIQUE NOT NULL,
+`price` FLOAT(10) UNSIGNED,
 PRIMARY KEY(`topping_id`)
 );
 
