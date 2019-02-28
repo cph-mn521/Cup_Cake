@@ -31,6 +31,10 @@ public abstract class Command {
                 c = new ShoppingCommand();
                 break;
                 
+            case "cart":
+                c = new CartCommand();
+                break;
+                
             default:
                 c = new UnknownCommand();
         }

@@ -14,6 +14,11 @@ public class BottomDTO {
     String type;
     float price;
 
+    public BottomDTO(String type) {
+        this.type = type;
+        this.price=(float)0.0;
+    }
+
     public BottomDTO(String type, float price) {
         this.type = type;
         this.price = price;

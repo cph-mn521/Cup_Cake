@@ -19,6 +19,11 @@ public class ToppingsDTO {
     String type;
     float price;
 
+    public ToppingsDTO(String type) {
+        this.type = type;
+        this.price=(float)0.0;
+    }
+
     public ToppingsDTO(String type, float price) {
         this.type = type;
         this.price = price;

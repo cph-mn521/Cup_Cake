@@ -77,8 +77,6 @@ public class Controller {
         }
     }
 
-
-
     public UserDTO fetchUser(String Username) throws SQLException{
         return new UserDAO().getUser(Username);
     }
