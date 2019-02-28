@@ -10,15 +10,15 @@ package com.cupcakes.data;
  * @author Martin Wulff
  */
 public class UserDTO {
-    
-    private String name,email,password;
+
+    private String name, email, password;
     private double balance;
-    
-    UserDTO(String name,String email, String password, double balance){
-        this.name     = name;
-        this.email    = email;
+
+    UserDTO(String name, String email, String password, double balance) {
+        this.name = name;
+        this.email = email;
         this.password = password;
-        this.balance  = balance;
+        this.balance = balance;
     }
 
     public String getName() {
@@ -36,7 +36,5 @@ public class UserDTO {
     public double getBalance() {
         return balance;
     }
-    
-    
-    
+
 }
