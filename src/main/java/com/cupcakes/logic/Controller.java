@@ -8,6 +8,7 @@ package com.cupcakes.logic;
 import com.cupcakes.data.UserDAO;
 import com.cupcakes.data.BottomDTO;
 import com.cupcakes.data.CupcakeDAO;
+import com.cupcakes.data.ShoppingCart;
 import com.cupcakes.data.ToppingsDTO;
 import com.cupcakes.data.UserDAO;
 import com.cupcakes.data.UserDTO;
@@ -82,4 +83,8 @@ public class Controller {
         return new UserDAO().getUser(Username);
     }
 
+    public ShoppingCart fetchCart(){
+        return new ShoppingCart(lineItems, 0)
+    }
+    
 }

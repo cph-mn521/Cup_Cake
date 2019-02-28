@@ -54,7 +54,6 @@ public class ShoppingCommand extends Command {
             out.println("<body>");
             out.println("<br><br>");
             for (ToppingsDTO topping : cc.fetchToppings()) {
-//                    String link = "<a href=\"Control?name=" + recipe.getName() + "\"</a>";
                 String recipeLink = "<a href=\"http://localhost:8084/cakes2/cakes?cake="
                         + topping.getType()
                         + "\" target=\"_self\">"
