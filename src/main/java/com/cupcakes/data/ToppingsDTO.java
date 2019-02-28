@@ -1,20 +1,25 @@
+package com.cupcakes.data;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.cupcakes.data;
-
 /**
  *
  * @author nille
  */
-public class bottomDTO {
+public class ToppingsDTO {
 
+    /*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+     */
     String type;
     int price;
 
-    public bottomDTO(String type, int price) {
+    public ToppingsDTO(String type, int price) {
         this.type = type;
         this.price = price;
     }
@@ -34,5 +39,4 @@ public class bottomDTO {
     public void setPrice(int price) {
         this.price = price;
     }
-
 }
