@@ -13,10 +13,12 @@ public class BottomDTO {
 
     String type;
     float price;
+    int id;
 
-    public BottomDTO(String type, float price) {
+    public BottomDTO(String type, float price, int id) {
         this.type = type;
         this.price = price;
+        this.id = id;
     }
 
     public String getType() {
@@ -35,4 +37,15 @@ public class BottomDTO {
         this.price = price;
     }
 
+    public int getId()
+    {
+        return id;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
+    }
+
+    
 }

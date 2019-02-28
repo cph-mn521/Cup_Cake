@@ -36,7 +36,8 @@ public class CupcakeDAO {
             while (rs.next()) {
                 bottoms.add(new BottomDTO(
                         rs.getString("type"),
-                        rs.getFloat("price")
+                        rs.getFloat("price"),
+                        rs.getInt("bottom_id")
                 ));
             }
         } catch (SQLException ex) {
@@ -59,7 +60,8 @@ public class CupcakeDAO {
             while (rs.next()) {
                 toppings.add(new ToppingsDTO(
                         rs.getString("type"),
-                        rs.getFloat("price")
+                        rs.getFloat("price"),
+                        rs.getInt("topping_id")
                 ));
             }
         } catch (SQLException ex) {
