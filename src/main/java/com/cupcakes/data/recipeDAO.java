@@ -83,9 +83,8 @@ public class recipeDAO {
     }
 
     /**
-     * I første omgang er der en metode for hver tabel. Det kan ændres senere
-     * så den benytter en enum til at håndtere tabeller og stadig gøre det let at huske 
-     * tabelnavn når man kalder metoderne
+     * Der er ikke brug for at add'e kager til databasen men det er lavet for at se om det virker
+     * og hvis vi skulle få lyst til at lave nye kager (med gul skimmelost på :-)
      * @param type
      * @param prices 
      */
