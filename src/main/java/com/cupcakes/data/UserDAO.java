@@ -35,6 +35,7 @@ public class UserDAO {
      *
      * @param Username The desired username to be extracted from the database.
      * @return User as a UserDTO.
+     * @throws SQLException
      */
     public UserDTO getUser(String Username) throws SQLException {
 
@@ -42,21 +43,56 @@ public class UserDAO {
                 + "FROM cupcakes.User"
                 + "Where username=" + Username
                 + ";";
-        
-            ResultSet rs = stmt.executeQuery(Query);
-            rs.next(); // User er en primary key. Kun 1 resultat bør returnes.
-            UserDTO user = new UserDTO(
-                    rs.getString("username"),
-                    rs.getString("email"),
-                    rs.getString("password"),
-                    rs.getDouble("balance")
-            );
-            
-            if(user.getName()== null) throw new SQLException("No result found.");
-            
-            return user;
 
+        ResultSet rs = stmt.executeQuery(Query);
+        rs.next(); // User er en primary key. Kun 1 resultat bør returnes.
+        UserDTO user = new UserDTO(
+                rs.getString("username"),
+                rs.getString("email"),
+                rs.getString("password"),
+                rs.getDouble("balance")
+        );
+
+        if (user.getName() == null) {
+            throw new SQLException("No result found.");
+        }
+
+        return user;
 
     }
 
+    /**
+     * Method for adding users to the database.
+     *
+     * @param Username Username of the user.
+     * @param Email Email of the user.
+     * @param Password Password of the user.
+     * @throws SQLException
+     */
+    public void createUser(String Username, String Email, String Password) throws SQLException {
+        try {
+            int i = DB.getConnection().createStatement().executeUpdate("INSERT INTO `User`(`username`,`password`,`email`)"
+                    + " VALUES('"
+                    + Username + "','"
+                    + Password + "','"
+                    + Email + "');");
+
+            if (i == 0) {
+                throw new SQLException();
+            }
+
+        } catch (SQLException e) {
+            throw new SQLException("Error in query: " + e.getErrorCode());
+        }
+    }
+
+    /* Main for testing DAO
+    public static void main(String[] args) {
+        try {
+            new UserDAO().createUser("This user", "Is created ", "in Java");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+     */
 }
