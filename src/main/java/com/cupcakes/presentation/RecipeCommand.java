@@ -44,9 +44,9 @@ public class RecipeCommand extends Command {
             out.println("<body>");
             out.println("<h1>Opskrift:</h1>");
             out.println("<br><br>");
-            out.println("<li>Navn: " + cc.getRecipe(recipeName).getName() + "</li>");
-            out.println("<li>Instruktioner: " + cc.getRecipe(recipeName).getInstructions()+ "</li>");
-            out.println("<li>Ratings: " + cc.getRecipe(recipeName).getRatings()+ "</li>");
+//            out.println("<li>Navn: " + cc.getRecipe(recipeName).getName() + "</li>");
+//            out.println("<li>Instruktioner: " + cc.getRecipe(recipeName).getInstructions()+ "</li>");
+//            out.println("<li>Ratings: " + cc.getRecipe(recipeName).getRatings()+ "</li>");
             out.println("<body>");
             out.println("</body>");
             out.println("</html>");

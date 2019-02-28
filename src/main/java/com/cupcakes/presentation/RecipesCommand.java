@@ -61,23 +61,23 @@ public class RecipesCommand extends Command {
             out.println("<body>");
             out.println("<h1><a href=\"http://localhost:8084/cakes2/cakes\" target=\"_self\">Opskrifter:</a></h1>");
             out.println("<br><br>");
-            for (CupcakeDTO recipe : cc.getRecipes()) {
-                if (cakename == null || cakename.equals(recipe.getName())) {
-//                    String link = "<a href=\"Control?name=" + recipe.getName() + "\"</a>";
-                    String recipeLink = "<a href=\"http://localhost:8084/cakes2/cakes?cake="
-                            + recipe.getName() 
-                            + "\" target=\"_self\">"
-                            + recipe.getName() + "</a>";
-                    out.println("<h1>" + recipeLink + "</h1><br>"
-                            + "<h3>" + recipe.getInstructions() + "</h3><br>");
-                    for (IngredientDTO ingr : recipe.getIngredients()) {
-                        out.println("<br><li>" + ingr.getAmount() + " " + ingr.getIngredient() + "</li><br>");
-                    }
-                    String urle = "<img src=\"" + recipe.getImage().getImage() + "\"  width=\"250\"/>";
-                    out.println(urle);
-                    out.println("<br><br><br><br>");
-                }
-            }
+//            for (CupcakeDTO recipe : cc.getRecipes()) {
+//                if (cakename == null || cakename.equals(recipe.getName())) {
+////                    String link = "<a href=\"Control?name=" + recipe.getName() + "\"</a>";
+//                    String recipeLink = "<a href=\"http://localhost:8084/cakes2/cakes?cake="
+//                            + recipe.getName() 
+//                            + "\" target=\"_self\">"
+//                            + recipe.getName() + "</a>";
+//                    out.println("<h1>" + recipeLink + "</h1><br>"
+//                            + "<h3>" + recipe.getInstructions() + "</h3><br>");
+//                    for (IngredientDTO ingr : recipe.getIngredients()) {
+//                        out.println("<br><li>" + ingr.getAmount() + " " + ingr.getIngredient() + "</li><br>");
+//                    }
+//                    String urle = "<img src=\"" + recipe.getImage().getImage() + "\"  width=\"250\"/>";
+//                    out.println(urle);
+//                    out.println("<br><br><br><br>");
+//                }
+//            }
             out.println("<body>");
             out.println("</body>");
             out.println("</html>");

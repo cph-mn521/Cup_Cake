@@ -12,24 +12,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-<<<<<<< HEAD
-import javax.servlet.http.HttpSession;
-import com.cupcakes.logic.Controller;
-=======
->>>>>>> parent of f11750e... #totalnotstolenfiles
 
 /**
  *
  * @author martin
  */
-<<<<<<< HEAD
-@WebServlet(name = "FrontController", urlPatterns
-        = {
-            "/FrontController"
-        })
-=======
 @WebServlet(name = "FrontController", urlPatterns = {"/*"})
->>>>>>> parent of f11750e... #totalnotstolenfiles
 public class FrontController extends HttpServlet {
 
     /**
@@ -43,51 +31,6 @@ public class FrontController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<<<<<<< HEAD
-        response.setContentType("text/html;charset=UTF-8");
-        /* Check for login and so on... */
-        HttpSession session = request.getSession();
-        Boolean loggedIn = (Boolean) session.getAttribute("loggedIn");
-
-        if (loggedIn == null || !loggedIn) {
-            PageLogin.generateLogin(response);
-            if (Controller.loginCheck(request.getParameter("uname"), request.getParameter("psw"))) {
-                session.setAttribute("loggedIn", true);
-                PageLoggedIn.generateLoggedIn(response);
-            }
-        }
-        String action = request.getParameter("action");
-        if (null == action) {
-            PageMain.generateMain(response);
-        } else {
-            switch (action) {
-                case "hello":
-                    break;
-                case "buy":
-                    PageBuy.generateBuy(response);
-                    break;
-                case "Login":
-                    if (Controller.loginCheck(request.getParameter("uname"), request.getParameter("psw"))) {
-                        session.setAttribute("loggedIn", true);
-                        PageLoggedIn.generateLoggedIn(response);
-                    }
-                    break;
-                case "Create User":
-                    PageCreateUser.generateUser(response, "");
-                    try {
-                        Controller.createUser(
-                                request.getParameter("Username"),
-                                request.getParameter("Password"),
-                                request.getParameter("Password2"),
-                                request.getParameter("Email"));
-                    } catch (Exception e) {
-                        PageCreateUser.generateUser(response, e.getMessage());
-                    }
-                    break;
-                default:
-                    PageMain.generateMain(response);
-                    break;
-=======
 
         try {
             Command c = Command.from(request);
@@ -104,7 +47,6 @@ public class FrontController extends HttpServlet {
                 out.println("<h1>Unknown command Frontcontroller</h1>");
                 out.println("</body>");
                 out.println("</html>");
->>>>>>> parent of f11750e... #totalnotstolenfiles
             }
         };
 
