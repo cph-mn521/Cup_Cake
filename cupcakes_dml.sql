@@ -21,6 +21,11 @@ INSERT INTO `User`(`username`,`email`,`balance`) VALUES
 ('halltheprotocol', 'hall@testmail.com', 4000.00),
 ('barefooted_brandan', 'brandan@testmail.com', 50.5);
 
-INSERT INTO `Invoice`(`user_id`,`bottom_id`,`topping_id`, `invoice_date`) VALUES
-(1,4,1, '2019-02-22'),
-(2,3,6, '2019-02-20');
+INSERT INTO `ShoppingCart`(`cart_id`,`bottom_id`,`topping_id`,`quantity`) VALUES
+(1, 1, 3, 2),
+(1, 4, 6, 1),
+(2, 3, 7, 3);
+
+INSERT INTO `Invoice`(`user_id`,`cart_id`,`invoice_date`) VALUES
+(1,2, '2019-02-22'),
+(2,1, '2019-02-20');
