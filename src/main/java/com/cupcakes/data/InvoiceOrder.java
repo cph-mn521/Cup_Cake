@@ -13,10 +13,19 @@ public class InvoiceOrder
 {
     private ShoppingCart cart;
     
+    public InvoiceOrder(ShoppingCart cart)
+    {
+        this.cart = cart;
+    }
     
-    //constructor
-    
-    //public void saveInvoiceToDB
-    
-    
+    /**
+     *
+     * @author Martin Brandstrup
+     * @param 
+     * @return 
+     */
+    public void saveInvoiceToDB()
+    {
+        
+    }
 }
