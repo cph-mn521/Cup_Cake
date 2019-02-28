@@ -12,6 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+//import com.cupcakes.data.UserDTO;
 /**
  *
  * @author Martin Wulff
@@ -40,9 +41,9 @@ public class UserDAO {
     public UserDTO getUser(String Username) throws SQLException {
 
         String Query = "SELECT * "
-                + "FROM cupcakes.User"
-                + "Where username=" + Username
-                + ";";
+                + "FROM cupcakes.`User`"
+                + "Where `username`='" + Username
+                + "';";
 
         ResultSet rs = stmt.executeQuery(Query);
         rs.next(); // User er en primary key. Kun 1 resultat bør returnes.
@@ -68,6 +69,8 @@ public class UserDAO {
      * @param Email Email of the user.
      * @param Password Password of the user.
      * @throws SQLException
+     *
+     * @Author Niels Bang
      */
     public void createUser(String Username, String Email, String Password) throws SQLException {
         try {
@@ -86,10 +89,14 @@ public class UserDAO {
         }
     }
 
-    /* Main for testing DAO
+    /*
+    // Main for testing DAO
     public static void main(String[] args) {
         try {
-            new UserDAO().createUser("This user", "Is created ", "in Java");
+            //       new UserDAO().createUser("This user", "Is created ", "in Java");
+            UserDTO a = new UserDAO().getUser("This user");
+
+            System.out.println("This was found: email:" + a.getEmail() + " name: " + a.getName() + " pw :" + a.getPassword() + " balance: " + a.getBalance());
         } catch (Exception e) {
             e.printStackTrace();
         }
