@@ -6,22 +6,30 @@
 package com.cupcakes.presentation;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+<<<<<<< HEAD
 import javax.servlet.http.HttpSession;
 import com.cupcakes.logic.Controller;
+=======
+>>>>>>> parent of f11750e... #totalnotstolenfiles
 
 /**
  *
- * @author Tobias
+ * @author martin
  */
+<<<<<<< HEAD
 @WebServlet(name = "FrontController", urlPatterns
         = {
             "/FrontController"
         })
+=======
+@WebServlet(name = "FrontController", urlPatterns = {"/*"})
+>>>>>>> parent of f11750e... #totalnotstolenfiles
 public class FrontController extends HttpServlet {
 
     /**
@@ -35,6 +43,7 @@ public class FrontController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+<<<<<<< HEAD
         response.setContentType("text/html;charset=UTF-8");
         /* Check for login and so on... */
         HttpSession session = request.getSession();
@@ -78,8 +87,27 @@ public class FrontController extends HttpServlet {
                 default:
                     PageMain.generateMain(response);
                     break;
+=======
+
+        try {
+            Command c = Command.from(request);
+            c.execute(request, response);
+        } catch (Exception e) {
+            try (PrintWriter out = response.getWriter()) {
+                /* TODO output your page here. You may use following sample code. */
+                out.println("<!DOCTYPE html>");
+                out.println("<html>");
+                out.println("<head>");
+                out.println("<title>Unknown</title>");
+                out.println("</head>");
+                out.println("<body>");
+                out.println("<h1>Unknown command Frontcontroller</h1>");
+                out.println("</body>");
+                out.println("</html>");
+>>>>>>> parent of f11750e... #totalnotstolenfiles
             }
-        }
+        };
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

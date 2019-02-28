@@ -5,30 +5,31 @@
  */
 package com.cupcakes.presentation;
 
+import com.cupcakes.presentation.Command;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Tobias
+ * @author martin
  */
-public class PageBuy
-{
+public class UnknownCommand extends Command {
 
-    public static void generateBuy(HttpServletResponse response) throws IOException
-    {
-        
-        try (PrintWriter out = response.getWriter())
-        {
+    @Override
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet FrontController</title>");
+            out.println("<title>Unknown</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Buy something!</h1>");
+            out.println("<h1>Unknown command UnknownCommand</h1>");
+            out.println("<img src=\"data/sorbet.jpg\" width=\"175px\"/>");
             out.println("</body>");
             out.println("</html>");
         }
