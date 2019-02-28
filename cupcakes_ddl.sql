@@ -2,6 +2,7 @@
 # CREATE SCHEMA `cupcakes` DEFAULT CHARACTER SET utf8  DEFAULT COLLATE utf8_danish_ci;
 USE `cupcakes`;
 
+DROP TABLE IF EXISTS `Invoice`;
 DROP TABLE IF EXISTS `Bottom`;
 DROP TABLE IF EXISTS `Toppings`;
 DROP TABLE IF EXISTS `User`;
@@ -29,4 +30,23 @@ CREATE TABLE `Toppings`(
 PRIMARY KEY(`topping_id`)
 );
 
-
+CREATE TABLE `Invoice`(
+	`invoice_id` INT AUTO_INCREMENT,
+    `user_id` INT NOT NULL,
+	`bottom_id` INT NOT NULL,
+    `topping_id` INT NOT NULL,
+    `invoice_date` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`invoice_id`),
+    
+	CONSTRAINT `User_fk` 
+	FOREIGN KEY (`user_id`)
+	REFERENCES `User` (`user_id`),
+    
+    CONSTRAINT `Bottom_fk`
+    FOREIGN KEY (`bottom_id`)
+    REFERENCES `Bottom` (`bottom_id`),
+    
+    CONSTRAINT `Toppings_fk`
+    FOREIGN KEY (`topping_id`)
+    REFERENCES `Toppings` (`topping_id`)
+);
