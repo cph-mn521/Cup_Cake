@@ -11,24 +11,24 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Niels (totalt stjålet fra tobias)
+ * @author nille
  */
-public class PageLogin {
+public class PageCreateUser {
 
-    public static void generateLogin(HttpServletResponse response) throws IOException {
+    static void generateUser(HttpServletResponse response) throws IOException {
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
             out.println("<title>CupCake Factory - Login</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Please Log in:</h1>");
+            out.println("<h1>Please enter your information:</h1>");
             out.println("<form action =\"PageLoggedIn\" method =\"post\">");
             out.println("Name:<input type=\"text\" name=\"Usersame\"/><br/><br/>");
             out.println("Password:<input type =\"password\" name=\"Password\"/><br/><br/>");
-            out.println("<input type=\"submit\" value=\"Login\"/>");
+            out.println("Confirm Password:<input type =\"password\" name=\"Password2\"/><br/><br/>");
+            out.println("<input type=\"submit\" value=\"Create \"/>");
             out.println("</form>");
             out.println("<form action=\"PageCreateUser\" method =\"post\">");
             out.println("<input type=\"submit\" value=\"Create User\"/>");

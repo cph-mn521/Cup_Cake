@@ -12,17 +12,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import com.cupcakes.data.UserDAO;
 
 /**
  *
  * @author Tobias
  */
-@WebServlet(name = "FrontController", urlPatterns =
-{
-    "/FrontController"
-})
-public class FrontController extends HttpServlet
-{
+@WebServlet(name = "FrontController", urlPatterns
+        = {
+            "/FrontController"
+        })
+public class FrontController extends HttpServlet {
+
+    UserDAO userDB = new UserDAO();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,33 +36,34 @@ public class FrontController extends HttpServlet
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
-    {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         /* Check for login and so on... */
         HttpSession session = request.getSession();
         Boolean loggedIn = (Boolean) session.getAttribute("loggedIn");
-        if(loggedIn == null || !loggedIn)
-        {
+        if (loggedIn == null || !loggedIn) {
             PageLogin.generateLogin(response);
         }
         String action = request.getParameter("action");
-        if (null == action)
-        {
+        if (null == action) {
             PageMain.generateMain(response);
-        } else
-        {
-            switch (action)
-            {
+        } else {
+            switch (action) {
                 case "hello":
-                    PageHello.generateHello(response);
                     break;
                 case "buy":
                     PageBuy.generateBuy(response);
                     break;
-                case "login":
+                case "Login":
                     session.setAttribute("loggedIn", true);
                     PageLoggedIn.generateLoggedIn(response);
+                    break;
+                case "Create User":
+                    PageCreateUser.generateUser(response);
+
+                    break;
+                default:
+                    PageMain.generateMain(response);
                     break;
             }
         }
@@ -77,8 +80,7 @@ public class FrontController extends HttpServlet
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
-    {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -92,8 +94,7 @@ public class FrontController extends HttpServlet
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
-    {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -103,8 +104,7 @@ public class FrontController extends HttpServlet
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo()
-    {
+    public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 
