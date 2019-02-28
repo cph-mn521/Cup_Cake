@@ -6,7 +6,7 @@
 package com.cupcakes.presentation;
 
 import com.cupcakes.data.ingredientDTO;
-import com.cupcakes.data.recipeDTO;
+import com.cupcakes.data.cupcakeDTO;
 import com.cupcakes.logic.Controller;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -61,7 +61,7 @@ public class RecipesCommand extends Command {
             out.println("<body>");
             out.println("<h1><a href=\"http://localhost:8084/cakes2/cakes\" target=\"_self\">Opskrifter:</a></h1>");
             out.println("<br><br>");
-            for (recipeDTO recipe : cc.getRecipes()) {
+            for (cupcakeDTO recipe : cc.getRecipes()) {
                 if (cakename == null || cakename.equals(recipe.getName())) {
 //                    String link = "<a href=\"Control?name=" + recipe.getName() + "\"</a>";
                     String recipeLink = "<a href=\"http://localhost:8084/cakes2/cakes?cake="

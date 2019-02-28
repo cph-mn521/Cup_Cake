@@ -14,13 +14,13 @@ import java.util.List;
  *
  * @author martin
  */
-public class recipeDAO {
+public class cupcakeDAO {
 
-    private List<recipeDTO> recipes = new ArrayList();
+    private List<cupcakeDTO> recipes = new ArrayList();
     private List<ingredientDTO> ingredients;
 
-    public recipeDTO getRecipe(String recipeName) {
-        recipeDTO recipe = null;
+    public cupcakeDTO getRecipe(String recipeName) {
+        cupcakeDTO recipe = null;
         String query
                 = "SELECT *"
                 + "FROM `recipes`"
@@ -31,7 +31,7 @@ public class recipeDAO {
             ResultSet rs = DB.getConnection().createStatement().executeQuery(query);
             while (rs.next()) {
                 ingredients = new ArrayList();
-                recipe = new recipeDTO(
+                recipe = new cupcakeDTO(
                         rs.getInt("id"),
                         rs.getString("name"),
                         rs.getString("instructions"),
@@ -46,7 +46,7 @@ public class recipeDAO {
         return recipe;
     }
 
-    public List<recipeDTO> getRecipes() {
+    public List<cupcakeDTO> getRecipes() {
 
         String query = "SELECT * FROM `recipes` INNER JOIN `images` ON `recipes`.`id` = `images`.`recipe_id`;";
 
@@ -67,7 +67,7 @@ public class recipeDAO {
                                 rs_ingredients.getString("amount")));
                     }
                 }
-                recipes.add(new recipeDTO(
+                recipes.add(new cupcakeDTO(
                         rs.getInt("id"),
                         rs.getString("name"),
                         rs.getString("instructions"),
@@ -111,7 +111,7 @@ public class recipeDAO {
     }
     
     public static void main(String[] args) {
-        new recipeDAO().testAdd();
+        new cupcakeDAO().testAdd();
     }
     
     public void testAdd(){

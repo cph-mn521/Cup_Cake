@@ -15,7 +15,7 @@ import java.util.List;
 	`ratings` VARCHAR(5) NOT NULL DEFAULT '0%',
  * @author martin
  */
-public class recipeDTO {
+public class cupcakeDTO {
 
     private int id;
     private String name;
@@ -24,7 +24,7 @@ public class recipeDTO {
     List<ingredientDTO> ingredients;
     private imageDTO image;
 
-    public recipeDTO(int id, String name, String instructions, String ratings,
+    public cupcakeDTO(int id, String name, String instructions, String ratings,
             List<ingredientDTO> ingredients, imageDTO image)
             {
         this.id = id;
