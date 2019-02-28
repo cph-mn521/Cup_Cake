@@ -6,19 +6,23 @@
 package com.cupcakes.presentation;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author martin
+ * @author Tobias
  */
-@WebServlet(name = "FrontController", urlPatterns = {"/*"})
-public class FrontController extends HttpServlet {
+@WebServlet(name = "FrontController", urlPatterns =
+{
+    "/FrontController"
+})
+public class FrontController extends HttpServlet
+{
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,26 +34,36 @@ public class FrontController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        try {
-            Command c = Command.from(request);
-            c.execute(request, response);
-        } catch (Exception e) {
-            try (PrintWriter out = response.getWriter()) {
-                /* TODO output your page here. You may use following sample code. */
-                out.println("<!DOCTYPE html>");
-                out.println("<html>");
-                out.println("<head>");
-                out.println("<title>Unknown</title>");
-                out.println("</head>");
-                out.println("<body>");
-                out.println("<h1>Unknown command Frontcontroller</h1>");
-                out.println("</body>");
-                out.println("</html>");
+            throws ServletException, IOException
+    {
+        response.setContentType("text/html;charset=UTF-8");
+        /* Check for login and so on... */
+        HttpSession session = request.getSession();
+        Boolean loggedIn = (Boolean) session.getAttribute("loggedIn");
+        if(loggedIn == null || !loggedIn)
+        {
+            PageLogin.generateLogin(response);
+        }
+        String action = request.getParameter("action");
+        if (null == action)
+        {
+            PageMain.generateMain(response);
+        } else
+        {
+            switch (action)
+            {
+                case "hello":
+                    PageHello.generateHello(response);
+                    break;
+                case "buy":
+                    PageBuy.generateBuy(response);
+                    break;
+                case "login":
+                    session.setAttribute("loggedIn", true);
+                    PageLoggedIn.generateLoggedIn(response);
+                    break;
             }
-        };
-
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -63,7 +77,8 @@ public class FrontController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException
+    {
         processRequest(request, response);
     }
 
@@ -77,7 +92,8 @@ public class FrontController extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException
+    {
         processRequest(request, response);
     }
 
@@ -87,7 +103,8 @@ public class FrontController extends HttpServlet {
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo() {
+    public String getServletInfo()
+    {
         return "Short description";
     }// </editor-fold>
 
