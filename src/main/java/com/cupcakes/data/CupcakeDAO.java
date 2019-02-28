@@ -99,12 +99,12 @@ public class CupcakeDAO {
         }
     }
 
-    public static void main(String[] args) {
-//        new CupcakeDAO().addBottom("NonApple2", 16.3);
-        System.out.println("");
-//        for (BottomDTO arg : new CupcakeDAO().getBottoms()) {
-        for (ToppingsDTO arg : new CupcakeDAO().getToppings()) {
-            System.out.println("Type: " + arg.getType() + "\tPris: " + arg.getPrice());
-        }
-    }
+//    public static void main(String[] args) {
+////        new CupcakeDAO().addBottom("NonApple2", 16.3);
+//        System.out.println("");
+////        for (BottomDTO arg : new CupcakeDAO().getBottoms()) {
+//        for (ToppingsDTO arg : new CupcakeDAO().getToppings()) {
+//            System.out.println("Type: " + arg.getType() + "\tPris: " + arg.getPrice());
+//        }
+//    }
 }

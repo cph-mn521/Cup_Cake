@@ -9,9 +9,10 @@ import com.cupcakes.data.UserDAO;
 import com.cupcakes.data.BottomDTO;
 import com.cupcakes.data.CupcakeDAO;
 import com.cupcakes.data.ToppingsDTO;
+import com.cupcakes.data.UserDAO;
+import com.cupcakes.data.UserDTO;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
@@ -73,6 +74,12 @@ public class Controller {
         } catch (SQLException e) {
             return false;
         }
+    }
+
+
+
+    public UserDTO fetchUser(String Username) throws SQLException{
+        return new UserDAO().getUser(Username);
     }
 
 }
