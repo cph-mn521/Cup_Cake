@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import com.cupcakes.data.UserDAO;
+import com.cupcakes.logic.Controller;
+import java.sql.SQLException;
 
 /**
  *
@@ -23,8 +25,6 @@ import com.cupcakes.data.UserDAO;
             "/FrontController"
         })
 public class FrontController extends HttpServlet {
-
-    UserDAO userDB = new UserDAO();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -55,12 +55,22 @@ public class FrontController extends HttpServlet {
                     PageBuy.generateBuy(response);
                     break;
                 case "Login":
-                    session.setAttribute("loggedIn", true);
-                    PageLoggedIn.generateLoggedIn(response);
+                    if (Controller.loginCheck(request.getParameter("Username"), request.getParameter("Password"))) {
+                        session.setAttribute("loggedIn", true);
+                        PageLoggedIn.generateLoggedIn(response);
+                    }
                     break;
                 case "Create User":
-                    PageCreateUser.generateUser(response);
-
+                    PageCreateUser.generateUser(response, "");
+                    try {
+                        Controller.createUser(
+                                request.getParameter("Username"),
+                                request.getParameter("Password"),
+                                request.getParameter("Password2"),
+                                request.getParameter("Email"));
+                    } catch (Exception e) {
+                        PageCreateUser.generateUser(response, e.getMessage());
+                    }
                     break;
                 default:
                     PageMain.generateMain(response);
