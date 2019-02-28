@@ -84,7 +84,7 @@ public class Controller {
     }
 
     public ShoppingCart fetchCart(){
-        return new ShoppingCart(lineItems, 0)
+        return new ShoppingCart();
     }
     
 }

@@ -14,6 +14,9 @@ import java.util.List;
 public class ShoppingCart {
     private List<LineItems> lineItems;
 
+    public ShoppingCart() {
+    }
+
     public ShoppingCart(List<LineItems> lineItems) {
         this.lineItems = lineItems;
     }
