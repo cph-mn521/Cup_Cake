@@ -7,20 +7,22 @@ package com.cupcakes.presentation;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
  * @author Tobias
  */
-public class PageLoggedIn
-{
+@WebServlet(name = "PageLoggedIn", urlPatterns
+        = {
+            "/PageLoggedIn"
+        })
+public class PageLoggedIn {
 
-    public static void generateLoggedIn(HttpServletResponse response) throws IOException
-    {
-        
-        try (PrintWriter out = response.getWriter())
-        {
+    public static void generateLoggedIn(HttpServletResponse response) throws IOException {
+
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");

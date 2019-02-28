@@ -41,8 +41,13 @@ public class FrontController extends HttpServlet {
         /* Check for login and so on... */
         HttpSession session = request.getSession();
         Boolean loggedIn = (Boolean) session.getAttribute("loggedIn");
+
         if (loggedIn == null || !loggedIn) {
             PageLogin.generateLogin(response);
+            if (Controller.loginCheck(request.getParameter("uname"), request.getParameter("psw"))) {
+                session.setAttribute("loggedIn", true);
+                PageLoggedIn.generateLoggedIn(response);
+            }
         }
         String action = request.getParameter("action");
         if (null == action) {
@@ -55,7 +60,7 @@ public class FrontController extends HttpServlet {
                     PageBuy.generateBuy(response);
                     break;
                 case "Login":
-                    if (Controller.loginCheck(request.getParameter("Username"), request.getParameter("Password"))) {
+                    if (Controller.loginCheck(request.getParameter("uname"), request.getParameter("psw"))) {
                         session.setAttribute("loggedIn", true);
                         PageLoggedIn.generateLoggedIn(response);
                     }

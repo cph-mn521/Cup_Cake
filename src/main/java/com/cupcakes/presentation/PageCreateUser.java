@@ -25,7 +25,7 @@ public class PageCreateUser {
             out.println("<body>");
             out.println("<h1>Please enter your information:</h1>");
             out.println("<strong>" + msg + "</strong>");
-            out.println("<form action =\"PageLoggedIn\" method =\"post\">");
+            out.println("<form action =\"FrontController\" method =\"post\">");
             out.println("Name:<input type=\"text\" name=\"Usersame\"/><br/><br/>");
             out.println("Password:<input type =\"password\" name=\"Password\"/><br/><br/>");
             out.println("Confirm Password:<input type =\"password\" name=\"Password2\"/><br/><br/>");
