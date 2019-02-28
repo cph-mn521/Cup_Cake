@@ -13,8 +13,8 @@ import java.util.List;
  */
 public class CupcakeDTO {
 
-    BottomDTO bottom;
-    ToppingsDTO topping;
+    private BottomDTO bottom;
+    private ToppingsDTO topping;
     double totalPrice;
 
     public CupcakeDTO(BottomDTO bottom, ToppingsDTO topping) {
