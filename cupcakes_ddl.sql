@@ -12,7 +12,7 @@ CREATE TABLE `User`(
 `username` VARCHAR(45) NOT NULL,
 `password` VARCHAR(45) DEFAULT '1234',
 `email` VARCHAR(45) NOT NULL,
-`balance` DOUBLE(30,30),
+`balance` DOUBLE(30,2) DEFAULT 0.0,
 PRIMARY KEY(`user_id`)
 );
 
@@ -35,7 +35,7 @@ CREATE TABLE `Invoice`(
     `user_id` INT NOT NULL,
 	`bottom_id` INT NOT NULL,
     `topping_id` INT NOT NULL,
-    `invoice_date` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `invoice_date` DATE NOT NULL,
     PRIMARY KEY (`invoice_id`),
     
 	CONSTRAINT `User_fk` 
