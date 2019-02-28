@@ -12,9 +12,9 @@ package com.cupcakes.data;
 public class BottomDTO {
 
     String type;
-    int price;
+    float price;
 
-    public BottomDTO(String type, int price) {
+    public BottomDTO(String type, float price) {
         this.type = type;
         this.price = price;
     }
@@ -27,7 +27,7 @@ public class BottomDTO {
         this.type = type;
     }
 
-    public int getPrice() {
+    public float getPrice() {
         return price;
     }
 

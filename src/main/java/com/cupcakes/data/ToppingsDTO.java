@@ -17,9 +17,9 @@ public class ToppingsDTO {
  * and open the template in the editor.
      */
     String type;
-    int price;
+    float price;
 
-    public ToppingsDTO(String type, int price) {
+    public ToppingsDTO(String type, float price) {
         this.type = type;
         this.price = price;
     }
@@ -32,7 +32,7 @@ public class ToppingsDTO {
         this.type = type;
     }
 
-    public int getPrice() {
+    public float getPrice() {
         return price;
     }
 
