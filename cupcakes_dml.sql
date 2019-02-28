@@ -15,3 +15,17 @@ INSERT INTO `Toppings`(`type`,`price`) VALUES('Rum/Raisin',7);
 INSERT INTO `Toppings`(`type`,`price`) VALUES('Orange',8);
 INSERT INTO `Toppings`(`type`,`price`) VALUES('Lemon',8);
 INSERT INTO `Toppings`(`type`,`price`) VALUES('Blue Cheese',9);
+
+INSERT INTO `User`(`username`,`email`,`balance`) VALUES
+('bittie_bertha', 'bertha@testmail.com', 305000.11),
+('halltheprotocol', 'hall@testmail.com', 4000.00),
+('barefooted_brandan', 'brandan@testmail.com', 50.5);
+
+INSERT INTO `ShoppingCart`(`cart_id`,`bottom_id`,`topping_id`,`quantity`) VALUES
+(1, 1, 3, 2),
+(1, 4, 6, 1),
+(2, 3, 7, 3);
+
+INSERT INTO `Invoice`(`user_id`,`cart_id`,`invoice_date`) VALUES
+(1,2, '2019-02-22'),
+(2,1, '2019-02-20');
