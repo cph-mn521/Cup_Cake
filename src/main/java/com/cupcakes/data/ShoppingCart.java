@@ -13,14 +13,19 @@ import java.util.List;
  */
 public class ShoppingCart {
     private List<LineItems> lineItems;
+    private int quantity;
 
-    public ShoppingCart(List<LineItems> lineItems) {
+    public ShoppingCart(List<LineItems> lineItems, int quantity) {
         this.lineItems = lineItems;
+        this.quantity = quantity;
     }
-
+    
     public List<LineItems> getLineItems() {
         return lineItems;
     }
-   
-    
+
+    public int getQuantity() {
+        return quantity;
+    }
+ 
 }
