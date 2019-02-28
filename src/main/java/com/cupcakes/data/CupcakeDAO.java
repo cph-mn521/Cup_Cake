@@ -100,12 +100,11 @@ public class CupcakeDAO {
     }
 
     public static void main(String[] args) {
-        new CupcakeDAO().testAdd();
-    }
-
-    public void testAdd() {
+//        new CupcakeDAO().addBottom("NonApple2", 16.3);
         System.out.println("");
-        this.addBottom("NonApple2", 16.3);
-
+//        for (BottomDTO arg : new CupcakeDAO().getBottoms()) {
+        for (ToppingsDTO arg : new CupcakeDAO().getToppings()) {
+            System.out.println("Type: " + arg.getType() + "\tPris: " + arg.getPrice());
+        }
     }
 }
