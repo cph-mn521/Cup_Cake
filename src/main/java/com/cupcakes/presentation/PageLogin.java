@@ -14,10 +14,6 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Niels (totalt stjålet fra tobias)
  */
-@WebServlet(name = "PageLogin", urlPatterns
-        = {
-            "/PageLogin"
-        })
 public class PageLogin {
 
     public static void generateLogin(HttpServletResponse response) throws IOException {
