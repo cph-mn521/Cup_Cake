@@ -45,13 +45,13 @@ public class ShoppingCommand extends Command {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Shopping cart</title>");
+            out.println("<title>Cupcake Creator</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Vælg cupcake indhold: </h1>");
             out.println("<form action=\"cart\">");
             out.println("Topping:");
-            out.println("<select id='toppings' name='Toppings'\">");
+            out.println("<select id='toppings' name='Toppings' required>");
             out.println("<option></option>");
             for (ToppingsDTO topping : cc.fetchToppings()) {
                 out.println("<option value=\"" + topping.getType() + "\">" + topping.getType() + "</option>");
@@ -59,7 +59,7 @@ public class ShoppingCommand extends Command {
             out.println("/<select>");
             out.println("<br><br>");
             out.println("Bund:");
-            out.println("<select id='bottoms' name='Bottoms'\">");
+            out.println("<select id='bottoms' name='Bottoms' required>");
             out.println("<option></option>");
             for (BottomDTO bottom : cc.fetchBottoms()) {
                 out.println("<option value=\"" + bottom.getType() + "\">" + bottom.getType() + "</option>");
@@ -67,7 +67,7 @@ public class ShoppingCommand extends Command {
             out.println("</select>");
             out.println("<br><br>");
             out.println("Antal:");
-            out.println("<select id='quantity' name='quantity'\">");
+            out.println("<select id='quantity' name='quantity' required>");
             out.println("<option></option>");
             out.println("<option>1</option>");
             out.println("<option>2</option>");

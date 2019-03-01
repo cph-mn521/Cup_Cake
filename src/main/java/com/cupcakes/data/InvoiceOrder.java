@@ -23,7 +23,7 @@ public class InvoiceOrder
     }
 
     /**
-     *
+     * Saves the ShoppingCart to the Database.
      * @author Martin Brandstrup
      * @param
      * @return
@@ -35,6 +35,12 @@ public class InvoiceOrder
             int bottomId = cake.getBottom().getId();
             int toppingId = cake.getToppings().getId();
             int quantity = cake.getQuantity();
+            
+            if(bottomId <1 || toppingId <1 || quantity <1)
+            {
+                System.out.println("There was a problem with your data");
+                return;
+            }
             
             try
             {
@@ -49,17 +55,19 @@ public class InvoiceOrder
                 System.out.println(ex);
             }
         }
-        shoppingCartIdCounter++;
     }
 
     /**
-     *
+     * Saves the ShoppingCart (carried by the current InvoiceOrder object from 
+     * which this method is called) as well as the Invoice to the Database.
      * @author Martin Brandstrup
      * @param
      * @return
      */
-    public void saveInvoiceToDB()
+    public void saveOrderToDB()
     {
-
+        
+        
+        shoppingCartIdCounter++;
     }
 }
