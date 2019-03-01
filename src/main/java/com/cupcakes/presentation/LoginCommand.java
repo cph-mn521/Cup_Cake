@@ -83,8 +83,8 @@ public class LoginCommand extends Command {
         out.println("<body>");
         out.println("<br><br>");
         out.println("<form action=\"log\" method=\"post\">");
-        out.println("	Enter username : <input type=\"text\" name=\"username\"> <BR>");
-        out.println("	Enter password : <input type=\"password\" name=\"password\"> <BR>");
+        out.println("	Enter username : <input type=\"text\" name=\"username\" required> <BR>");
+        out.println("	Enter password : <input type=\"password\" name=\"password\" required> <BR>");
         out.println("	<input type=\"submit\" />");
         out.println("</form>");
         out.println("<body>");
@@ -122,8 +122,8 @@ public class LoginCommand extends Command {
         out.println("<h1>Failed log in </h1>");
         out.println("<br><br>");
         out.println("<form action=\"log\" method=\"post\">");
-        out.println("	Enter username : <input type=\"text\" name=\"username\"> <BR>");
-        out.println("	Enter password : <input type=\"password\" name=\"password\"> <BR>");
+        out.println("	Enter username : <input type=\"text\" name=\"username\" required> <BR>");
+        out.println("	Enter password : <input type=\"password\" name=\"password\" required> <BR>");
         out.println("	<input type=\"submit\" />");
         out.println("</form>");
         out.println("<body>");
