@@ -9,6 +9,7 @@ import com.cupcakes.data.BottomDTO;
 import com.cupcakes.data.IngredientDTO;
 import com.cupcakes.data.CupcakeDTO;
 import com.cupcakes.data.LineItems;
+import com.cupcakes.data.ShoppingCart;
 import com.cupcakes.data.ToppingsDTO;
 import com.cupcakes.logic.Controller;
 import java.io.IOException;
@@ -36,13 +37,7 @@ public class ShoppingCommand extends Command {
             throws ServletException, IOException {
 
         Controller cc = new Controller();
-//        HttpSession session = request.getSession();
-//
-//        session.setAttribute("window", window);
-
-        HttpSession session = request.getSession();
-        session.setAttribute("cart", cc.fetchCart());
-
+        
         response.setContentType("text/html;charset=UTF-8");
 
         try (PrintWriter out = response.getWriter()) {

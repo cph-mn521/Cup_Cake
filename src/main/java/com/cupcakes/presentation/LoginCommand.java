@@ -32,6 +32,7 @@ public class LoginCommand extends Command {
     public void execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+
 //        Controller c = new Controller(); ?
 //        HttpSession session = request.getSession(); Det her virker rigtigt.
         // Creating switch statement to check what login page should be loaded:
@@ -57,6 +58,7 @@ public class LoginCommand extends Command {
             } catch (Exception e) {
                 // user not found exeption
             }
+
         }
 
         response.setContentType("text/html;charset=UTF-8");
