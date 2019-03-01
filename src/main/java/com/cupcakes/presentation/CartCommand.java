@@ -63,11 +63,10 @@ public class CartCommand extends Command {
             out.println("<br><br>");
             out.println("<h1>Din shopping carts indhold: </h1>");
             for (LineItems l : cart.getLineItems()) {
-                out.println("<br>");
-                out.println("<h3>Invoice: " + l.getInvoice_id() + ",  ");
+                out.println("<h3>Invoice #" + l.getInvoice_id() + ":         ");
                 out.println("" + l.getQuantity() + " stk  ");
                 out.println(l.getToppings().getType() + " med ");
-                out.println(l.getBottom().getType() + " pris: ");
+                out.println(l.getBottom().getType() + ", pris: ");
                 out.println(l.getToppings().getPrice() + l.getBottom().getPrice() + "kr. </h3> <br>");
             }
             out.println("<form action=\"shop\">");

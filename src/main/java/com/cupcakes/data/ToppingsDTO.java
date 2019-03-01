@@ -21,8 +21,10 @@ public class ToppingsDTO {
     int id;
 
     public ToppingsDTO(String type) {
+        CupcakeDAO c = new CupcakeDAO();
         this.type = type;
         this.price=(float)0.0;
+        this.id=13; //tilfældigt tal
     }
 
     public ToppingsDTO(String type, float price, int id) {

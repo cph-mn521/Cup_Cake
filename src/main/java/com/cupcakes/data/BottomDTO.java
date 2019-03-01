@@ -18,6 +18,7 @@ public class BottomDTO {
     public BottomDTO(String type) {
         this.type = type;
         this.price=(float)0.0;
+        this.id=13; //tilfældigt tal
     }
 
 

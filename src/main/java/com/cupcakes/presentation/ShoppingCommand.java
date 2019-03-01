@@ -20,13 +20,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author martin Calculate the price of a window. The user will input the
- * height and width of a window in cm. Should be on a webpage, but for now as
- * query-parameters. Prices are stored in a database, the total price is
- * calculated and presented to the user as HTML. The window price is calculated
- * as Glass price + Frame price Window price  The price of glass is kr. 300,-
- * per m2 .  The price of frame type1 is kr. 100,- per m.  The price of frame
- * type2 is kr. 200,- per m.  The price of frame type3 is kr. 350,- per m.
+ * @author martin bøgh
  */
 public class ShoppingCommand extends Command {
 
@@ -59,7 +53,6 @@ public class ShoppingCommand extends Command {
             out.println("<title>Shopping cart</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<br><br>");
             out.println("<h1>Vælg cupcake indhold: </h1>");
             out.println("<form action=\"cart\">");
             out.println("Topping:");
@@ -78,7 +71,17 @@ public class ShoppingCommand extends Command {
             }
             out.println("</select>");
             out.println("<br><br>");
-            out.println("Enter quantity : <input type=\"text\" name=\"quantity\"> <br>");
+            out.println("Antal:");
+            out.println("<select id='quantity' name='quantity'\">");
+            out.println("<option></option>");
+            out.println("<option>1</option>");
+            out.println("<option>2</option>");
+            out.println("<option>3</option>");
+            out.println("<option>4</option>");
+            out.println("<option>5</option>");
+            out.println("<option>6</option>");
+            out.println("</select>");
+            out.println("<br><br>");
             out.println("<input type=\"submit\" value=\"Vælg\">");
             out.println("</form>");
             out.println("<br><br>");
