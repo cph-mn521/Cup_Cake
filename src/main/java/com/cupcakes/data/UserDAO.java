@@ -48,6 +48,7 @@ public class UserDAO {
         ResultSet rs = stmt.executeQuery(Query);
         rs.next(); // User er en primary key. Kun 1 resultat bør returnes.
         UserDTO user = new UserDTO(
+                rs.getInt("user_id"),
                 rs.getString("username"),
                 rs.getString("email"),
                 rs.getString("password"),
