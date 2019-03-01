@@ -11,10 +11,12 @@ package com.cupcakes.data;
  */
 public class UserDTO {
 
+    private int userId;
     private String name, email, password;
     private double balance;
 
-    UserDTO(String name, String email, String password, double balance) {
+    UserDTO(int userId, String name, String email, String password, double balance) {
+        this.userId = userId;
         this.name = name;
         this.email = email;
         this.password = password;

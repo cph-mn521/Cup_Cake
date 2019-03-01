@@ -23,7 +23,7 @@ public class InvoiceOrder
     }
 
     /**
-     *
+     * Saves the ShoppingCart to the Database.
      * @author Martin Brandstrup
      * @param
      * @return
@@ -55,17 +55,19 @@ public class InvoiceOrder
                 System.out.println(ex);
             }
         }
-        shoppingCartIdCounter++;
     }
 
     /**
-     *
+     * Saves the ShoppingCart (carried by the current InvoiceOrder object from 
+     * which this method is called) as well as the Invoice to the Database.
      * @author Martin Brandstrup
      * @param
      * @return
      */
-    public void saveInvoiceToDB()
+    public void saveOrderToDB()
     {
-
+        
+        
+        shoppingCartIdCounter++;
     }
 }
