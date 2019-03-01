@@ -44,8 +44,8 @@ public class InvoiceOrder
     {
         for (LineItems cake : cart.getLineItems())
         {
-            int bottomId = cake.getBottom().getId();
-            int toppingId = cake.getToppings().getId();
+            int bottomId = cake.getCupcake().getBottom().getId();
+            int toppingId = cake.getCupcake().getTopping().getId();
             int quantity = cake.getQuantity();
             
             if(bottomId <1 || toppingId <1 || quantity <1)
@@ -78,8 +78,8 @@ public class InvoiceOrder
     {
         for (LineItems cake : cart.getLineItems())
         {
-            float bottomPrice = cake.getBottom().getPrice();
-            float toppingPrice = cake.getToppings().getPrice();
+            float bottomPrice = cake.getCupcake().getBottom().getPrice();
+            float toppingPrice = cake.getCupcake().getTopping().getPrice();
             int quantity = cake.getQuantity();
             
             if(bottomPrice <1 || toppingPrice <1 || quantity <1)

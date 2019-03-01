@@ -17,7 +17,7 @@ public class CupcakeDTO {
     private ToppingsDTO topping;
     double totalPrice;
 
-    public CupcakeDTO(BottomDTO bottom, ToppingsDTO topping) {
+    public CupcakeDTO(ToppingsDTO topping, BottomDTO bottom) {
         this.bottom = bottom;
         this.topping = topping;
         this.totalPrice = bottom.getPrice()+topping.getPrice();
