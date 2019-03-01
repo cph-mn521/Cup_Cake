@@ -55,8 +55,11 @@ public class InvoiceOrder
             try
             {
                 String query
-                        = "INSERT INTO `ShoppingCart`(`cart_id`,`bottom_id`,`topping_id`,`quantity`) VALUES"
-                        + "(" + shoppingCartIdCounter + ", " + bottomId + ", " + toppingId + ", " + quantity + ")";
+                        = "INSERT INTO `ShoppingCart`(`cart_id`,`bottom_id`,`topping_id`,`quantity`) VALUES (" 
+                        + shoppingCartIdCounter + ", " 
+                        + bottomId + ", " 
+                        + toppingId + ", " 
+                        + quantity + ")";
 
                 int result = DB.getConnection().createStatement().executeUpdate(query);
                 System.out.println(result + " rows added");
@@ -143,8 +146,7 @@ public class InvoiceOrder
         try
         {
             String query
-                    = "INSERT INTO `Invoice`(`user_id`,`cart_id`,`invoice_date`)"
-                    + "VALUES ("
+                    = "INSERT INTO `Invoice`(`user_id`,`cart_id`,`invoice_date`) VALUES ("
                     + user.getUserId() + ","
                     + shoppingCartIdCounter + ", '"
                     + LocalDateTime.now() + "')";
