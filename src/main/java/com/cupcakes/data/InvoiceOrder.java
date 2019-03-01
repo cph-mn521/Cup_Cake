@@ -21,8 +21,8 @@ public class InvoiceOrder
     public static int shoppingCartIdCounter = 1;
 
     /**
-     * Takes a ShoppingCart and saves all information to the Database. Creates
-     * an Invoice and saves this as well.
+     * A medium between the session and the database to make sure everything
+     * gets persisted properly.
      *
      * @author Martin Brandstrup
      * @param cart the ShoppingCart with all the Cupcake LineItems to be used
