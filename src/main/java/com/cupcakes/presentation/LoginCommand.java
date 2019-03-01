@@ -32,7 +32,6 @@ public class LoginCommand extends Command {
     public void execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-
 //        Controller c = new Controller(); ?
 //        HttpSession session = request.getSession(); Det her virker rigtigt.
         // Creating switch statement to check what login page should be loaded:
@@ -40,23 +39,31 @@ public class LoginCommand extends Command {
         if (session.getAttribute("login") == null) {
             firstlogin(response);
         } else {
-            Authenticator A = new Authenticator();
             String loggedin = (String) session.getAttribute("login");
-            String username = (String) request.getAttribute("username");
-            String password = "" + ((int) request.getSession().getAttribute("password"));
-            try {
-                String Attempt = A.authenticate(username, password);
+            
+            if (loggedin.equals("true")) {
+                
+                loginSucces(response, session, (String) session.getAttribute("username"));
+            } else {
+                
+                Authenticator A = new Authenticator();
 
-                switch (Attempt) {
-                    case "success":
-                        loginSucces(response, session, username);
-                        break;
-                    case "failure":
-                        loginFailed(response);
-                        break;
+                String username = (String) request.getAttribute("username");
+                String password = (String) request.getAttribute("password");
+                try {
+                    String Attempt = A.authenticate(username, password);
+
+                    switch (Attempt) {
+                        case "success":
+                            loginSucces(response, session, username);
+                            break;
+                        case "failure":
+                            loginFailed(response);
+                            break;
+                    }
+                } catch (Exception e) {
+                    // user not found exeption
                 }
-            } catch (Exception e) {
-                // user not found exeption
             }
 
         }
@@ -75,7 +82,7 @@ public class LoginCommand extends Command {
         out.println("</head>");
         out.println("<body>");
         out.println("<br><br>");
-        out.println("<form action=\"cakes\" method=\"post\">");
+        out.println("<form action=\"log\" method=\"post\">");
         out.println("	Enter username : <input type=\"text\" name=\"username\"> <BR>");
         out.println("	Enter password : <input type=\"password\" name=\"password\"> <BR>");
         out.println("	<input type=\"submit\" />");
@@ -94,11 +101,10 @@ public class LoginCommand extends Command {
         out.println("<!DOCTYPE html>");
         out.println("<html>");
         out.println("<head>");
-        out.println("<title>Unknown</title>");
+        out.println("<title>Login Succesful</title>");
         out.println("</head>");
         out.println("<body>");
         out.println("<h1>Succesfull log in, now logged in as: " + username + " </h1>");
-        out.println("<img src=\"data/sorbet.jpg\" width=\"175px\"/>");
         out.println("</body>");
         out.println("</html>");
 
@@ -114,7 +120,7 @@ public class LoginCommand extends Command {
         out.println("</head>");
         out.println("<body>");
         out.println("<br><br>");
-        out.println("<form action=\"cakes\" method=\"post\">");
+        out.println("<form action=\"log\" method=\"post\">");
         out.println("	Enter username : <input type=\"text\" name=\"username\"> <BR>");
         out.println("	Enter password : <input type=\"password\" name=\"password\"> <BR>");
         out.println("	<input type=\"submit\" />");
