@@ -39,4 +39,8 @@ public class UserDTO {
         return balance;
     }
 
+    public int getUserId()
+    {
+        return userId;
+    }
 }
