@@ -40,12 +40,12 @@ public class LoginCommand extends Command {
             firstlogin(response);
         } else {
             String loggedin = (String) session.getAttribute("login");
-            
+
             if (loggedin.equals("true")) {
-                
+
                 loginSucces(response, session, (String) session.getAttribute("username"));
             } else {
-                
+
                 Authenticator A = new Authenticator();
 
                 String username = (String) request.getAttribute("username");
@@ -83,8 +83,8 @@ public class LoginCommand extends Command {
         out.println("<body>");
         out.println("<br><br>");
         out.println("<form action=\"log\" method=\"post\">");
-        out.println("	Enter username : <input type=\"text\" name=\"username\"> <BR>");
-        out.println("	Enter password : <input type=\"password\" name=\"password\"> <BR>");
+        out.println("	Enter username : <input type=\"text\" name=\"username\" required> <BR>");
+        out.println("	Enter password : <input type=\"password\" name=\"password\" required> <BR>");
         out.println("	<input type=\"submit\" />");
         out.println("</form>");
         out.println("<body>");
@@ -121,8 +121,8 @@ public class LoginCommand extends Command {
         out.println("<body>");
         out.println("<br><br>");
         out.println("<form action=\"log\" method=\"post\">");
-        out.println("	Enter username : <input type=\"text\" name=\"username\"> <BR>");
-        out.println("	Enter password : <input type=\"password\" name=\"password\"> <BR>");
+        out.println("	Enter username : <input type=\"text\" name=\"username\" required> <BR>");
+        out.println("	Enter password : <input type=\"password\" name=\"password\" required> <BR>");
         out.println("	<input type=\"submit\" />");
         out.println("</form>");
         out.println("<body>");
