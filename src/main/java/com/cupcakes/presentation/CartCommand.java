@@ -41,7 +41,9 @@ public class CartCommand extends Command {
 
         HttpSession session = request.getSession();
         ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
-
+        if (cart == null) {
+            cart = new ShoppingCart();
+        }
         //OBS invoice_id værdi opfundet til lejligheden
         cart.addLineItem(new LineItems(
                 new ToppingsDTO(topping),
@@ -67,7 +69,8 @@ public class CartCommand extends Command {
                 out.println("" + l.getQuantity() + " stk  ");
                 out.println(l.getToppings().getType() + " med ");
                 out.println(l.getBottom().getType() + ", pris: ");
-                out.println(l.getToppings().getPrice() + l.getBottom().getPrice() + "kr. </h3> <br>");
+                out.println((l.getToppings().getPrice() + l.getBottom().getPrice())
+                        * l.getQuantity() + "kr. </h3>");
             }
             out.println("<form action=\"shop\">");
             out.println("<input type=\"submit\" value=\"Shop videre\">");
