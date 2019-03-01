@@ -5,6 +5,7 @@
  */
 package com.cupcakes.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,13 +15,20 @@ import java.util.List;
 public class ShoppingCart {
     private List<LineItems> lineItems;
 
+    public ShoppingCart() {
+        lineItems = new ArrayList<>();
+    }
+
     public ShoppingCart(List<LineItems> lineItems) {
         this.lineItems = lineItems;
     }
-
+    
     public List<LineItems> getLineItems() {
         return lineItems;
     }
-   
     
+    public void addLineItem(LineItems lineitem){
+        this.lineItems.add(lineitem);
+    }
+ 
 }

@@ -18,10 +18,19 @@ public class ToppingsDTO {
      */
     String type;
     float price;
+    int id;
 
-    public ToppingsDTO(String type, float price) {
+    public ToppingsDTO(String type) {
+        CupcakeDAO c = new CupcakeDAO();
+        this.type = type;
+        this.price=(float)0.0;
+        this.id=13; //tilfældigt tal
+    }
+
+    public ToppingsDTO(String type, float price, int id) {
         this.type = type;
         this.price = price;
+        this.id = id;
     }
 
     public String getType() {
@@ -39,4 +48,16 @@ public class ToppingsDTO {
     public void setPrice(int price) {
         this.price = price;
     }
+
+    public int getId()
+    {
+        return id;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
+    }
+    
+    
 }

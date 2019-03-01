@@ -23,17 +23,18 @@ public abstract class Command {
         Command c = null;
         String path = request.getPathInfo().substring(1);
         switch (path) {
-            case "recipes":
-                c = new RecipesCommand();
+            case "log":
+                c = new LoginCommand();
                 break;
-            case "recipe":
-                c = new RecipeCommand();
+                
+            case "shop":
+                c = new ShoppingCommand();
                 break;
-            case "cakes":
-                c = new RecipesCommand();
-//                RequestDispatcher dispatch = this.getServletContext().getRequestDispatcher("/LoginServlet/");
-//                dispatch.forward(request, response);
+                
+            case "cart":
+                c = new CartCommand();
                 break;
+                
             default:
                 c = new UnknownCommand();
         }
