@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author martin
  */
-@WebServlet(name = "FrontController", urlPatterns = {"/*"})
+@WebServlet(name = "FrontController", urlPatterns = {"/control"})
 public class FrontController extends HttpServlet {
 
     /**

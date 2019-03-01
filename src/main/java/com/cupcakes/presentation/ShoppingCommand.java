@@ -5,12 +5,12 @@
  */
 package com.cupcakes.presentation;
 
-import com.cupcakes.data.BottomDTO;
-import com.cupcakes.data.IngredientDTO;
-import com.cupcakes.data.CupcakeDTO;
-import com.cupcakes.data.LineItems;
+import com.cupcakes.logic.DTO.BottomDTO;
+import com.cupcakes.logic.DTO.IngredientDTO;
+import com.cupcakes.logic.DTO.CupcakeDTO;
+import com.cupcakes.logic.DTO.LineItemsDTO;
 import com.cupcakes.data.ShoppingCart;
-import com.cupcakes.data.ToppingsDTO;
+import com.cupcakes.logic.DTO.ToppingsDTO;
 import com.cupcakes.logic.Controller;
 import java.io.IOException;
 import java.io.PrintWriter;

@@ -3,8 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.cupcakes.data;
+package com.cupcakes.data.DAO;
 
+import com.cupcakes.data.DB;
+import com.cupcakes.logic.DTO.LineItemsDTO;
+import com.cupcakes.data.ShoppingCart;
+import com.cupcakes.logic.DTO.UserDTO;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
@@ -12,7 +16,7 @@ import java.time.LocalDateTime;
  *
  * @author Martin Brandstrup
  */
-public class InvoiceOrder
+public class InvoiceOrderDAO
 {
 
     private ShoppingCart cart;
@@ -25,10 +29,10 @@ public class InvoiceOrder
      * gets persisted properly.
      *
      * @author Martin Brandstrup
-     * @param cart the ShoppingCart with all the Cupcake LineItems to be used
+     * @param cart the ShoppingCart with all the Cupcake LineItemsDTO to be used
      * @param user the current user logged in the session
      */
-    public InvoiceOrder(ShoppingCart cart, UserDTO user)
+    public InvoiceOrderDAO(ShoppingCart cart, UserDTO user)
     {
         if (cart == null || user == null || cart.getLineItems().isEmpty())
         {
@@ -46,7 +50,7 @@ public class InvoiceOrder
      */
     private void saveShoppingCartToDB()
     {
-        for (LineItems cake : cart.getLineItems())
+        for (LineItemsDTO cake : cart.getLineItems())
         {
             int bottomId = cake.getCupcake().getBottom().getId();
             int toppingId = cake.getCupcake().getTopping().getId();
@@ -78,7 +82,7 @@ public class InvoiceOrder
      */
     private boolean calculateTransactionCost()
     {
-        for (LineItems cake : cart.getLineItems())
+        for (LineItemsDTO cake : cart.getLineItems())
         {
             float bottomPrice = cake.getCupcake().getBottom().getPrice();
             float toppingPrice = cake.getCupcake().getTopping().getPrice();
@@ -127,8 +131,8 @@ public class InvoiceOrder
     }
 
     /**
-     * Saves the ShoppingCart (carried by the current InvoiceOrder object from
-     * which this method is called) as well as the Invoice to the Database.
+     * Saves the ShoppingCart (carried by the current InvoiceOrderDAO object from
+ which this method is called) as well as the Invoice to the Database.
      * Subtracts the total cost of the order from the user's balance account.
      *
      * @author Martin Brandstrup

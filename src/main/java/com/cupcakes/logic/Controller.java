@@ -5,13 +5,13 @@
  */
 package com.cupcakes.logic;
 
-import com.cupcakes.data.UserDAO;
-import com.cupcakes.data.BottomDTO;
-import com.cupcakes.data.CupcakeDAO;
+import com.cupcakes.data.DAO.UserDAO;
+import com.cupcakes.logic.DTO.BottomDTO;
+import com.cupcakes.data.DAO.CupcakeDAO;
 import com.cupcakes.data.ShoppingCart;
-import com.cupcakes.data.ToppingsDTO;
-import com.cupcakes.data.UserDAO;
-import com.cupcakes.data.UserDTO;
+import com.cupcakes.logic.DTO.ToppingsDTO;
+import com.cupcakes.data.DAO.UserDAO;
+import com.cupcakes.logic.DTO.UserDTO;
 import java.sql.SQLException;
 import java.util.List;
 

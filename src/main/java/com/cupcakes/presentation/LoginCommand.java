@@ -5,8 +5,8 @@
  */
 package com.cupcakes.presentation;
 
-import com.cupcakes.data.IngredientDTO;
-import com.cupcakes.data.CupcakeDTO;
+import com.cupcakes.logic.DTO.IngredientDTO;
+import com.cupcakes.logic.DTO.CupcakeDTO;
 import com.cupcakes.logic.Controller;
 import java.io.IOException;
 import java.io.PrintWriter;

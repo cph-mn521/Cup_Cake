@@ -3,19 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.cupcakes.data;
+package com.cupcakes.logic.DTO;
+
+import com.cupcakes.logic.DTO.CupcakeDTO;
 
 /**
  *
  * @author martin bøgh
  */
-public class LineItems {
+public class LineItemsDTO {
 
     private CupcakeDTO cupcake;
     private int quantity;
     private int invoice_id;
 
-    public LineItems(CupcakeDTO cupcake, int quantity, int invoice_id) {
+    public LineItemsDTO(CupcakeDTO cupcake, int quantity, int invoice_id) {
         this.cupcake = cupcake;
         this.quantity = quantity;
         this.invoice_id = invoice_id;

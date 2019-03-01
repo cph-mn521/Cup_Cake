@@ -3,8 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.cupcakes.data;
+package com.cupcakes.data.DAO;
 
+import com.cupcakes.data.DB;
+import com.cupcakes.logic.DTO.CupcakeDTO;
+import com.cupcakes.logic.DTO.IngredientDTO;
+import com.cupcakes.logic.DTO.UserDTO;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;

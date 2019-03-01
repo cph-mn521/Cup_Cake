@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.cupcakes.data;
+package com.cupcakes.logic.DTO;
 
 /**
  *
@@ -15,7 +15,7 @@ public class UserDTO {
     private String name, email, password;
     private double balance;
 
-    UserDTO(int userId, String name, String email, String password, double balance) {
+    public UserDTO(int userId, String name, String email, String password, double balance) {
         this.userId = userId;
         this.name = name;
         this.email = email;

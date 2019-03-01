@@ -5,6 +5,7 @@
  */
 package com.cupcakes.data;
 
+import com.cupcakes.logic.DTO.LineItemsDTO;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,21 +14,21 @@ import java.util.List;
  * @author martin bøgh
  */
 public class ShoppingCart {
-    private List<LineItems> lineItems;
+    private List<LineItemsDTO> lineItems;
 
     public ShoppingCart() {
         lineItems = new ArrayList<>();
     }
 
-    public ShoppingCart(List<LineItems> lineItems) {
+    public ShoppingCart(List<LineItemsDTO> lineItems) {
         this.lineItems = lineItems;
     }
     
-    public List<LineItems> getLineItems() {
+    public List<LineItemsDTO> getLineItems() {
         return lineItems;
     }
     
-    public void addLineItem(LineItems lineitem){
+    public void addLineItem(LineItemsDTO lineitem){
         this.lineItems.add(lineitem);
     }
  

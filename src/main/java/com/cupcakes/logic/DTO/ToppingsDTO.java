@@ -1,4 +1,6 @@
-package com.cupcakes.data;
+package com.cupcakes.logic.DTO;
+
+import com.cupcakes.data.DAO.CupcakeDAO;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

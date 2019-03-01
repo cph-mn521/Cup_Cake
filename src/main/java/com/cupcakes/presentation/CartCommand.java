@@ -5,11 +5,11 @@
  */
 package com.cupcakes.presentation;
 
-import com.cupcakes.data.BottomDTO;
-import com.cupcakes.data.CupcakeDTO;
-import com.cupcakes.data.LineItems;
+import com.cupcakes.logic.DTO.BottomDTO;
+import com.cupcakes.logic.DTO.CupcakeDTO;
+import com.cupcakes.logic.DTO.LineItemsDTO;
 import com.cupcakes.data.ShoppingCart;
-import com.cupcakes.data.ToppingsDTO;
+import com.cupcakes.logic.DTO.ToppingsDTO;
 import com.cupcakes.logic.Controller;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -46,7 +46,7 @@ public class CartCommand extends Command {
             cart = new ShoppingCart();
         }
         //OBS invoice_id værdi opfundet til lejligheden
-        cart.addLineItem(new LineItems(
+        cart.addLineItem(new LineItemsDTO(
                 new CupcakeDTO(
                         new ToppingsDTO(topping),
                         new BottomDTO(bottom))
@@ -67,7 +67,7 @@ public class CartCommand extends Command {
             out.println("<body>");
             out.println("<br><br>");
             out.println("<h1>Din shopping carts indhold: </h1>");
-            for (LineItems l : cart.getLineItems()) {
+            for (LineItemsDTO l : cart.getLineItems()) {
                 out.println("<h3>Invoice #" + l.getInvoice_id() + ":         ");
                 out.println("" + l.getQuantity() + " stk  ");
                 out.println(l.getCupcake().getTopping().getType() + " med ");
