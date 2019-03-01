@@ -16,6 +16,7 @@ public class InvoiceOrder
 
     private ShoppingCart cart;
     private UserDTO user;
+    private double totalCost = 0;
     public static int shoppingCartIdCounter = 1;
 
      /**
@@ -27,6 +28,10 @@ public class InvoiceOrder
      */
     public InvoiceOrder(ShoppingCart cart, UserDTO user)
     {
+        if(cart == null || user == null || cart.getLineItems().isEmpty())
+        {
+            throw new IllegalArgumentException();
+        }
         this.cart = cart;
         this.user = user;
     }
@@ -34,8 +39,6 @@ public class InvoiceOrder
     /**
      * Saves the ShoppingCart to the Database.
      * @author Martin Brandstrup
-     * @param
-     * @return
      */
     private void saveShoppingCartToDB()
     {
@@ -69,13 +72,10 @@ public class InvoiceOrder
      /**
      * Makes sure the user can afford the order.
      * @author Martin Brandstrup
-     * @param
-     * @return
+     * @return true if the user can afford the order
      */
-    private void calculateTransactionCost()
+    private boolean calculateTransactionCost()
     {
-        double totalCost;
-        
         for (LineItems cake : cart.getLineItems())
         {
             float bottomPrice = cake.getBottom().getPrice();
@@ -85,10 +85,21 @@ public class InvoiceOrder
             if(bottomPrice <1 || toppingPrice <1 || quantity <1)
             {
                 System.out.println("There was a problem with your data");
-                return;
+                return false;
             }
+            
+            double cakeCost = (bottomPrice+toppingPrice)*quantity;
+            totalCost += cakeCost;
         }
-        user.getBalance();
+        if(totalCost > user.getBalance())
+        {
+            System.out.println("The user cannot afford the order");
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
     
     /**
@@ -100,7 +111,10 @@ public class InvoiceOrder
      */
     public void saveOrderToDB()
     {
-        
+        if(calculateTransactionCost() == false)
+        {
+            return;
+        }
         
         shoppingCartIdCounter++;
     }
