@@ -30,11 +30,9 @@ public class LoginCommand extends Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-//        Controller c = new Controller();
-        
-//        HttpSession session = request.getSession();
 
+//        Controller c = new Controller();
+//        HttpSession session = request.getSession();
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
@@ -46,8 +44,8 @@ public class LoginCommand extends Command {
             out.println("<body>");
             out.println("<br><br>");
             out.println("<form action=\"cakes\" method=\"post\">");
-            out.println("	Enter username : <input type=\"text\" name=\"username\"> <BR>");
-            out.println("	Enter password : <input type=\"password\" name=\"password\"> <BR>");
+            out.println("	Enter username : <input type=\"text\" name=\"username\" required> <BR>");
+            out.println("	Enter password : <input type=\"password\" name=\"password\" required> <BR>");
             out.println("	<input type=\"submit\" />");
             out.println("</form>");
             out.println("<body>");
