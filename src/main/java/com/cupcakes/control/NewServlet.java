@@ -33,11 +33,25 @@ public class NewServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String origin = request.getParameter("origin");
-        switch(origin){
-            case "login" :
+        switch (origin) {
+            case "login":
                 request.getRequestDispatcher("success.jsp").forward(request, response);
-            break;
-            
+                break;
+                
+//            case "registration":
+//                request.getRequestDispatcher("registration.jsp").forward(request, response);
+//                break;
+//                
+//            case "shop":
+//                request.getRequestDispatcher("shop.jsp").forward(request, response);
+//                break;
+                
+//            case "cart":
+//                request.getRequestDispatcher("cart.jsp").forward(request, response);
+//                break;
+
+//            default:
+//                throw new AssertionError();
         }
     }
 
