@@ -11,24 +11,18 @@ package com.cupcakes.data;
  */
 public class LineItems {
 
-    private ToppingsDTO toppings;
-    private BottomDTO bottom;
+    private CupcakeDTO cupcake;
     private int quantity;
     private int invoice_id;
 
-    public LineItems(ToppingsDTO toppings, BottomDTO bottom, int quantity, int invoice_id) {
-        this.toppings = toppings;
-        this.bottom = bottom;
+    public LineItems(CupcakeDTO cupcake, int quantity, int invoice_id) {
+        this.cupcake = cupcake;
         this.quantity = quantity;
         this.invoice_id = invoice_id;
     }
 
-    public BottomDTO getBottom() {
-        return bottom;
-    }
-
-    public ToppingsDTO getToppings() {
-        return toppings;
+    public CupcakeDTO getCupcake() {
+        return cupcake;
     }
     
     public int getQuantity() {

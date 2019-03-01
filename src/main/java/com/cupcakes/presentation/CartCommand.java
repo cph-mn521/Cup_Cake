@@ -6,6 +6,7 @@
 package com.cupcakes.presentation;
 
 import com.cupcakes.data.BottomDTO;
+import com.cupcakes.data.CupcakeDTO;
 import com.cupcakes.data.LineItems;
 import com.cupcakes.data.ShoppingCart;
 import com.cupcakes.data.ToppingsDTO;
@@ -46,8 +47,10 @@ public class CartCommand extends Command {
         }
         //OBS invoice_id værdi opfundet til lejligheden
         cart.addLineItem(new LineItems(
-                new ToppingsDTO(topping),
-                new BottomDTO(bottom),
+                new CupcakeDTO(
+                        new ToppingsDTO(topping),
+                        new BottomDTO(bottom))
+                ,
                 quantity,
                 11));
 
@@ -67,9 +70,10 @@ public class CartCommand extends Command {
             for (LineItems l : cart.getLineItems()) {
                 out.println("<h3>Invoice #" + l.getInvoice_id() + ":         ");
                 out.println("" + l.getQuantity() + " stk  ");
-                out.println(l.getToppings().getType() + " med ");
-                out.println(l.getBottom().getType() + ", pris: ");
-                out.println((l.getToppings().getPrice() + l.getBottom().getPrice())
+                out.println(l.getCupcake().getTopping().getType() + " med ");
+                out.println(l.getCupcake().getBottom().getType() + ", pris: ");
+                out.println((l.getCupcake().getTopping().getPrice() +
+                        l.getCupcake().getBottom().getPrice())
                         * l.getQuantity() + "kr. </h3>");
             }
             out.println("<form action=\"shop\">");
