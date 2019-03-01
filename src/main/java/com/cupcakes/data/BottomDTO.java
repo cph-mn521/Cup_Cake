@@ -16,9 +16,10 @@ public class BottomDTO {
     int id;
 
     public BottomDTO(String type) {
+        BottomDTO b = new CupcakeDAO().getBottom(type);
         this.type = type;
-        this.price=(float)0.0;
-        this.id=13; //tilfældigt tal
+        this.price=(float) b.getPrice();
+        this.id=b.getId();
     }
 
 

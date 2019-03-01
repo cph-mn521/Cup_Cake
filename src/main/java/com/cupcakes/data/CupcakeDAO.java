@@ -46,7 +46,30 @@ public class CupcakeDAO {
         return bottoms;
     }
 
-    
+    /**
+     *
+     * @param bottomType
+     * @return enkelt BottomDTO objekt
+     */
+    public BottomDTO getBottom(String bottomType) {
+
+        String query = "SELECT * FROM cupcakes.Bottom WHERE `type`='" + bottomType + "';";
+        BottomDTO b = null;
+
+        try {
+            ResultSet rs = DB.getConnection().createStatement().executeQuery(query);
+            while (rs.next()) {
+                b = new BottomDTO(
+                        rs.getString("type"),
+                        rs.getFloat("price"),
+                        rs.getInt("bottom_id"));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Fejl CupcakeDAO.getBottom " + ex);
+        }
+        return b;
+    }
+
     /**
      *
      * @return liste med alle toppings
@@ -65,12 +88,34 @@ public class CupcakeDAO {
                 ));
             }
         } catch (SQLException ex) {
-            System.out.println("Fejl CupcakeDAO.getBottoms " + ex);
+            System.out.println("Fejl CupcakeDAO.getToppings " + ex);
         }
         return toppings;
     }
 
-    
+    /**
+     *
+     * @param toppingType
+     * @return enkelt ToppingsDTO objekt
+     */
+    public ToppingsDTO getTopping(String toppingType) {
+
+        String query = "SELECT * FROM cupcakes.Toppings WHERE `type`='" + toppingType + "';";
+        ToppingsDTO t = null;
+
+        try {
+            ResultSet rs = DB.getConnection().createStatement().executeQuery(query);
+            while (rs.next()) {
+                t = new ToppingsDTO(rs.getString("type"),
+                        rs.getFloat("price"),
+                        rs.getInt("topping_id"));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Fejl CupcakeDAO.getTopping " + ex);
+        }
+        return t;
+    }
+
     /**
      * Der er ikke brug for at add'e kager til databasen men det er lavet for at
      * se om det virker og hvis vi skulle få lyst til at lave nye kager (med gul
@@ -92,6 +137,10 @@ public class CupcakeDAO {
 
     }
 
+    /**
+     *
+     * @param query
+     */
     public void addToDB(String query) {
         try {
             int result = DB.getConnection().createStatement().executeUpdate(query);
@@ -101,6 +150,9 @@ public class CupcakeDAO {
         }
     }
 
+    /**
+     * til test af forbindelser
+     */
 //    public static void main(String[] args) {
 ////        new CupcakeDAO().addBottom("NonApple2", 16.3);
 //        System.out.println("");
