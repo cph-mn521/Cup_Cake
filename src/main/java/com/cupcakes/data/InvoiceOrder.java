@@ -36,7 +36,11 @@ public class InvoiceOrder
             int toppingId = cake.getToppings().getId();
             int quantity = cake.getQuantity();
             
-            //Test for commitpush
+            if(bottomId <1 || toppingId <1 || quantity <1)
+            {
+                System.out.println("There was a problem with your data");
+                return;
+            }
             
             try
             {
