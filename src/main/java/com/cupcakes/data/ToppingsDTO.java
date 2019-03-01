@@ -21,10 +21,10 @@ public class ToppingsDTO {
     int id;
 
     public ToppingsDTO(String type) {
-        CupcakeDAO c = new CupcakeDAO();
+       ToppingsDTO t = new CupcakeDAO().getTopping(type);
         this.type = type;
-        this.price=(float)0.0;
-        this.id=13; //tilfældigt tal
+        this.price=(float) t.getPrice();
+        this.id=t.getId();
     }
 
     public ToppingsDTO(String type, float price, int id) {
