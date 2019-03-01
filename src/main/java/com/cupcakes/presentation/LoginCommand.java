@@ -40,12 +40,12 @@ public class LoginCommand extends Command {
             firstlogin(response);
         } else {
             String loggedin = (String) session.getAttribute("login");
-            
+
             if (loggedin.equals("true")) {
-                
+
                 loginSucces(response, session, (String) session.getAttribute("username"));
             } else {
-                
+
                 Authenticator A = new Authenticator();
 
                 String username = (String) request.getAttribute("username");
@@ -119,6 +119,7 @@ public class LoginCommand extends Command {
         out.println("<title>Login Failed, try again</title>");
         out.println("</head>");
         out.println("<body>");
+        out.println("<h1>Failed log in </h1>");
         out.println("<br><br>");
         out.println("<form action=\"log\" method=\"post\">");
         out.println("	Enter username : <input type=\"text\" name=\"username\"> <BR>");
