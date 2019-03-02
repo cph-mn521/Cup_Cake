@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author martin bøgh
  */
-public class ShoppingCommand extends Command {
+public class ShoppingCommand implements Command {
 
     /**
      *

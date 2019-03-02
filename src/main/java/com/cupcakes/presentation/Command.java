@@ -14,30 +14,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author martin
  */
-public abstract class Command {
+public interface Command {
 
-    public abstract void execute(HttpServletRequest request, HttpServletResponse response)
+    public void execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException;
 
-    static public Command from(HttpServletRequest request) {
-        Command c = null;
-        String path = request.getParameter("origin");
-        switch (path) {
-            case "log":
-                c = new LoginCommand();
-                break;
-
-            case "shop":
-                c = new ShoppingCommand();
-                break;
-
-            case "cart":
-                c = new CartCommand();
-                break;
-
-            default:
-                c = new UnknownCommand();
-        }
-        return c;
-    }
 }

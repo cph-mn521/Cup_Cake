@@ -46,7 +46,11 @@ public class NewServlet extends HttpServlet {
 //            case "registration":
 //                request.getRequestDispatcher("registration.jsp").forward(request, response);
 //                break;
-//                
+
+//            case "admin":
+//                request.getRequestDispatcher("admin.jsp").forward(request, response);
+//                break;
+                
             case "shop":
                 shopping.execute(request, response);
                 break;

@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author martin bøgh
  */
-public class LoginCommand extends Command {
+public class LoginCommand implements Command {
 
     /**
      *

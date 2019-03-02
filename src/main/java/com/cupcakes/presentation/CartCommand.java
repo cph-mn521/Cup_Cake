@@ -13,6 +13,8 @@ import com.cupcakes.logic.DTO.ToppingsDTO;
 import com.cupcakes.logic.Controller;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collections;
+import java.util.Enumeration;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +24,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author martin bøgh
  */
-public class CartCommand extends Command {
+public class CartCommand implements Command {
 
     /**
      *
@@ -36,25 +38,60 @@ public class CartCommand extends Command {
             throws ServletException, IOException {
 
         Controller cc = new Controller();
-        String topping = request.getParameter("Toppings");
-        String bottom = request.getParameter("Bottoms");
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        String topping = null;
+        String bottom = null;
+        int quantity = 0;
+        Enumeration params = request.getParameterNames();
 
+        while (params.hasMoreElements()) {
+            String paramName = (String) params.nextElement();
+            String paramValue = request.getParameter(paramName);
+            switch (paramName) {
+                case "Toppings":
+                    topping = paramValue;
+                    break;
+
+                case "Bottoms":
+                    bottom = paramValue;
+                    break;
+
+                case "quantity":
+                    quantity = Integer.parseInt(paramValue);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        /**
+         * henter cart objektet fra session eller laver et hvis det ikke eksisterer
+         */
         HttpSession session = request.getSession();
         ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
         if (cart == null) {
             cart = new ShoppingCart();
         }
-        //OBS invoice_id værdi opfundet til lejligheden
-        cart.addLineItem(new LineItemsDTO(
-                new CupcakeDTO(
-                        new ToppingsDTO(topping),
-                        new BottomDTO(bottom))
-                ,
-                quantity,
-                11));
 
-        session.setAttribute("cart", cart);
+        //
+        /**
+         * hvis der er parameter værdier så laves et nye ShoppingCart "cart" objekt.
+         * OBS invoice_id værdi opfundet til lejligheden
+         */
+        if (topping != null && !topping.isEmpty()
+                && bottom != null && !topping.isEmpty()
+                && quantity != 0) {
+
+            cart.addLineItem(new LineItemsDTO(
+                    new CupcakeDTO(
+                            new ToppingsDTO(topping),
+                            new BottomDTO(bottom)),
+                    quantity,
+                    11));
+
+            session.setAttribute("cart", cart);
+        }
+
         response.setContentType("text/html;charset=UTF-8");
 
         try (PrintWriter out = response.getWriter()) {
@@ -72,8 +109,8 @@ public class CartCommand extends Command {
                 out.println("" + l.getQuantity() + " stk  ");
                 out.println(l.getCupcake().getTopping().getType() + " med ");
                 out.println(l.getCupcake().getBottom().getType() + ", pris: ");
-                out.println((l.getCupcake().getTopping().getPrice() +
-                        l.getCupcake().getBottom().getPrice())
+                out.println((l.getCupcake().getTopping().getPrice()
+                        + l.getCupcake().getBottom().getPrice())
                         * l.getQuantity() + "kr. </h3>");
             }
             out.println("<form action=\"control\">");
