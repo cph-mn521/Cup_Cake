@@ -6,11 +6,11 @@ import java.util.List;
 
 /**
  * Entitets klasse til at indholde shopping cart
- * 
+ *
  * @author martin bøgh
  */
 public class ShoppingCart {
-  
+
     private List<LineItemsDTO> lineItems;
 
     public ShoppingCart() {
@@ -21,13 +21,18 @@ public class ShoppingCart {
         this.lineItems = lineItems;
     }
 
-    
     public List<LineItemsDTO> getLineItems() {
         return lineItems;
     }
 
-    public void addLineItem(LineItemsDTO lineitem){
+    
+    /**
+     * Add single lineitem object to list
+     * 
+     * @param lineitem 
+     */
+    public void addLineItem(LineItemsDTO lineitem) {
         this.lineItems.add(lineitem);
     }
- 
+
 }

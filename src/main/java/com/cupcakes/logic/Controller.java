@@ -10,19 +10,21 @@ import com.cupcakes.data.DAO.CupcakeDAO;
 import com.cupcakes.logic.DTO.ShoppingCart;
 import com.cupcakes.logic.DTO.ToppingsDTO;
 import com.cupcakes.data.DAO.UserDAO;
+import com.cupcakes.logic.DTO.CupcakeDTO;
+import com.cupcakes.logic.DTO.LineItemsDTO;
 import com.cupcakes.logic.DTO.UserDTO;
 import java.sql.SQLException;
 import java.util.List;
 
 /**
  * Controls IO from data to presentation
- * @author martin bøgh, Niels Bang
  */
 public class Controller {
 
     /**
      * Pass on list of ToppingsDTO objects
      * 
+     * @author martin bøgh
      * @return  list of BottomDTO objects
      */
     public List<BottomDTO> fetchBottoms() {
@@ -33,6 +35,7 @@ public class Controller {
     /**
      * Pass on list of ToppingsDTO objects
      * 
+     * @author martin bøgh
      * @return list of ToppingsDTO objects
      */
     public List<ToppingsDTO> fetchToppings() {
@@ -102,10 +105,47 @@ public class Controller {
     /**
      * Henter et ShoppingCart objekt fra data og sender det videre
      * 
+     * @author martin bøgh
      * @return 
      */
     public ShoppingCart fetchCart(){
         return new ShoppingCart();
+    }
+ 
+    /**
+     * Calculates total price of all lineitems
+     * 
+     * @author martin bøgh
+     * @return 
+     */
+    public float fetchTotalPrice(ShoppingCart cart) {
+        float totalPrice = 0;
+        for (LineItemsDTO l : cart.getLineItems()) {
+            totalPrice += l.getQuantity() * (l.getCupcake().getTopping().getPrice()
+                    + l.getCupcake().getBottom().getPrice());
+        }
+        return totalPrice;
+    }
+    
+    /**
+     * Check if cupcake is alreay in list then adds to quantity of the cake
+     * 
+     * @author martin bøgh
+     * @param cart
+     * @param cake
+     * @param quantity
+     * @return false is not duplicate, true if duplicate and quantity is updated
+     */
+    public boolean isCupCakeDuplicate(ShoppingCart cart, CupcakeDTO cake, int quantity){
+        for (LineItemsDTO l : cart.getLineItems()) {
+            if(l.getCupcake().getTopping().getType().equals(cake.getTopping().getType()) &&
+                    l.getCupcake().getBottom().getType().equals(cake.getBottom().getType())){
+                
+                l.setQuantity(l.getQuantity()+quantity);
+                return true;
+            }
+        }
+        return false;
     }
     
 }

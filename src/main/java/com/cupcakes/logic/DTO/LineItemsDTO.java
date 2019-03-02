@@ -35,4 +35,8 @@ public class LineItemsDTO {
         return invoice_id;
     }
 
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
 }

@@ -5,6 +5,7 @@
  */
 package com.cupcakes.presentation;
 
+import com.cupcakes.logic.Controller;
 import com.cupcakes.logic.DTO.BottomDTO;
 import com.cupcakes.logic.DTO.CupcakeDTO;
 import com.cupcakes.logic.DTO.LineItemsDTO;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  * laver html kode der viser hvad som eens shopping cart indeholder
+ *
  * @author martin bøgh
  */
 public class CartCommand implements Command {
@@ -35,6 +37,7 @@ public class CartCommand implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        Controller cc = new Controller();
         String topping = null;
         String bottom = null;
         int quantity = 0;
@@ -44,28 +47,26 @@ public class CartCommand implements Command {
         while (params.hasMoreElements()) {
             String paramName = (String) params.nextElement();
             String paramValue = request.getParameter(paramName);
+
+            /**
+             * Check that there's no default values passed on
+             */
+            if (paramValue.equals("Vælg topping")
+                    || paramValue.equals("Vælg bund")
+                    || paramValue.equals("Antal")) {
+                request.getRequestDispatcher("index.html").forward(request, response);
+                return;
+            }
             switch (paramName) {
                 case "Toppings":
-                    if (paramValue.equals("Vælg topping")) {
-                        request.getRequestDispatcher("index.html").forward(request, response);
-                        return;
-                    }
                     topping = paramValue;
                     break;
 
                 case "Bottoms":
-                    if (paramValue.equals("Vælg bund")) {
-                        request.getRequestDispatcher("index.html").forward(request, response);
-                        return;
-                    }
                     bottom = paramValue;
                     break;
 
                 case "quantity":
-                    if (paramValue.equals("Antal")) {
-                        request.getRequestDispatcher("index.html").forward(request, response);
-                        return;
-                    }
                     quantity = Integer.parseInt(paramValue);
                     break;
 
@@ -87,18 +88,26 @@ public class CartCommand implements Command {
         //
         /**
          * hvis der er parameter værdier så laves et nye ShoppingCart "cart"
-         * objekt. OBS invoice_id værdi opfundet til lejligheden
+         * objekt.
+         * OBS invoice_id værdi opfundet til lejligheden
          */
         if (topping != null && !topping.isEmpty()
                 && bottom != null && !topping.isEmpty()
                 && quantity != 0) {
 
-            cart.addLineItem(new LineItemsDTO(
-                    new CupcakeDTO(
-                            new ToppingsDTO(topping),
-                            new BottomDTO(bottom)),
-                    quantity,
-                    11));
+            /**
+             * Add to list of lineitems if not duplicate. Quantity is added to
+             * lineitem if duplicate
+             */
+            CupcakeDTO cake = new CupcakeDTO(
+                    new ToppingsDTO(topping),
+                    new BottomDTO(bottom));
+            if (cc.isCupCakeDuplicate(cart, cake, quantity)) {
+                System.out.println("Kages mængder opdateret");
+            } else{
+                cart.addLineItem(new LineItemsDTO(cake, quantity, 11));
+                System.out.println("Ny kage tilføjet");
+            }
 
             session.setAttribute("cart", cart);
         }
@@ -118,14 +127,16 @@ public class CartCommand implements Command {
             out.println("<center>");
             out.println("<h1>Din shopping carts indhold: </h1>");
             for (LineItemsDTO l : cart.getLineItems()) {
-                out.println("<h3>Invoice #" + l.getInvoice_id() + ":         ");
+                out.println("Invoice #" + l.getInvoice_id() + ":         ");
                 out.println("" + l.getQuantity() + " stk  ");
                 out.println(l.getCupcake().getTopping().getType() + " med ");
                 out.println(l.getCupcake().getBottom().getType() + ", pris: ");
                 out.println((l.getCupcake().getTopping().getPrice()
                         + l.getCupcake().getBottom().getPrice())
-                        * l.getQuantity() + "kr. </h3>");
+                        * l.getQuantity() + "kr. <br>");
             }
+            out.println("<br><br>Total price: " + cc.fetchTotalPrice(cart)
+                    + " kr.<br><br>");
             out.println("<form action=\"control\">");
             out.println("<input type=\"hidden\" name=\"origin\" value=\"shop\" />");
             out.println("<input type=\"submit\" value=\"Shop videre\">");
