@@ -6,10 +6,6 @@
 package com.cupcakes.presentation;
 
 import com.cupcakes.logic.DTO.BottomDTO;
-import com.cupcakes.logic.DTO.IngredientDTO;
-import com.cupcakes.logic.DTO.CupcakeDTO;
-import com.cupcakes.logic.DTO.LineItemsDTO;
-import com.cupcakes.data.ShoppingCart;
 import com.cupcakes.logic.DTO.ToppingsDTO;
 import com.cupcakes.logic.Controller;
 import java.io.IOException;
@@ -17,7 +13,6 @@ import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -49,7 +44,8 @@ public class ShoppingCommand extends Command {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Vælg cupcake indhold: </h1>");
-            out.println("<form action=\"cart\">");
+            out.println("<form action=\"control\">");
+            out.println("<input type=\"hidden\" name=\"origin\" value=\"cart\" />");
             out.println("Topping:");
             out.println("<select id='toppings' name='Toppings' required>");
             out.println("<option></option>");

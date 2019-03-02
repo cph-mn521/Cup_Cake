@@ -76,7 +76,8 @@ public class CartCommand extends Command {
                         l.getCupcake().getBottom().getPrice())
                         * l.getQuantity() + "kr. </h3>");
             }
-            out.println("<form action=\"shop\">");
+            out.println("<form action=\"control\">");
+            out.println("<input type=\"hidden\" name=\"origin\" value=\"shop\" />");
             out.println("<input type=\"submit\" value=\"Shop videre\">");
             out.println("</form>");
             out.println("<br><br><br><br>");

@@ -21,7 +21,6 @@ public abstract class Command {
 
     static public Command from(HttpServletRequest request) {
         Command c = null;
-//        String path = request.getPathInfo().substring(1);
         String path = request.getParameter("origin");
         switch (path) {
             case "log":

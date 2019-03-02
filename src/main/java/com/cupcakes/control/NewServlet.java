@@ -5,8 +5,9 @@
  */
 package com.cupcakes.control;
 
+import com.cupcakes.presentation.CartCommand;
+import com.cupcakes.presentation.ShoppingCommand;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +21,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "Control", urlPatterns = {"/control"})
 public class NewServlet extends HttpServlet {
 
+    ShoppingCommand shopping = new ShoppingCommand();
+    CartCommand carting = new CartCommand();
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -31,27 +35,28 @@ public class NewServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         response.setContentType("text/html;charset=UTF-8");
         String origin = request.getParameter("origin");
         switch (origin) {
             case "login":
                 request.getRequestDispatcher("success.jsp").forward(request, response);
                 break;
-                
+
 //            case "registration":
 //                request.getRequestDispatcher("registration.jsp").forward(request, response);
 //                break;
 //                
-//            case "shop":
-//                request.getRequestDispatcher("shop.jsp").forward(request, response);
-//                break;
-                
-//            case "cart":
-//                request.getRequestDispatcher("cart.jsp").forward(request, response);
-//                break;
+            case "shop":
+                shopping.execute(request, response);
+                break;
 
-//            default:
-//                throw new AssertionError();
+            case "cart":
+                carting.execute(request, response);
+                break;
+
+            default:
+                throw new AssertionError();
         }
     }
 
