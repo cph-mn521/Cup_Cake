@@ -8,7 +8,7 @@ package com.cupcakes.presentation;
 import com.cupcakes.logic.DTO.BottomDTO;
 import com.cupcakes.logic.DTO.CupcakeDTO;
 import com.cupcakes.logic.DTO.LineItemsDTO;
-import com.cupcakes.data.ShoppingCart;
+import com.cupcakes.logic.DTO.ShoppingCart;
 import com.cupcakes.logic.DTO.ToppingsDTO;
 import com.cupcakes.logic.Controller;
 import java.io.IOException;
@@ -48,14 +48,26 @@ public class CartCommand implements Command {
             String paramValue = request.getParameter(paramName);
             switch (paramName) {
                 case "Toppings":
+                    if (paramValue.equals("Vælg topping")) {
+                        request.getRequestDispatcher("index.html").forward(request, response);
+                        return;
+                    }
                     topping = paramValue;
                     break;
 
                 case "Bottoms":
+                    if (paramValue.equals("Vælg bund")) {
+                        request.getRequestDispatcher("index.html").forward(request, response);
+                        return;
+                    }
                     bottom = paramValue;
                     break;
 
                 case "quantity":
+                    if (paramValue.equals("Antal")) {
+                        request.getRequestDispatcher("index.html").forward(request, response);
+                        return;
+                    }
                     quantity = Integer.parseInt(paramValue);
                     break;
 
@@ -65,7 +77,8 @@ public class CartCommand implements Command {
         }
 
         /**
-         * henter cart objektet fra session eller laver et hvis det ikke eksisterer
+         * henter cart objektet fra session eller laver et hvis det ikke
+         * eksisterer
          */
         HttpSession session = request.getSession();
         ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
@@ -75,8 +88,8 @@ public class CartCommand implements Command {
 
         //
         /**
-         * hvis der er parameter værdier så laves et nye ShoppingCart "cart" objekt.
-         * OBS invoice_id værdi opfundet til lejligheden
+         * hvis der er parameter værdier så laves et nye ShoppingCart "cart"
+         * objekt. OBS invoice_id værdi opfundet til lejligheden
          */
         if (topping != null && !topping.isEmpty()
                 && bottom != null && !topping.isEmpty()
@@ -104,7 +117,7 @@ public class CartCommand implements Command {
             out.println("</head>");
             out.println("<body>");
             out.println(html.standardMenu());
-            out.println("<br><br><center>");
+            out.println("<center>");
             out.println("<h1>Din shopping carts indhold: </h1>");
             for (LineItemsDTO l : cart.getLineItems()) {
                 out.println("<h3>Invoice #" + l.getInvoice_id() + ":         ");

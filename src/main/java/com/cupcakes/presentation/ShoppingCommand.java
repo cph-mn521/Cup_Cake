@@ -46,28 +46,28 @@ public class ShoppingCommand implements Command {
             out.println("</head>");
             out.println("<body>");
             out.println(html.standardMenu());
-            out.println("<center><h1>Vælg cupcake indhold: </h1>");
+            out.println("<center><h1>Vælg indhold: </h1>");
             out.println("<form action=\"control\">");
             out.println("<input type=\"hidden\" name=\"origin\" value=\"cart\" />");
-            out.println("Topping:");
+//            out.println("Topping:");
             out.println("<select id='toppings' name='Toppings' required>");
-            out.println("<option></option>");
+            out.println("<option>Vælg topping</option>");
             for (ToppingsDTO topping : cc.fetchToppings()) {
                 out.println("<option value=\"" + topping.getType() + "\">" + topping.getType() + "</option>");
             }
             out.println("/<select>");
             out.println("<br><br>");
-            out.println("Bund:");
+//            out.println("Bund:");
             out.println("<select id='bottoms' name='Bottoms' required>");
-            out.println("<option></option>");
+            out.println("<option>Vælg bund</option>");
             for (BottomDTO bottom : cc.fetchBottoms()) {
                 out.println("<option value=\"" + bottom.getType() + "\">" + bottom.getType() + "</option>");
             }
             out.println("</select>");
             out.println("<br><br>");
-            out.println("Antal:");
+//            out.println("Antal:");
             out.println("<select id='quantity' name='quantity' required>");
-            out.println("<option></option>");
+            out.println("<option>Antal</option>");
             out.println("<option>1</option>");
             out.println("<option>2</option>");
             out.println("<option>3</option>");

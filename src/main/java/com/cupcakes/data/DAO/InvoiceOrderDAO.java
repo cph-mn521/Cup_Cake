@@ -7,7 +7,7 @@ package com.cupcakes.data.DAO;
 
 import com.cupcakes.data.DB;
 import com.cupcakes.logic.DTO.LineItemsDTO;
-import com.cupcakes.data.ShoppingCart;
+import com.cupcakes.logic.DTO.ShoppingCart;
 import com.cupcakes.logic.DTO.UserDTO;
 import java.sql.SQLException;
 import java.time.LocalDateTime;

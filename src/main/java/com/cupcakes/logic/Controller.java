@@ -8,7 +8,7 @@ package com.cupcakes.logic;
 import com.cupcakes.data.DAO.UserDAO;
 import com.cupcakes.logic.DTO.BottomDTO;
 import com.cupcakes.data.DAO.CupcakeDAO;
-import com.cupcakes.data.ShoppingCart;
+import com.cupcakes.logic.DTO.ShoppingCart;
 import com.cupcakes.logic.DTO.ToppingsDTO;
 import com.cupcakes.data.DAO.UserDAO;
 import com.cupcakes.logic.DTO.UserDTO;
