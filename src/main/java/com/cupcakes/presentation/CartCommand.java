@@ -37,7 +37,6 @@ public class CartCommand implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        Controller cc = new Controller();
         String topping = null;
         String bottom = null;
         int quantity = 0;
