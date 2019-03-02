@@ -41,6 +41,7 @@ public class CartCommand implements Command {
         String bottom = null;
         int quantity = 0;
         Enumeration params = request.getParameterNames();
+        StandardHTMLStrings html = new StandardHTMLStrings();
 
         while (params.hasMoreElements()) {
             String paramName = (String) params.nextElement();
@@ -99,9 +100,11 @@ public class CartCommand implements Command {
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Shopping cart</title>");
+            out.println(html.standardHeader());
             out.println("</head>");
             out.println("<body>");
-            out.println("<br><br>");
+            out.println(html.standardMenu());
+            out.println("<br><br><center>");
             out.println("<h1>Din shopping carts indhold: </h1>");
             for (LineItemsDTO l : cart.getLineItems()) {
                 out.println("<h3>Invoice #" + l.getInvoice_id() + ":         ");
@@ -116,7 +119,7 @@ public class CartCommand implements Command {
             out.println("<input type=\"hidden\" name=\"origin\" value=\"shop\" />");
             out.println("<input type=\"submit\" value=\"Shop videre\">");
             out.println("</form>");
-            out.println("<br><br><br><br>");
+            out.println("</center><br><br><br><br>");
             out.println("<body>");
             out.println("</body>");
             out.println("</html>");

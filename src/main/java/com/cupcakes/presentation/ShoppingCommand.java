@@ -32,6 +32,7 @@ public class ShoppingCommand implements Command {
             throws ServletException, IOException {
 
         Controller cc = new Controller();
+        StandardHTMLStrings html = new StandardHTMLStrings();
         
         response.setContentType("text/html;charset=UTF-8");
 
@@ -41,9 +42,11 @@ public class ShoppingCommand implements Command {
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Cupcake Creator</title>");
+            out.println(html.standardHeader());
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Vælg cupcake indhold: </h1>");
+            out.println(html.standardMenu());
+            out.println("<center><h1>Vælg cupcake indhold: </h1>");
             out.println("<form action=\"control\">");
             out.println("<input type=\"hidden\" name=\"origin\" value=\"cart\" />");
             out.println("Topping:");
@@ -75,7 +78,7 @@ public class ShoppingCommand implements Command {
             out.println("<br><br>");
             out.println("<input type=\"submit\" value=\"Vælg\">");
             out.println("</form>");
-            out.println("<br><br>");
+            out.println("</center><br><br>");
             out.println("<body>");
             out.println("</body>");
             out.println("</html>");
