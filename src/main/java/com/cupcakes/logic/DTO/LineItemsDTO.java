@@ -5,6 +5,8 @@
  */
 package com.cupcakes.logic.DTO;
 
+import com.cupcakes.data.DAO.InvoiceOrderDAO;
+import com.cupcakes.logic.Controller;
 import com.cupcakes.logic.DTO.CupcakeDTO;
 
 /**
@@ -18,6 +20,7 @@ public class LineItemsDTO {
     private int invoice_id;
 
     public LineItemsDTO(CupcakeDTO cupcake, int quantity, int invoice_id) {
+        
         this.cupcake = cupcake;
         this.quantity = quantity;
         this.invoice_id = invoice_id;

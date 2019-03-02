@@ -11,9 +11,13 @@ import com.cupcakes.logic.DTO.CupcakeDTO;
 import com.cupcakes.logic.DTO.LineItemsDTO;
 import com.cupcakes.logic.DTO.ShoppingCart;
 import com.cupcakes.logic.DTO.ToppingsDTO;
+import com.cupcakes.logic.DTO.UserDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.Enumeration;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -103,9 +107,18 @@ public class CartCommand implements Command {
                     new ToppingsDTO(topping),
                     new BottomDTO(bottom));
             if (cc.isCupCakeDuplicate(cart, cake, quantity)) {
-                System.out.println("Kages mængder opdateret");
+                System.out.println("Kages antal opdateret i lineitems liste");
             } else{
-                cart.addLineItem(new LineItemsDTO(cake, quantity, 11));
+                
+                // Fake user
+                UserDTO user = null;
+                try {
+                    user = cc.fetchUser("bittie_bertha");
+                } catch (SQLException ex) {
+                    System.out.println("Kunne ikke finde user: " + ex);
+                }
+                int invoiceID = cc.putCartInDB(cart, user);
+                cart.addLineItem(new LineItemsDTO(cake, quantity, invoiceID));
                 System.out.println("Ny kage tilføjet");
             }
 

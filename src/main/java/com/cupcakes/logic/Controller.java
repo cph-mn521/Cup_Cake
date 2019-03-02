@@ -7,6 +7,7 @@ package com.cupcakes.logic;
 
 import com.cupcakes.logic.DTO.BottomDTO;
 import com.cupcakes.data.DAO.CupcakeDAO;
+import com.cupcakes.data.DAO.InvoiceOrderDAO;
 import com.cupcakes.logic.DTO.ShoppingCart;
 import com.cupcakes.logic.DTO.ToppingsDTO;
 import com.cupcakes.data.DAO.UserDAO;
@@ -128,7 +129,7 @@ public class Controller {
     }
     
     /**
-     * Check if cupcake is alreay in list then adds to quantity of the cake
+     * Check if cupcake is already in list then adds to quantity of the cake
      * 
      * @author martin bøgh
      * @param cart
@@ -147,5 +148,21 @@ public class Controller {
         }
         return false;
     }
+    
+    
+    /**
+     * control talks to DAO layer to save into invoiceDB and getting highest invoice_ID
+     * in return
+     * 
+     * @param cart
+     * @param user
+     * @return highest invoice_ID
+     */
+    public int putCartInDB(ShoppingCart cart, UserDTO user){
+        InvoiceOrderDAO invoice = new InvoiceOrderDAO(cart, user);
+        invoice.saveOrderToDB();
+        return invoice.getLatestInvoiceNumber();
+    }
+    
     
 }

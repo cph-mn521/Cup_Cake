@@ -17,10 +17,6 @@ public class CupcakeDAO {
     private List<BottomDTO> bottoms = new ArrayList();
     private List<ToppingsDTO> toppings = new ArrayList();
 
-//    public CupcakeDTO getCupcakes(String recipeName) {
-//
-//        return recipe;
-//    }
     /**
      *
      * @return liste med alle bunde
