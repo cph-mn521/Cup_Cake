@@ -15,7 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * udskriver html kode der samler de forskellige toppe og bunde og sender dem til
+ * CartCommand
  * @author martin bøgh
  */
 public class ShoppingCommand implements Command {

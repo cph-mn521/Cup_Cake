@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.cupcakes.data.DAO;
 
 import com.cupcakes.data.DB;
@@ -15,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author martin
+ * @author martin bøgh
  */
 public class CupcakeDAO {
 
@@ -50,9 +45,10 @@ public class CupcakeDAO {
     }
 
     /**
-     *
+     *  Maps single bottom from DB to BottomDTO
+     * 
      * @param bottomType
-     * @return enkelt BottomDTO objekt
+     * @return BottomDTO objekt
      */
     public BottomDTO getBottom(String bottomType) {
 
@@ -74,7 +70,8 @@ public class CupcakeDAO {
     }
 
     /**
-     *
+     * Creates list with ToppingsDTO objects mapped from DB
+     * 
      * @return liste med alle toppings
      */
     public List<ToppingsDTO> getToppings() {
@@ -97,7 +94,8 @@ public class CupcakeDAO {
     }
 
     /**
-     *
+     * Maps single topping from DB to ToppingsDTO
+     * 
      * @param toppingType
      * @return enkelt ToppingsDTO objekt
      */
@@ -141,7 +139,8 @@ public class CupcakeDAO {
     }
 
     /**
-     *
+     * Helper method for adding things to DB
+     * 
      * @param query
      */
     public void addToDB(String query) {

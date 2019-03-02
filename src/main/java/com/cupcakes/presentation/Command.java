@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * command er blevet slanket til et interface i stedet for en abstract klasse
  * @author martin
  */
 public interface Command {

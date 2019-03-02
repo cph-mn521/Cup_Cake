@@ -13,6 +13,12 @@ public class DB {
     private static final String PASSWORD = "password123";
     private static Connection conn = null;
 
+    
+    /**
+     * Return connection type for connecting to mysql database
+     * 
+     * @return Connection
+     */
     public static Connection getConnection() {
         if (conn == null) {
             try {
@@ -28,6 +34,11 @@ public class DB {
         return conn;
     }
 
+    /**
+     * Main method for testing connections
+     * 
+     * @param args 
+     */
     public static void main(String[] args) {
         //Test connection
         try {

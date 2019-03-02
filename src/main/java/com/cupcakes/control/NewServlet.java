@@ -15,12 +15,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * Servlet controlling the flow GET and POST commands from homepage
  *
- * @author martin
+ * @author martin bøgh
  */
 @WebServlet(name = "Control", urlPatterns = {"/control"})
 public class NewServlet extends HttpServlet {
 
+    /**
+     * Object declaration for use when java dynamic pages needs to be created
+     */
     ShoppingCommand shopping = new ShoppingCommand();
     CartCommand carting = new CartCommand();
 
@@ -38,27 +42,50 @@ public class NewServlet extends HttpServlet {
 
         response.setContentType("text/html;charset=UTF-8");
         String origin = request.getParameter("origin");
+        
+        /**
+         * Depending on the value of parameter "origin" dispatches to different pages
+         * or java classes
+         */
         switch (origin) {
+            /**
+             * Dispatched to jsp page
+             */
             case "login":
                 request.getRequestDispatcher("success.jsp").forward(request, response);
                 break;
 
+            /**
+             *
+             */
 //            case "registration":
 //                request.getRequestDispatcher("registration.jsp").forward(request, response);
 //                break;
 
+            /**
+             *
+             */
 //            case "admin":
 //                request.getRequestDispatcher("admin.jsp").forward(request, response);
 //                break;
-                
+
+            /**
+             * Java dynamic page starts
+             */
             case "shop":
                 shopping.execute(request, response);
                 break;
 
+            /**
+             * Java dynamic page starts
+             */
             case "cart":
                 carting.execute(request, response);
                 break;
 
+            /**
+             *
+             */
             default:
                 throw new AssertionError();
         }

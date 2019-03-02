@@ -5,7 +5,6 @@
  */
 package com.cupcakes.logic;
 
-import com.cupcakes.data.DAO.UserDAO;
 import com.cupcakes.logic.DTO.BottomDTO;
 import com.cupcakes.data.DAO.CupcakeDAO;
 import com.cupcakes.logic.DTO.ShoppingCart;
@@ -16,15 +15,26 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- *
- * @author martin
+ * Controls IO from data to presentation
+ * @author martin bøgh, Niels Bang
  */
 public class Controller {
 
+    /**
+     * Pass on list of ToppingsDTO objects
+     * 
+     * @return  list of BottomDTO objects
+     */
     public List<BottomDTO> fetchBottoms() {
         return new CupcakeDAO().getBottoms();
     }
 
+    
+    /**
+     * Pass on list of ToppingsDTO objects
+     * 
+     * @return list of ToppingsDTO objects
+     */
     public List<ToppingsDTO> fetchToppings() {
         return new CupcakeDAO().getToppings();
     }
@@ -77,10 +87,23 @@ public class Controller {
         }
     }
 
+    /**
+     * Henter et User objekt fra data og sender det videre
+     * 
+     * @param Username
+     * @return User objekt
+     * @throws SQLException 
+     */
     public UserDTO fetchUser(String Username) throws SQLException{
         return new UserDAO().getUser(Username);
     }
-
+    
+    
+    /**
+     * Henter et ShoppingCart objekt fra data og sender det videre
+     * 
+     * @return 
+     */
     public ShoppingCart fetchCart(){
         return new ShoppingCart();
     }

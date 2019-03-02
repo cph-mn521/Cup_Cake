@@ -6,13 +6,14 @@
 package com.cupcakes.presentation;
 
 /**
- *
- * @author martin
+ * nogle metoder til at sende statisk html kode-dele til java klasser der dynamisk
+ * sammensætter html-sider
+ * @author martin bøgh
  */
 public class StandardHTMLStrings {
 
     /**
-     * Header man der skal bruges sammen med body for at få eens udseende sider
+     * Header man skal bruge sammen med body for at få eens udseende sider
      *
      * @return
      */

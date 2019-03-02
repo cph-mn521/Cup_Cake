@@ -10,10 +10,8 @@ import com.cupcakes.logic.DTO.CupcakeDTO;
 import com.cupcakes.logic.DTO.LineItemsDTO;
 import com.cupcakes.logic.DTO.ShoppingCart;
 import com.cupcakes.logic.DTO.ToppingsDTO;
-import com.cupcakes.logic.Controller;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Collections;
 import java.util.Enumeration;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- *
+ * laver html kode der viser hvad som eens shopping cart indeholder
  * @author martin bøgh
  */
 public class CartCommand implements Command {
