@@ -1,7 +1,5 @@
 <%-- any content can be specified here e.g.: --%>
-<%@ page pageEncoding="UTF-8" %>
-<center>
-    <a href="index.html">
+    <a  id="registration_box" href="index.jsp">
         <canvas id="myCanvas" width="540" height="70" style="border:1px solid #d3d3d3;">
             Your browser does not support the HTML5 canvas tag.</canvas>
         <script>
@@ -14,11 +12,11 @@
 
     <div style="background-color:black;color:white;padding:20px;">
 
-        <img src="images/cc1.jpg" alt="1">
-        <img src="images/cc2.jpg" alt="2">
-        <img src="images/cc3.jpg" alt="3">
-        <img src="images/cc4.jpg" alt="4">
-        <img src="images/cc5.jpg" alt="5">
+        <img src="img/cc1.jpg" alt="1">
+        <img src="img/cc2.jpg" alt="2">
+        <img src="img/cc3.jpg" alt="3">
+        <img src="img/cc4.jpg" alt="4">
+        <img src="img/cc5.jpg" alt="5">
 
         <br><br><br><br>
 
@@ -36,5 +34,4 @@
 
     </div>
 
-    <br><br><br><br>      
-</center>
+    <br><br><br><br>

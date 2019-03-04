@@ -52,14 +52,14 @@ public class NewServlet extends HttpServlet {
              * Dispatched to jsp page
              */
             case "login":
-                request.getRequestDispatcher("WEB-INF/success.jsp").forward(request, response);
+                request.getRequestDispatcher("jsp/success.jsp").forward(request, response);
                 break;
 
             /**
              * Starter registration page
              */
             case "registration":
-                request.getRequestDispatcher("WEB-INF/registration.jsp").forward(request, response);
+                request.getRequestDispatcher("jsp/registration.jsp").forward(request, response);
                 break;
 
             /**
