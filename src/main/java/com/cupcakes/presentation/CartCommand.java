@@ -129,13 +129,11 @@ public class CartCommand implements Command {
 
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Shopping cart</title>");
+
+//            out.println("<%@ include file = \"WEB-INF/jspf/header.jspf\" %>");
             out.println(html.standardHeader());
-            out.println("</head>");
             out.println("<body>");
+//            out.println("<%@ include file = \"menu.jspf\" %>");
             out.println(html.standardMenu());
             out.println("<center>");
             out.println("<h1>Din shopping carts indhold: </h1>");

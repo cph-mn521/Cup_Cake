@@ -6,8 +6,9 @@
 package com.cupcakes.presentation;
 
 /**
- * nogle metoder til at sende statisk html kode-dele til java klasser der dynamisk
- * sammensætter html-sider
+ * nogle metoder til at sende statisk html kode-dele til java klasser der
+ * dynamisk sammensætter html-sider
+ *
  * @author martin bøgh
  */
 public class StandardHTMLStrings {
@@ -18,7 +19,11 @@ public class StandardHTMLStrings {
      * @return
      */
     public String standardHeader() {
-        return "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n"
+        return "            <!DOCTYPE html>\n"
+                + "            <html>\n"
+                + "            <head>\n"
+                + "            <title>A world of Cupcakes</title>\n"
+                + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n"
                 + "<style>\n"
                 + "    .buttonGreen {\n"
                 + "        background-color: #4CAF50;\n"
@@ -44,7 +49,8 @@ public class StandardHTMLStrings {
                 + "    .buttonBlue:hover {\n"
                 + "        background-color: blue;\n"
                 + "    }\n"
-                + "</style>\n";
+                + "</style>\n\n"
+                + "            </head>";
     }
 
     /**

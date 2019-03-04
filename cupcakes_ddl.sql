@@ -17,6 +17,8 @@ CREATE TABLE `User`(
 PRIMARY KEY(`user_id`)
 );
 
+CREATE INDEX `username` ON `User`(`username`);
+
 CREATE TABLE `Bottom`(
 `bottom_id` INT AUTO_INCREMENT,
 `type` VARCHAR(45) UNIQUE NOT NULL,
@@ -62,3 +64,6 @@ PRIMARY KEY(`invoice_id`),
 	FOREIGN KEY (`cart_id`)
 	REFERENCES `ShoppingCart` (`cart_id`)
 );
+
+
+CREATE INDEX `invoice_id` ON `Invoice`(`invoice_id`);

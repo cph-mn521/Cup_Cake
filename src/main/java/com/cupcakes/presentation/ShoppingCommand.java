@@ -39,12 +39,7 @@ public class ShoppingCommand implements Command {
 
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Cupcake Creator</title>");
             out.println(html.standardHeader());
-            out.println("</head>");
             out.println("<body>");
             out.println(html.standardMenu());
             out.println("<center><h1>Vælg indhold: </h1>");
