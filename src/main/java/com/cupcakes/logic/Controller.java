@@ -114,6 +114,17 @@ public class Controller {
         return new ShoppingCart();
     }
  
+      /**
+     * Henter et ShoppingCart objekt fra data og sender det videre
+     * 
+     * @author martin bøgh
+     * @return 
+     */
+    public List<LineItemsDTO> fetchCart(int cartID){
+        return new InvoiceOrderDAO().getShoppingCartFromDB(cartID);
+    }
+    
+    
     /**
      * Pull out a list of total invoices
      * @return 

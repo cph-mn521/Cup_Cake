@@ -4,6 +4,7 @@
     Author     : martin
 --%>
 
+<%@page import="java.util.Enumeration"%>
 <%@page import="com.cupcakes.logic.DTO.Invoice"%>
 <%@page import="com.cupcakes.logic.DTO.LineItemsDTO"%>
 <%@page import="com.cupcakes.logic.DTO.BottomDTO"%>
@@ -16,8 +17,18 @@
         <%@ include file = "/WEB-INF/jspf/header.jspf" %>
         <%
             Controller cc = new Controller();
-            int invoice_id =0;
-            invoice_id = Integer.parseInt(request.getParameter("invoice_id"));
+            int invoice_id = 0;
+
+            Enumeration paramAdmin = request.getParameterNames();
+            
+            while (paramAdmin.hasMoreElements()) {
+                String paramName = (String) paramAdmin.nextElement();
+                String paramValue = request.getParameter(paramName);
+
+                if(paramName.equals("invoice_id")){
+                    invoice_id=Integer.parseInt(paramValue);
+                }
+            }
         %>
     </head>
     <body>
@@ -49,11 +60,36 @@
                     </div>
                 </div>
                 <div class="col-sm">
-                    <%
-                        if(invoice_id>0){
-                            cc.fetchCart().getLineItems();
-                        }
-                        %>
+                    <div id="cart_tabel" style="text-align: left; width: 45%;">
+                        <h4>Faktura# <%=invoice_id%></h4>
+                        <table class="table table-striped">
+                            <thead  style="color:#F5FFFA; text-align: center;">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Top</th>
+                                    <th scope="col">Bund</th>
+                                    <th scope="col">Antal</th>
+                                </tr>
+                            </thead>
+                            <tbody  style="color: black; text-align: center;">
+                                <%
+                                    if (invoice_id > 0) {
+                                        int index2 = 0;
+                                        for (LineItemsDTO l : cc.fetchCart(invoice_id)) {
+                                %>
+                                <tr>
+                                    <th scope="row"><%=++index2%></th>
+                                    <td><%=l.getCupcake().getTopping().getType()%></td>
+                                    <td><%=l.getCupcake().getBottom().getType()%></td>
+                                    <td><%=l.getQuantity()%></td>
+                                </tr>
+                                <%
+                                        };
+                                    }
+                                %>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

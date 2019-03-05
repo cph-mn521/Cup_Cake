@@ -5,8 +5,6 @@
  */
 package com.cupcakes.logic.DTO;
 
-import com.cupcakes.data.DAO.InvoiceOrderDAO;
-import com.cupcakes.logic.Controller;
 import com.cupcakes.logic.DTO.CupcakeDTO;
 
 /**

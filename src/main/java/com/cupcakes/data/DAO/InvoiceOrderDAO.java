@@ -6,6 +6,8 @@
 package com.cupcakes.data.DAO;
 
 import com.cupcakes.data.DB;
+import com.cupcakes.logic.Controller;
+import com.cupcakes.logic.DTO.CupcakeDTO;
 import com.cupcakes.logic.DTO.Invoice;
 import com.cupcakes.logic.DTO.LineItemsDTO;
 import com.cupcakes.logic.DTO.ShoppingCart;
@@ -88,6 +90,32 @@ public class InvoiceOrderDAO {
         }
     }
 
+    
+     /**
+     * Get the ShoppingCart from the Database.
+     *
+     * @author Martin Bøgh
+     * @return list of all invoices
+     */
+    public List<LineItemsDTO> getShoppingCartFromDB(int cart_id) {
+        String query = "SELECT * FROM cupcakes.ShoppingCart WHERE cart_id="+cart_id+";";
+        List<LineItemsDTO> cartList = new ArrayList<>();
+        
+        CupcakeDAO cup = new CupcakeDAO();
+        
+        try {
+            ResultSet rs = DB.getConnection().createStatement().executeQuery(query);
+            while (rs.next()) {
+                CupcakeDTO cupcake = new CupcakeDTO(cup.getTopping(rs.getInt("topping_id")), cup.getBottom(rs.getInt("bottom_id")));
+                cartList.add(new LineItemsDTO(cupcake, rs.getInt("quantity"), rs.getInt("cart_id")));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Fejl InvoiceOrderDAO.getLatestInvoiceNumber " + ex);
+        }
+        return cartList;
+    }
+    
+    
     /**
      * Ensures the user can afford the order.
      *
@@ -258,7 +286,7 @@ public class InvoiceOrderDAO {
      * Query for list of all invoices
      *
      * @author Martin Bøgh
-     * @return highest invoice_id
+     * @return list of all invoices
      */
     public List<Invoice> getAllInvoiceList() {
         String query = "SELECT * FROM cupcakes.Invoice";
@@ -279,6 +307,8 @@ public class InvoiceOrderDAO {
         return invoiceList;
     }
 
+    
+    
     /**
      * Query for highest invoice_id in Invoice table
      *
