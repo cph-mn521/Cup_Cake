@@ -94,7 +94,15 @@
                     } catch (SQLException ex) {
                         System.out.println("Kunne ikke finde user: " + ex);
                     }
-                    int invoiceID = cc.putCartInDB(cart, user);
+                    int invoiceID = 0;
+                    if (cart.getLineItems().size() - 1 > 0) {
+                        LineItemsDTO lastLineItem = cart.getLineItems().get(cart.getLineItems().size() - 1);
+                        if (lastLineItem.getInvoice_id() != 0) {
+                            invoiceID = lastLineItem.getInvoice_id();
+                        } else {
+                            invoiceID = cc.putCartInDB(cart, user);
+                        }
+                    }
                     cart.addLineItem(new LineItemsDTO(cake, quantity, invoiceID));
                     System.out.println("Ny kage tilføjet");
                 }
@@ -124,7 +132,7 @@
                     </thead>
                     <tbody  style="color: black; text-align: center;">
                         <%                    int index = 0;
-                            //out.println("Invoice #" + l.getInvoice_id() + ":         ");
+                            out.println("Faktura #" + cart.getLineItems().get(cart.getLineItems().size()-1).getInvoice_id() + ":         ");
                             for (LineItemsDTO l : cart.getLineItems()) {
                         %>
                         <tr>

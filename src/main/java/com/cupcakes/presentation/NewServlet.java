@@ -62,7 +62,7 @@ public class NewServlet extends HttpServlet {
              * admin page - 
              */
             case "admin":
-                request.getRequestDispatcher("admin.jsp").include(request, response);
+                request.getRequestDispatcher("jsp/admin.jsp").include(request, response);
                 //bruges indtil der laves noget på admin siden. admin siden tror den er i root folderen
                 //men den er i /admin folderen
 //                response.sendRedirect("admin/index.html");
