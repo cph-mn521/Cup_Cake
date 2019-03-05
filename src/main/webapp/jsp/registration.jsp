@@ -9,8 +9,7 @@
     </head>
     <body>
         <%@ include file = "/WEB-INF/jspf/menu.jspf" %>
-        <!-- text/buttons markup goes here -->
-
+        <br>
     <center>
         <fieldset>
             <legend>Registrering:</legend>

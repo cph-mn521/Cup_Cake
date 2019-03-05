@@ -1,37 +1,40 @@
 <%-- any content can be specified here e.g.: --%>
-    <a  id="registration_box" href="index.jsp">
-        <canvas id="myCanvas" width="540" height="70" style="border:1px solid #d3d3d3;">
-            Your browser does not support the HTML5 canvas tag.</canvas>
+<center>
+    <a id="a_logo" href="index.jsp">
+        <canvas id="myCanvas" width="696" height="70">
+            Your browser does not support the HTML5 canvas tag.
+        </canvas>
         <script>
             var c = document.getElementById("myCanvas");
             var ctx = c.getContext("2d");
-            ctx.font = "30px Arial";
+            ctx.font = "40px arial";
             ctx.strokeText("Velkommen til en verden af Cupcakes", 10, 50);
         </script>
     </a>
+</center>
+<div id="menu_box">
+    <br><br>
 
-    <div style="background-color:black;color:white;padding:20px;">
-
-        <img src="img/cc1.jpg" alt="1">
-        <img src="img/cc2.jpg" alt="2">
-        <img src="img/cc3.jpg" alt="3">
-        <img src="img/cc4.jpg" alt="4">
-        <img src="img/cc5.jpg" alt="5">
-
-        <br><br><br><br>
-
-
-        <button class="buttonGreen" onclick="window.location.href = 'control?origin=login'">Login</button>
-
-        <button class="buttonBlue" onclick="window.location.href = 'control?origin=registration'">Registrering</button>
-
-        <button class="buttonGreen" onclick="window.location.href = 'control?origin=shop'">Shop</button>
-
-        <button class="buttonBlue" onclick="window.location.href = 'control?origin=cart'">Cart</button>
-
-        <button class="buttonGreen" onclick="window.location.href = 'control?origin=admin'">Admin</button>
-
-
-    </div>
+    <img src="img/cc1.jpg" alt="1">
+    <img src="img/cc2.jpg" alt="2">
+    <img src="img/cc3.jpg" alt="3">
+    <img src="img/cc4.jpg" alt="4">
+    <img src="img/cc5.jpg" alt="5">
 
     <br><br><br><br>
+
+
+    <button class="buttonGreen" onclick="window.location.href = 'control?origin=login'">Login</button>
+
+    <button class="buttonBlue" onclick="window.location.href = 'control?origin=registration'">Registrering</button>
+
+    <button class="buttonGreen" onclick="window.location.href = 'control?origin=shop'">Shop</button>
+
+    <button class="buttonBlue" onclick="window.location.href = 'control?origin=cart'">Cart</button>
+
+    <button class="buttonGreen" onclick="window.location.href = 'control?origin=admin'">Admin</button>
+
+
+</div>
+
+<br><br>

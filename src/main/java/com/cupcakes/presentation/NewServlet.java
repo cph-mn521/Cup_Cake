@@ -5,8 +5,6 @@
  */
 package com.cupcakes.presentation;
 
-import com.cupcakes.presentation.CartCommand;
-import com.cupcakes.presentation.ShoppingCommand;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,8 +23,6 @@ public class NewServlet extends HttpServlet {
     /**
      * Object declaration for use when java dynamic pages needs to be created
      */
-    ShoppingCommand shopping = new ShoppingCommand();
-    CartCommand carting = new CartCommand();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -66,21 +62,24 @@ public class NewServlet extends HttpServlet {
              * admin page - 
              */
             case "admin":
-                request.getRequestDispatcher("WEB-INF/admin/index.html").forward(request, response);
+//                request.getRequestDispatcher("admin/index.html").include(request, response);
+                //bruges indtil der laves noget på admin siden. admin siden tror den er i root folderen
+                //men den er i /admin folderen
+                response.sendRedirect("admin/index.html");
                 break;
 
             /**
              * Page for combining cupcakes - Java dynamic page starts
              */
             case "shop":
-                shopping.execute(request, response);
+                request.getRequestDispatcher("jsp/shopping.jsp").forward(request, response);
                 break;
 
             /**
              * Page for summing up the shopping cart Java dynamic page starts
              */
             case "cart":
-                carting.execute(request, response);
+                request.getRequestDispatcher("jsp/cart.jsp").forward(request, response);
                 break;
 
             /**

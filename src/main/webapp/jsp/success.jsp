@@ -10,6 +10,7 @@
     </head>
     <body>
         <%@ include file = "/WEB-INF/jspf/menu.jspf" %>"
+        <br>
     <center>
         hello world! 
     </center>
