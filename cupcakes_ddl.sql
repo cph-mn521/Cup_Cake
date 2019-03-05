@@ -51,9 +51,9 @@ PRIMARY KEY(`cart_id`, `bottom_id`, `topping_id`),
     
 CREATE TABLE `Invoice`(
 `invoice_id` INT AUTO_INCREMENT,
-`user_id` INT NOT NULL,
-`cart_id` INT NOT NULL,
-`invoice_date` DATE NOT NULL,
+`user_id` INT DEFAULT NULL,
+`cart_id` INT DEFAULT NULL,
+`invoice_date` DATE DEFAULT NULL,
 PRIMARY KEY(`invoice_id`),
     
 	CONSTRAINT `User_fk` 
