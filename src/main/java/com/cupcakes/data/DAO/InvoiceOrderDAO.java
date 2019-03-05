@@ -264,6 +264,21 @@ public class InvoiceOrderDAO
         return invoiceOrderID;
     }
 
+    public ShoppingCart getCart()
+    {
+        return cart;
+    }
+
+    public UserDTO getUser()
+    {
+        return user;
+    }
+
+    public double getTotalCost()
+    {
+        return totalCost;
+    }
+
     /**
      * Query for highest invoice_id in Invoice table
      *
