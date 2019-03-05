@@ -181,6 +181,7 @@ public class InvoiceOrderDAO
             ex.printStackTrace();
             System.out.println(ex);
         }
+        
         return invoiceID;
     }
 
@@ -188,7 +189,6 @@ public class InvoiceOrderDAO
      * Saves the ShoppingCart (carried by the current InvoiceOrderDAO object
      * from which this method is called) as well as the Invoice to the Database.
      * Subtracts the total cost of the order from the user's balance account.
-     * 
      * 
      * 
      * Warning: Should only be called once at the end of a transaction to avoid
@@ -230,6 +230,34 @@ public class InvoiceOrderDAO
 
         shoppingCartIdCounter++;
     }
+    
+    /**
+     * Cancels the order and removes the placeholder from the database.
+     * 
+     * 
+     * Warning: Caution should be used with this method as it makes any
+     * subsequent updates to the database on this object's ID impossible. A new
+     * object should be made in the worst case.
+     * 
+     * @author Martin Brandstrup
+     */
+    public void cancelOrder()
+    {
+        try
+        {
+            String query
+                    = "DELETE FROM Invoice"
+                    + "WHERE Invoice.invoice_id = " + invoiceOrderID + ";";
+
+            int result = DB.getConnection().createStatement().executeUpdate(query);
+            System.out.println(result + " rows removed");
+        } catch (SQLException ex)
+        {
+            ex.printStackTrace();
+            System.out.println(ex);
+        }
+    }
+    
 
     public int getInvoiceOrderID()
     {
