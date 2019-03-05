@@ -109,50 +109,51 @@
 
     <body>
         <%@ include file = "/WEB-INF/jspf/menu.jspf" %>
-
-        <div id="cart_tabel">
-            <h1 style="color:#F5FFFA; text-align: center;">Indkøbsvogn: </h1>
-            <table class="table table-striped">
-                <thead  style="color:#F5FFFA; text-align: center;">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Antal</th>
-                        <th scope="col">Toppe</th>
-                        <th scope="col">Bunde</th>
-                        <th scope="col">Pris</th>
-                    </tr>
-                </thead>
-                <tbody  style="color:#ffcccce; text-align: center;">
-                    <%                    int index = 0;
-                        //out.println("Invoice #" + l.getInvoice_id() + ":         ");
-                        for (LineItemsDTO l : cart.getLineItems()) {
-                    %>
-                    <tr>
-                        <%
-                            out.println("<th scope=\"row\">" + ++index + "</th>");
-                            out.println("<td>" + l.getQuantity() + "</td>");
-                            out.println("<td>" + l.getCupcake().getTopping().getType() + "</td>");
-                            out.println("<td>" + l.getCupcake().getBottom().getType() + "</td>");
-                            out.println("<td>" + (l.getCupcake().getTopping().getPrice()
-                                    + l.getCupcake().getBottom().getPrice())
-                                    * l.getQuantity() + " kr.</td>");
+        <div class="container">
+            <div id="cart_tabel">
+                <h1 style="color:#F5FFFA; text-align: center;">Indkøbsvogn: </h1>
+                <table class="table table-striped">
+                    <thead  style="color:#F5FFFA; text-align: center;">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Antal</th>
+                            <th scope="col">Toppe</th>
+                            <th scope="col">Bunde</th>
+                            <th scope="col">Pris</th>
+                        </tr>
+                    </thead>
+                    <tbody  style="color: black; text-align: center;">
+                        <%                    int index = 0;
+                            //out.println("Invoice #" + l.getInvoice_id() + ":         ");
+                            for (LineItemsDTO l : cart.getLineItems()) {
                         %>
-                    </tr>
-                    <%}
-                    %>
-                </tbody>
-            </table>
-        </div>
-        <h3 style="color:#F5FFFA; text-align: center;">
-            <%
-                out.println("\n"
-                        + "<br><br>Total pris: " + cc.fetchTotalPrice(cart) + " kr.");
+                        <tr>
+                            <%
+                                out.println("<th scope=\"row\">" + ++index + "</th>");
+                                out.println("<td>" + l.getQuantity() + "</td>");
+                                out.println("<td>" + l.getCupcake().getTopping().getType() + "</td>");
+                                out.println("<td>" + l.getCupcake().getBottom().getType() + "</td>");
+                                out.println("<td>" + (l.getCupcake().getTopping().getPrice()
+                                        + l.getCupcake().getBottom().getPrice())
+                                        * l.getQuantity() + " kr.</td>");
+                            %>
+                        </tr>
+                        <%}
+                        %>
+                    </tbody>
+                </table>
+            </div>
+            <h3 style="color:#F5FFFA; text-align: center;">
+                <%
+                    out.println("\n"
+                            + "<br><br>Total pris: " + cc.fetchTotalPrice(cart) + " kr.");
 
-            %>
-        </h3><br><br>
-        <form  style="color:F5FFFA; text-align: center;" action="control" method="post">
-            <input type="hidden" name="origin" value="shop" />
-            <input type="submit" class="btn btn-primary" value="Shop videre">
-        </form>
+                %>
+            </h3><br><br>
+            <form  style="color:F5FFFA; text-align: center;" action="control" method="post">
+                <input type="hidden" name="origin" value="shop" />
+                <input type="submit" class="btn btn-primary" value="Shop videre">
+            </form>
+        </div>
     </body>
 </html>
