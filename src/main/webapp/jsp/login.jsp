@@ -19,6 +19,8 @@
                 Enter password : <input type="password" name="password"> <BR>
                 <input type="submit" />
             </form>
+            <%= request.getParameter("loginMessage")
+             %>
         </center>
     </body>
 </html>

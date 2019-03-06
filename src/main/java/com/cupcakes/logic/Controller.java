@@ -17,6 +17,7 @@ import com.cupcakes.logic.DTO.LineItemsDTO;
 import com.cupcakes.logic.DTO.UserDTO;
 import java.sql.SQLException;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Controls IO from data to presentation
@@ -84,10 +85,20 @@ public class Controller {
      * @param Password Password to match with username
      * @return boolean for successful login
      */
-    public static boolean loginCheck(String Username, String Password) {
+    public static boolean loginCheck(String Username, String Password, HttpServletRequest req) {
+        
         try {
-            return new UserDAO().getUser(Username).getPassword().equals(Password);
+            
+            UserDTO user = new UserDAO().getUser(Username);
+            if(user.getPassword().equals(Password)){
+                req.getSession().setAttribute("user", user);
+                return true;
+            }else {
+                req.setAttribute("loginMessage", "Failed to login, invalid password");
+                return false;
+            }
         } catch (SQLException e) {
+            req.setAttribute("loginMessage", "Failed to login, invalid username");
             return false;
         }
     }

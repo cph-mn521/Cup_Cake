@@ -5,12 +5,14 @@
  */
 package com.cupcakes.presentation;
 
+import com.cupcakes.logic.Controller;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet controlling the flow GET and POST commands from homepage
@@ -35,7 +37,7 @@ public class NewServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        Controller C = new Controller();
         response.setContentType("text/html;charset=UTF-8");
         String origin = request.getParameter("origin");
         
@@ -48,7 +50,12 @@ public class NewServlet extends HttpServlet {
              * Dispatched to jsp page
              */
             case "login":
+                if(Controller.loginCheck(request.getParameter("username"), request.getParameter("password"),request)){
                 request.getRequestDispatcher("jsp/success.jsp").forward(request, response);
+                }
+                else{
+                        request.getRequestDispatcher("jsp/login.jsp").forward(request, response);
+                        }
                 break;
 
             /**
