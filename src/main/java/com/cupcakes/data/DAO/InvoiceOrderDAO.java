@@ -7,7 +7,6 @@ package com.cupcakes.data.DAO;
 
 import com.cupcakes.data.DB;
 import com.cupcakes.data.DataException;
-import com.cupcakes.logic.Controller;
 import com.cupcakes.logic.DTO.CupcakeDTO;
 import com.cupcakes.logic.DTO.Invoice;
 import com.cupcakes.logic.DTO.LineItemsDTO;
@@ -32,7 +31,7 @@ public class InvoiceOrderDAO {
     public static int shoppingCartIdCounter = 1;
 
     /**
-     * Short constructor to acces method not needing objects
+     * Short constructor to access method not needing objects
      * @author Martin Bøgh
      */
     public InvoiceOrderDAO(){
