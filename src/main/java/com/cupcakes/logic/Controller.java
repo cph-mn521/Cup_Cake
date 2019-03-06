@@ -130,8 +130,8 @@ public class Controller {
      * @return
      */
     public List<LineItemsDTO> fetchCart(int cartID) {
-        //return new InvoiceOrderDAO().getShoppingCartFromDB(cartID);
-        return null;
+        return new InvoiceOrderDAO().getShoppingCartFromDB(cartID);
+
     }
 
     /**
@@ -140,8 +140,8 @@ public class Controller {
      * @return
      */
     public List<Invoice> fetchInvoiceList() {
-        //    return new InvoiceOrderDAO().retrieveInvoiceList();
-        return null;
+        return new InvoiceOrderDAO().retrieveInvoiceList();
+
     }
 
     /**
@@ -199,8 +199,8 @@ public class Controller {
             return -1;
 
         }
-        //   return invoice.retrieveLatestInvoiceID();
-        return 0;
+        return invoice.retrieveLatestInvoiceID();
+
     }
 
     /**
@@ -209,8 +209,8 @@ public class Controller {
      * @author martin bøgh
      */
     public void cancelOrder() {
-//        InvoiceOrderDAO invoice = new InvoiceOrderDAO();
-        //    invoice.cancelOrder();
+        InvoiceOrderDAO invoice = new InvoiceOrderDAO();
+        invoice.cancelOrder();
     }
 
     /**
@@ -221,8 +221,8 @@ public class Controller {
      */
     public int getInvoiceID() {
         //     InvoiceOrderDAO invoice = new InvoiceOrderDAO();
-        //    return invoice.getInvoiceOrderID();
-        return 0;
+        return invoice.getInvoiceOrderID();
+
     }
 
     public static void main(String[] args) {
