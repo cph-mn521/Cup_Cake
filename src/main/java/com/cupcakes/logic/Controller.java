@@ -131,7 +131,7 @@ public class Controller {
      * @return
      */
     public List<Invoice> fetchInvoiceList() {
-        return new InvoiceOrderDAO().getAllInvoiceList();
+        return new InvoiceOrderDAO().retrieveInvoiceList();
     }
 
     /**
@@ -171,11 +171,11 @@ public class Controller {
     }
 
     /**
-     * control talks to DAO layer to save into invoiceDB and getting highest invoice_ID
-     * in return
+     * control talks to DAO layer to save into invoiceDB and getting highest
+     * invoice_ID in return
      *
      * @author martin bøgh
-
+     *
      * @param cart
      * @param user
      * @return highest invoice_ID, or -1 if error
@@ -189,27 +189,26 @@ public class Controller {
             return -1;
 
         }
-        return invoice.getLatestInvoiceNumber();
+        return invoice.retrieveLatestInvoiceID();
     }
-    
-    
+
     /**
      * Remove temporary cart from DB
-     * 
+     *
      * @author martin bøgh
      */
-    public void cancelOrder(){
+    public void cancelOrder() {
         InvoiceOrderDAO invoice = new InvoiceOrderDAO();
         invoice.cancelOrder();
     }
-    
+
     /**
      * Get new invoice ID from DB
-     * 
+     *
      * @author martin bøgh
-     * @return invoiceID 
+     * @return invoiceID
      */
-    public int getInvoiceID(){
+    public int getInvoiceID() {
         InvoiceOrderDAO invoice = new InvoiceOrderDAO();
         return invoice.getInvoiceOrderID();
     }

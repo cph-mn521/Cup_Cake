@@ -31,13 +31,6 @@ public class InvoiceOrderDAO {
     public static int shoppingCartIdCounter = 1;
 
     /**
-     * Short constructor to access method not needing objects
-     * @author Martin Bøgh
-     */
-    public InvoiceOrderDAO(){
-    }
-    
-    /**
      * A medium between the session and the database to make sure everything
      * gets persisted properly. Works as both the ShoppingCartDAO and the
      * InvoiceOrderDAO.
@@ -90,32 +83,6 @@ public class InvoiceOrderDAO {
         }
     }
 
-    
-     /**
-     * Get the ShoppingCart from the Database.
-     *
-     * @author Martin Bøgh
-     * @return list of all invoices
-     */
-    public List<LineItemsDTO> getShoppingCartFromDB(int cart_id) {
-        String query = "SELECT * FROM cupcakes.ShoppingCart WHERE cart_id="+cart_id+";";
-        List<LineItemsDTO> cartList = new ArrayList<>();
-        
-        CupcakeDAO cup = new CupcakeDAO();
-        
-        try {
-            ResultSet rs = DB.getConnection().createStatement().executeQuery(query);
-            while (rs.next()) {
-                CupcakeDTO cupcake = new CupcakeDTO(cup.getTopping(rs.getInt("topping_id")), cup.getBottom(rs.getInt("bottom_id")));
-                cartList.add(new LineItemsDTO(cupcake, rs.getInt("quantity"), rs.getInt("cart_id")));
-            }
-        } catch (SQLException ex) {
-            System.out.println("Fejl InvoiceOrderDAO.getLatestInvoiceNumber " + ex);
-        }
-        return cartList;
-    }
-    
-    
     /**
      * Ensures the user can afford the order.
      *
@@ -208,6 +175,7 @@ public class InvoiceOrderDAO {
      * from which this method is called) as well as the Invoice to the Database.
      * Subtracts the total cost of the order from the user's balance account.
      *
+     * Must be called on the main InvoiceOrderDAO object in order to work.
      *
      * Warning: Should only be called once at the end of a transaction to avoid
      * duplicates in the database!
@@ -243,7 +211,7 @@ public class InvoiceOrderDAO {
 
     /**
      * Cancels the order and removes the placeholder from the database.
-     *
+     * Must be called on the main InvoiceOrderDAO object in order to work.
      *
      * Warning: Caution should be used with this method as it makes any
      * subsequent updates to the database on this object's ID impossible. A new
@@ -290,7 +258,7 @@ public class InvoiceOrderDAO {
      * @throws DataException - if the returned ID is lower than 0; most likely
      * due to no entries existing in database.
      */
-    public int retrieveLatestShoppingCartID() throws DataException
+    static int retrieveLatestShoppingCartID() throws DataException
     {
         int shoppingCardID = -1;
         
@@ -323,7 +291,7 @@ public class InvoiceOrderDAO {
      * @author Martin Bøgh
      * @return list of all invoices
      */
-    public List<Invoice> getAllInvoiceList() {
+    static List<Invoice> retrieveInvoiceList() {
         String query = "SELECT * FROM cupcakes.Invoice";
         List<Invoice> invoiceList = new ArrayList<>();
         try {
@@ -350,9 +318,9 @@ public class InvoiceOrderDAO {
      * @author Martin Bøgh
      * @return highest invoice_id
      */
-    public int getLatestInvoiceNumber() {
+    static int retrieveLatestInvoiceID() throws DataException{
         String query = "SELECT MAX(invoice_id) FROM cupcakes.Invoice";
-        int b = 0;
+        int b = -1;
         try {
             ResultSet rs = DB.getConnection().createStatement().executeQuery(query);
             while (rs.next()) {
@@ -361,7 +329,37 @@ public class InvoiceOrderDAO {
         } catch (SQLException ex) {
             System.out.println("Fejl InvoiceOrderDAO.getLatestInvoiceNumber " + ex);
         }
+        
+        if(b < 0)
+        {
+            System.out.println("The retrieved ID is not legal");
+            throw new DataException();
+        }
+        
         return b;
     }
 
+     /**
+     * Get the ShoppingCart from the Database.
+     *
+     * @author Martin Bøgh
+     * @return list of all invoices
+     */
+    static List<LineItemsDTO> getShoppingCartFromDB(int cart_id) {
+        String query = "SELECT * FROM cupcakes.ShoppingCart WHERE cart_id="+cart_id+";";
+        List<LineItemsDTO> cartList = new ArrayList<>();
+        
+        CupcakeDAO cup = new CupcakeDAO();
+        
+        try {
+            ResultSet rs = DB.getConnection().createStatement().executeQuery(query);
+            while (rs.next()) {
+                CupcakeDTO cupcake = new CupcakeDTO(cup.getTopping(rs.getInt("topping_id")), cup.getBottom(rs.getInt("bottom_id")));
+                cartList.add(new LineItemsDTO(cupcake, rs.getInt("quantity"), rs.getInt("cart_id")));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Fejl InvoiceOrderDAO.getLatestInvoiceNumber " + ex);
+        }
+        return cartList;
+    }
 }
