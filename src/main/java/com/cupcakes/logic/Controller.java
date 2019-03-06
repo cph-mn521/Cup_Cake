@@ -25,18 +25,17 @@ public class Controller {
 
     /**
      * Pass on list of ToppingsDTO objects
-     * 
+     *
      * @author martin bøgh
-     * @return  list of BottomDTO objects
+     * @return list of BottomDTO objects
      */
     public List<BottomDTO> fetchBottoms() {
         return new CupcakeDAO().getBottoms();
     }
 
-    
     /**
      * Pass on list of ToppingsDTO objects
-     * 
+     *
      * @author martin bøgh
      * @return list of ToppingsDTO objects
      */
@@ -94,51 +93,49 @@ public class Controller {
 
     /**
      * Henter et User objekt fra data og sender det videre
-     * 
+     *
      * @param Username
      * @return User objekt
-     * @throws SQLException 
+     * @throws SQLException
      */
-    public UserDTO fetchUser(String Username) throws SQLException{
+    public UserDTO fetchUser(String Username) throws SQLException {
         return new UserDAO().getUser(Username);
     }
-    
-    
+
     /**
      * Henter et ShoppingCart objekt fra data og sender det videre
-     * 
+     *
      * @author martin bøgh
-     * @return 
+     * @return
      */
-    public ShoppingCart fetchCart(){
+    public ShoppingCart fetchCart() {
         return new ShoppingCart();
     }
- 
-      /**
+
+    /**
      * Henter et ShoppingCart objekt fra data og sender det videre
-     * 
+     *
      * @author martin bøgh
-     * @return 
+     * @return
      */
-    public List<LineItemsDTO> fetchCart(int cartID){
+    public List<LineItemsDTO> fetchCart(int cartID) {
         return new InvoiceOrderDAO().getShoppingCartFromDB(cartID);
     }
-    
-    
+
     /**
      * Pull out a list of total invoices
-     * @return 
+     *
+     * @return
      */
-    public List<Invoice> fetchInvoiceList(){
+    public List<Invoice> fetchInvoiceList() {
         return new InvoiceOrderDAO().getAllInvoiceList();
     }
-    
-    
+
     /**
      * Calculates total price of all lineitems
-     * 
+     *
      * @author martin bøgh
-     * @return 
+     * @return
      */
     public float fetchTotalPrice(ShoppingCart cart) {
         float totalPrice = 0;
@@ -148,40 +145,43 @@ public class Controller {
         }
         return totalPrice;
     }
-    
+
     /**
      * Check if cupcake is already in list then adds to quantity of the cake
-     * 
+     *
      * @author martin bøgh
      * @param cart
      * @param cake
      * @param quantity
      * @return false is not duplicate, true if duplicate and quantity is updated
      */
-    public boolean isCupCakeDuplicate(ShoppingCart cart, CupcakeDTO cake, int quantity){
+    public boolean isCupCakeDuplicate(ShoppingCart cart, CupcakeDTO cake, int quantity) {
         for (LineItemsDTO l : cart.getLineItems()) {
-            if(l.getCupcake().getTopping().getType().equals(cake.getTopping().getType()) &&
-                    l.getCupcake().getBottom().getType().equals(cake.getBottom().getType())){
-                
-                l.setQuantity(l.getQuantity()+quantity);
+            if (l.getCupcake().getTopping().getType().equals(cake.getTopping().getType())
+                    && l.getCupcake().getBottom().getType().equals(cake.getBottom().getType())) {
+
+                l.setQuantity(l.getQuantity() + quantity);
                 return true;
             }
         }
         return false;
     }
-    
-    
+
     /**
-     * control talks to DAO layer to save into invoiceDB and getting highest invoice_ID
-     * in return
-     * 
+     * control talks to DAO layer to save into invoiceDB and getting highest
+     * invoice_ID in return
+     *
      * @param cart
      * @param user
      * @return highest invoice_ID
      */
-    public int putCartInDB(ShoppingCart cart, UserDTO user){
+    public int putCartInDB(ShoppingCart cart, UserDTO user) {
         InvoiceOrderDAO invoice = new InvoiceOrderDAO(cart, user);
-        invoice.saveOrderToDB();
+        try {
+            invoice.saveOrderToDB();
+        } catch (Exception e) {
+
+        }
         return invoice.getLatestInvoiceNumber();
     }
 }

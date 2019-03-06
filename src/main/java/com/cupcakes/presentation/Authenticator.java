@@ -8,20 +8,19 @@ package com.cupcakes.presentation;
 import com.cupcakes.logic.Controller;
 import java.sql.SQLException;
 
-
 /**
- * 
+ *
  * @author martin bøgh
  */
 public class Authenticator {
 
-	public String authenticate(String username, String password) throws SQLException {
-            Controller c = new Controller();
-		if ((c.fetchUser(username).getName().equalsIgnoreCase(username))
-				&& (c.fetchUser(username).getPassword().equals(password))) {
-			return "success";
-		} else {
-			return "failure";
-		}
-	}
+    public static String authenticate(String username, String password) throws SQLException {
+        Controller c = new Controller();
+        if ((c.fetchUser(username).getName().equalsIgnoreCase(username))
+                && (c.fetchUser(username).getPassword().equals(password))) {
+            return "success";
+        } else {
+            return "failure";
+        }
+    }
 }
