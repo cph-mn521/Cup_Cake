@@ -11,12 +11,15 @@ import com.cupcakes.data.DAO.InvoiceOrderDAO;
 import com.cupcakes.logic.DTO.ShoppingCart;
 import com.cupcakes.logic.DTO.ToppingsDTO;
 import com.cupcakes.data.DAO.UserDAO;
+import com.cupcakes.data.DataException;
 import com.cupcakes.logic.DTO.CupcakeDTO;
 import com.cupcakes.logic.DTO.Invoice;
 import com.cupcakes.logic.DTO.LineItemsDTO;
 import com.cupcakes.logic.DTO.UserDTO;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Controls IO from data to presentation
@@ -174,14 +177,42 @@ public class Controller {
     /**
      * control talks to DAO layer to save into invoiceDB and getting highest invoice_ID
      * in return
-     * 
+     *
+     * @author martin bøgh
      * @param cart
      * @param user
-     * @return highest invoice_ID
+     * @return highest invoice_ID, or -1 if error
      */
     public int putCartInDB(ShoppingCart cart, UserDTO user){
         InvoiceOrderDAO invoice = new InvoiceOrderDAO(cart, user);
-        invoice.saveOrderToDB();
+        try {
+            invoice.saveOrderToDB();
+        } catch (DataException ex) {
+            System.out.println("putCartInDB: " + ex);
+            return -1;
+        }
         return invoice.getLatestInvoiceNumber();
+    }
+    
+    
+    /**
+     * Remove temporary cart from DB
+     * 
+     * @author martin bøgh
+     */
+    public void cancelOrder(){
+        InvoiceOrderDAO invoice = new InvoiceOrderDAO();
+        invoice.cancelOrder();
+    }
+    
+    /**
+     * Get new invoice ID from DB
+     * 
+     * @author martin bøgh
+     * @return invoiceID 
+     */
+    public int getInvoiceID(){
+        InvoiceOrderDAO invoice = new InvoiceOrderDAO();
+        return invoice.getInvoiceOrderID();
     }
 }
