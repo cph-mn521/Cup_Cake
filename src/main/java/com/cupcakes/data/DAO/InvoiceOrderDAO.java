@@ -31,13 +31,6 @@ public class InvoiceOrderDAO {
     public static int shoppingCartIdCounter = 1;
 
     /**
-     * Short constructor to access method not needing objects
-     * @author Martin Bøgh
-     */
-    public InvoiceOrderDAO(){
-    }
-    
-    /**
      * A medium between the session and the database to make sure everything
      * gets persisted properly. Works as both the ShoppingCartDAO and the
      * InvoiceOrderDAO.
