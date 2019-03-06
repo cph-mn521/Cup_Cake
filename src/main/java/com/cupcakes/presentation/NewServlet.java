@@ -61,6 +61,10 @@ public class NewServlet extends HttpServlet {
                 request.getRequestDispatcher("jsp/registration.jsp").forward(request, response);
                 break;
 
+            case "createUser":
+                request.getRequestDispatcher("jsp/regValidator.jsp").forward(request, response);
+                break;
+
             /**
              * admin page -
              */

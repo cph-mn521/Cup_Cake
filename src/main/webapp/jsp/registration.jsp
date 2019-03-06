@@ -13,10 +13,10 @@
     <center>
         <fieldset>
             <legend>Registrering:</legend>
-            <form action="registration" method="post">
-                Indtast brugernavn: <input type="text" name="username"> <BR>
-                Indtast kodeord : <input type="password" name="password"> <BR>
-                Indtast email : <input type="email" name="email"> <BR>
+            <form action="createUser" method="post">
+                Indtast brugernavn: <input type="text" name="username" placeholder="Username" required> <BR>
+                Indtast kodeord : <input type="password" name="password" placeholder="Password" required> <BR>
+                Indtast email : <input type="email" name="email" placeholder="Email" required> <BR>
                 <input type="submit" />
             </form>
         </fieldset>

@@ -14,12 +14,17 @@ import java.sql.SQLException;
  */
 public class Authenticator {
 
-    public static String authenticate(String username, String password) throws SQLException {
+    public static String authenticate(String username, String password) {
+
         Controller c = new Controller();
-        if ((c.fetchUser(username).getName().equalsIgnoreCase(username))
-                && (c.fetchUser(username).getPassword().equals(password))) {
-            return "success";
-        } else {
+        try {
+            if ((c.fetchUser(username).getName().equalsIgnoreCase(username))
+                    && (c.fetchUser(username).getPassword().equals(password))) {
+                return "success";
+            } else {
+                return "failure";
+            }
+        } catch (SQLException e) {
             return "failure";
         }
     }
