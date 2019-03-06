@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        
         <%@ include file = "WEB-INF/jspf/header.jspf" %>
 
         <link rel="stylesheet" href="css/standard.css">

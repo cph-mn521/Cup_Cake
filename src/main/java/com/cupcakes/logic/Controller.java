@@ -12,6 +12,7 @@ import com.cupcakes.logic.DTO.ShoppingCart;
 import com.cupcakes.logic.DTO.ToppingsDTO;
 import com.cupcakes.data.DAO.UserDAO;
 import com.cupcakes.logic.DTO.CupcakeDTO;
+import com.cupcakes.logic.DTO.Invoice;
 import com.cupcakes.logic.DTO.LineItemsDTO;
 import com.cupcakes.logic.DTO.UserDTO;
 import java.sql.SQLException;
@@ -113,6 +114,26 @@ public class Controller {
         return new ShoppingCart();
     }
  
+      /**
+     * Henter et ShoppingCart objekt fra data og sender det videre
+     * 
+     * @author martin bøgh
+     * @return 
+     */
+    public List<LineItemsDTO> fetchCart(int cartID){
+        return new InvoiceOrderDAO().getShoppingCartFromDB(cartID);
+    }
+    
+    
+    /**
+     * Pull out a list of total invoices
+     * @return 
+     */
+    public List<Invoice> fetchInvoiceList(){
+        return new InvoiceOrderDAO().getAllInvoiceList();
+    }
+    
+    
     /**
      * Calculates total price of all lineitems
      * 
@@ -163,6 +184,4 @@ public class Controller {
         invoice.saveOrderToDB();
         return invoice.getLatestInvoiceNumber();
     }
-    
-    
 }

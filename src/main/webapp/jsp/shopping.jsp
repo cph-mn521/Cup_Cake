@@ -4,55 +4,55 @@
     Author     : martin
 --%>
 
+<%@page import="com.cupcakes.logic.DTO.BottomDTO"%>
+<%@page import="com.cupcakes.logic.DTO.ToppingsDTO"%>
+<%@page import="com.cupcakes.logic.Controller"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <%@ include file = "/WEB-INF/jspf/header.jspf" %>
+        <%
+            Controller cc = new Controller();
+        %>
     </head>
-Controller cc = new Controller();
-        StandardHTMLStrings html = new StandardHTMLStrings();
-        
-        response.setContentType("text/html;charset=UTF-8");
-
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println(html.standardHeader());
-            out.println("<body>");
-            out.println(html.standardMenu());
-            out.println("<center><h1>Vælg indhold: </h1>");
-            out.println("<form action=\"control\">");
-            out.println("<input type=\"hidden\" name=\"origin\" value=\"cart\" />");
-            out.println("<select id='toppings' name='Toppings' required>");
-            out.println("<option>Vælg topping</option>");
-            for (ToppingsDTO topping : cc.fetchToppings()) {
-                out.println("<option value=\"" + topping.getType() + "\">" + topping.getType() + "</option>");
-            }
-            out.println("/<select>");
-//            out.println("<br><br>");
-            out.println("<select id='bottoms' name='Bottoms' required>");
-            out.println("<option>Vælg bund</option>");
-            for (BottomDTO bottom : cc.fetchBottoms()) {
-                out.println("<option value=\"" + bottom.getType() + "\">" + bottom.getType() + "</option>");
-            }
-            out.println("</select>");
-//            out.println("<br><br>");
-            out.println("<select id='quantity' name='quantity' required>");
-            out.println("<option>Antal</option>");
-            out.println("<option>1</option>");
-            out.println("<option>2</option>");
-            out.println("<option>3</option>");
-            out.println("<option>4</option>");
-            out.println("<option>5</option>");
-            out.println("<option>6</option>");
-            out.println("</select>");
-            out.println("<br><br>");
-            out.println("<input type=\"submit\" value=\"Vælg\">");
-            out.println("</form>");
-            out.println("</center><br><br>");
-            out.println("<body>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-</html>
+    <body>
+        <%@ include file = "/WEB-INF/jspf/menu.jspf" %>
+        <div class="container">
+            <center><h1>Vælg indhold: </h1>
+                <form action="control" method="post">
+                    <input type="hidden" name="origin" value="cart" />
+                    <div class="dropdown">
+                        <select id='toppings' name='Toppings' required>
+                            <option>Vælg topping</option>
+                            <%
+                                for (ToppingsDTO topping : cc.fetchToppings()) {
+                                    out.println("<option value=\"" + topping.getType() + "\">" + topping.getType() + "</option>");
+                                }
+                            %>
+                        </select>
+                        <select id='bottoms' name='Bottoms' required>
+                            <option>Vælg bund</option>
+                            <%
+                                for (BottomDTO bottom : cc.fetchBottoms()) {
+                                    out.println("<option value=\"" + bottom.getType() + "\">" + bottom.getType() + "</option>");
+                                }
+                            %>
+                            <option>Vælg topping</option>
+                        </select>
+                        <select id='quantity' name='quantity' required>
+                            <option>Antal</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                        </select>
+                        <br><br>
+                        <input type="submit" class="btn btn-success" value="Vælg">
+                        </form>
+                        </center><br><br>
+                    </div>
+                    </body>
+                    </html>

@@ -41,7 +41,7 @@ public class CupcakeDAO {
     }
 
     /**
-     *  Maps single bottom from DB to BottomDTO
+     *  Maps single bottom from DB to BottomDTO from String
      * 
      * @param bottomType
      * @return BottomDTO objekt
@@ -49,6 +49,31 @@ public class CupcakeDAO {
     public BottomDTO getBottom(String bottomType) {
 
         String query = "SELECT * FROM cupcakes.Bottom WHERE `type`='" + bottomType + "';";
+        BottomDTO b = null;
+
+        try {
+            ResultSet rs = DB.getConnection().createStatement().executeQuery(query);
+            while (rs.next()) {
+                b = new BottomDTO(
+                        rs.getString("type"),
+                        rs.getFloat("price"),
+                        rs.getInt("bottom_id"));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Fejl CupcakeDAO.getBottom " + ex);
+        }
+        return b;
+    }
+    
+     /**
+     *  Maps single bottom from DB to BottomDTO from integer
+     * 
+     * @param bottomType
+     * @return BottomDTO objekt
+     */
+    public BottomDTO getBottom(int bottomID) {
+
+        String query = "SELECT * FROM cupcakes.Bottom WHERE `bottom_id`='" + bottomID + "';";
         BottomDTO b = null;
 
         try {
@@ -90,7 +115,7 @@ public class CupcakeDAO {
     }
 
     /**
-     * Maps single topping from DB to ToppingsDTO
+     * Maps single topping from DB to ToppingsDTO from String
      * 
      * @param toppingType
      * @return enkelt ToppingsDTO objekt
@@ -113,6 +138,32 @@ public class CupcakeDAO {
         return t;
     }
 
+    
+     /**
+     * Maps single topping from DB to ToppingsDTO from integer
+     * 
+     * @param toppingType
+     * @return enkelt ToppingsDTO objekt
+     */
+    public ToppingsDTO getTopping(int toppingID) {
+
+        String query = "SELECT * FROM cupcakes.Toppings WHERE `topping_id`='" + toppingID + "';";
+        ToppingsDTO t = null;
+
+        try {
+            ResultSet rs = DB.getConnection().createStatement().executeQuery(query);
+            while (rs.next()) {
+                t = new ToppingsDTO(rs.getString("type"),
+                        rs.getFloat("price"),
+                        rs.getInt("topping_id"));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Fejl CupcakeDAO.getTopping " + ex);
+        }
+        return t;
+    }
+    
+    
     /**
      * Der er ikke brug for at add'e kager til databasen men det er lavet for at
      * se om det virker og hvis vi skulle få lyst til at lave nye kager (med gul

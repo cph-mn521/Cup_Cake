@@ -7,19 +7,23 @@ package com.cupcakes.data.DAO;
 
 import com.cupcakes.data.DB;
 import com.cupcakes.data.DataException;
+import com.cupcakes.logic.Controller;
+import com.cupcakes.logic.DTO.CupcakeDTO;
+import com.cupcakes.logic.DTO.Invoice;
 import com.cupcakes.logic.DTO.LineItemsDTO;
 import com.cupcakes.logic.DTO.ShoppingCart;
 import com.cupcakes.logic.DTO.UserDTO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author Martin Brandstrup
  */
-public class InvoiceOrderDAO
-{
+public class InvoiceOrderDAO {
 
     private ShoppingCart cart;
     private UserDTO user;
@@ -27,6 +31,13 @@ public class InvoiceOrderDAO
     private int invoiceOrderID;
     public static int shoppingCartIdCounter = 1;
 
+    /**
+     * Short constructor to acces method not needing objects
+     * @author Martin Bøgh
+     */
+    public InvoiceOrderDAO(){
+    }
+    
     /**
      * A medium between the session and the database to make sure everything
      * gets persisted properly. Works as both the ShoppingCartDAO and the
@@ -42,10 +53,8 @@ public class InvoiceOrderDAO
      * @param cart the ShoppingCart with all the Cupcake LineItemsDTO
      * @param user the current user logged in the session
      */
-    public InvoiceOrderDAO(ShoppingCart cart, UserDTO user)
-    {
-        if (cart == null || user == null)
-        {
+    public InvoiceOrderDAO(ShoppingCart cart, UserDTO user) {
+        if (cart == null || user == null) {
             throw new IllegalArgumentException();
         }
         this.cart = cart;
@@ -59,16 +68,13 @@ public class InvoiceOrderDAO
      *
      * @author Martin Brandstrup
      */
-    private void saveShoppingCartToDB()
-    {
-        for (LineItemsDTO cake : cart.getLineItems())
-        {
+    private void saveShoppingCartToDB() {
+        for (LineItemsDTO cake : cart.getLineItems()) {
             int bottomId = cake.getCupcake().getBottom().getId();
             int toppingId = cake.getCupcake().getTopping().getId();
             int quantity = cake.getQuantity();
 
-            try
-            {
+            try {
                 String query
                         = "INSERT INTO `ShoppingCart`(`cart_id`,`bottom_id`,`topping_id`,`quantity`) VALUES ("
                         + shoppingCartIdCounter + ", "
@@ -78,31 +84,53 @@ public class InvoiceOrderDAO
 
                 int result = DB.getConnection().createStatement().executeUpdate(query);
                 System.out.println(result + " rows added");
-            } catch (SQLException ex)
-            {
+            } catch (SQLException ex) {
                 ex.printStackTrace();
                 System.out.println(ex);
             }
         }
     }
 
+    
+     /**
+     * Get the ShoppingCart from the Database.
+     *
+     * @author Martin Bøgh
+     * @return list of all invoices
+     */
+    public List<LineItemsDTO> getShoppingCartFromDB(int cart_id) {
+        String query = "SELECT * FROM cupcakes.ShoppingCart WHERE cart_id="+cart_id+";";
+        List<LineItemsDTO> cartList = new ArrayList<>();
+        
+        CupcakeDAO cup = new CupcakeDAO();
+        
+        try {
+            ResultSet rs = DB.getConnection().createStatement().executeQuery(query);
+            while (rs.next()) {
+                CupcakeDTO cupcake = new CupcakeDTO(cup.getTopping(rs.getInt("topping_id")), cup.getBottom(rs.getInt("bottom_id")));
+                cartList.add(new LineItemsDTO(cupcake, rs.getInt("quantity"), rs.getInt("cart_id")));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Fejl InvoiceOrderDAO.getLatestInvoiceNumber " + ex);
+        }
+        return cartList;
+    }
+    
+    
     /**
      * Ensures the user can afford the order.
      *
      * @author Martin Brandstrup
      * @return true if the user can afford the order
      */
-    private boolean calculateTransactionCost()
-    {
-        for (LineItemsDTO cake : cart.getLineItems())
-        {
+    private boolean calculateTransactionCost() {
+        for (LineItemsDTO cake : cart.getLineItems()) {
             float bottomPrice = cake.getCupcake().getBottom().getPrice();
             float toppingPrice = cake.getCupcake().getTopping().getPrice();
             int quantity = cake.getQuantity();
 
             //Guard. Er der flere conditions der skal tilføjes? Skal den kaste en exception istedet?
-            if (bottomPrice < 1 || toppingPrice < 1 || quantity < 1)
-            {
+            if (bottomPrice < 1 || toppingPrice < 1 || quantity < 1) {
                 System.out.println("There was a problem with your data");
                 return false;
             }
@@ -110,13 +138,11 @@ public class InvoiceOrderDAO
             double cakeCost = (bottomPrice + toppingPrice) * quantity;
             totalCost += cakeCost;
         }
-        if (totalCost > user.getBalance())
-        {
+        if (totalCost > user.getBalance()) {
             //Skal der kastes en IllegalArguementException her?
             System.out.println("The user cannot afford the order");
             return false;
-        } else
-        {
+        } else {
             return true;
         }
     }
@@ -126,10 +152,8 @@ public class InvoiceOrderDAO
      *
      * @author Martin Brandstrup
      */
-    private void payForOrder()
-    {
-        try
-        {
+    private void payForOrder() {
+        try {
             String query
                     = "UPDATE User"
                     + "SET User.`balance` = " + (user.getBalance() - totalCost)
@@ -137,8 +161,7 @@ public class InvoiceOrderDAO
 
             int result = DB.getConnection().createStatement().executeUpdate(query);
             System.out.println(result + " rows changed");
-        } catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println(ex);
         }
@@ -151,8 +174,7 @@ public class InvoiceOrderDAO
      * @author Martin Brandstrup
      * @return the id of the placeholder instance
      */
-    private int createPlaceholderInvoiceInDB()
-    {
+    private int createPlaceholderInvoiceInDB() {
         int invoiceID = 1;
 
         try
@@ -162,8 +184,7 @@ public class InvoiceOrderDAO
 
             int result = DB.getConnection().createStatement().executeUpdate(query);
             System.out.println(result + " rows added");
-        } catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println(ex);
         }
@@ -172,12 +193,10 @@ public class InvoiceOrderDAO
         try
         {
             ResultSet rs = DB.getConnection().createStatement().executeQuery(query);
-            while (rs.next())
-            {
+            while (rs.next()) {
                 invoiceID = rs.getInt("highest_invoiceID");
             }
-        } catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println(ex);
         }
@@ -207,8 +226,7 @@ public class InvoiceOrderDAO
         payForOrder();
         saveShoppingCartToDB();
 
-        try
-        {
+        try {
             String query
                     = "UPDATE `Invoice` SET"
                     + "Invoice.`user_id` = " + user.getUserId() + ","
@@ -218,8 +236,7 @@ public class InvoiceOrderDAO
 
             int result = DB.getConnection().createStatement().executeUpdate(query);
             System.out.println(result + " rows added");
-        } catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println(ex);
         }
@@ -235,40 +252,33 @@ public class InvoiceOrderDAO
      *
      * @author Martin Brandstrup
      */
-    public void cancelOrder()
-    {
-        try
-        {
+    public void cancelOrder() {
+        try {
             String query
                     = "DELETE FROM Invoice"
                     + "WHERE Invoice.invoice_id = " + invoiceOrderID + ";";
 
             int result = DB.getConnection().createStatement().executeUpdate(query);
             System.out.println(result + " rows removed");
-        } catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println(ex);
         }
     }
 
-    public int getInvoiceOrderID()
-    {
+    public int getInvoiceOrderID() {
         return invoiceOrderID;
     }
 
-    public ShoppingCart getCart()
-    {
+    public ShoppingCart getCart() {
         return cart;
     }
 
-    public UserDTO getUser()
-    {
+    public UserDTO getUser() {
         return user;
     }
 
-    public double getTotalCost()
-    {
+    public double getTotalCost() {
         return totalCost;
     }
 
@@ -309,24 +319,47 @@ public class InvoiceOrderDAO
     }
 
     /**
+     * Query for list of all invoices
+     *
+     * @author Martin Bøgh
+     * @return list of all invoices
+     */
+    public List<Invoice> getAllInvoiceList() {
+        String query = "SELECT * FROM cupcakes.Invoice";
+        List<Invoice> invoiceList = new ArrayList<>();
+        try {
+            ResultSet rs = DB.getConnection().createStatement().executeQuery(query);
+            while (rs.next()) {
+                invoiceList.add(new Invoice(
+                        rs.getInt("invoice_id"),
+                        rs.getInt("user_id"),
+                        rs.getInt("cart_id"),
+                        rs.getDate("invoice_date")
+                ));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Fejl InvoiceOrderDAO.getLatestInvoiceNumber " + ex);
+        }
+        return invoiceList;
+    }
+
+    
+    
+    /**
      * Query for highest invoice_id in Invoice table
      *
      * @author Martin Bøgh
      * @return highest invoice_id
      */
-    public int getLatestInvoiceNumber()
-    {
+    public int getLatestInvoiceNumber() {
         String query = "SELECT MAX(invoice_id) FROM cupcakes.Invoice";
         int b = 0;
-        try
-        {
+        try {
             ResultSet rs = DB.getConnection().createStatement().executeQuery(query);
-            while (rs.next())
-            {
+            while (rs.next()) {
                 b = rs.getInt("MAX(invoice_id)");
             }
-        } catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             System.out.println("Fejl InvoiceOrderDAO.getLatestInvoiceNumber " + ex);
         }
         return b;
