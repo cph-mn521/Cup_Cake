@@ -94,11 +94,10 @@ public class UserDAO {
         }
     }
 
-    /*
     // Main for testing DAO
     public static void main(String[] args) {
         try {
-            //       new UserDAO().createUser("This user", "Is created ", "in Java");
+            new UserDAO().createUser("This user", "Is created ", "in Java");
             UserDTO a = new UserDAO().getUser("This user");
 
             System.out.println("This was found: email:" + a.getEmail() + " name: " + a.getName() + " pw :" + a.getPassword() + " balance: " + a.getBalance());
@@ -106,5 +105,5 @@ public class UserDAO {
             e.printStackTrace();
         }
     }
-     */
+
 }

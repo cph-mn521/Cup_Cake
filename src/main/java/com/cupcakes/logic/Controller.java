@@ -77,6 +77,14 @@ public class Controller {
         return true;
     }
 
+    public void cuser(String uname, String mail, String pw) {
+        try {
+            new UserDAO().createUser(uname, pw, mail);
+        } catch (SQLException e) {
+
+        }
+    }
+
     /**
      * Checks if the User with "Username" exists in database and has matching
      * password
@@ -122,7 +130,8 @@ public class Controller {
      * @return
      */
     public List<LineItemsDTO> fetchCart(int cartID) {
-        return new InvoiceOrderDAO().getShoppingCartFromDB(cartID);
+        //return new InvoiceOrderDAO().getShoppingCartFromDB(cartID);
+        return null;
     }
 
     /**
@@ -131,7 +140,8 @@ public class Controller {
      * @return
      */
     public List<Invoice> fetchInvoiceList() {
-        return new InvoiceOrderDAO().retrieveInvoiceList();
+        //    return new InvoiceOrderDAO().retrieveInvoiceList();
+        return null;
     }
 
     /**
@@ -189,7 +199,8 @@ public class Controller {
             return -1;
 
         }
-        return invoice.retrieveLatestInvoiceID();
+        //   return invoice.retrieveLatestInvoiceID();
+        return 0;
     }
 
     /**
@@ -198,8 +209,8 @@ public class Controller {
      * @author martin bøgh
      */
     public void cancelOrder() {
-        InvoiceOrderDAO invoice = new InvoiceOrderDAO();
-        invoice.cancelOrder();
+//        InvoiceOrderDAO invoice = new InvoiceOrderDAO();
+        //    invoice.cancelOrder();
     }
 
     /**
@@ -209,7 +220,21 @@ public class Controller {
      * @return invoiceID
      */
     public int getInvoiceID() {
-        InvoiceOrderDAO invoice = new InvoiceOrderDAO();
-        return invoice.getInvoiceOrderID();
+        //     InvoiceOrderDAO invoice = new InvoiceOrderDAO();
+        //    return invoice.getInvoiceOrderID();
+        return 0;
     }
+
+    public static void main(String[] args) {
+        try {
+            Boolean a = new Controller().createUser("a", "b", "b", "c@d.e");
+            System.out.println(a);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+
+        }
+    }
+
 }
