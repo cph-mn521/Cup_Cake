@@ -31,6 +31,13 @@ public class InvoiceOrderDAO {
     public static int shoppingCartIdCounter = 1;
 
     /**
+     * Short constructor to access method not needing objects
+     * @author Martin Bøgh
+     */
+    public InvoiceOrderDAO(){
+    }
+    
+    /**
      * A medium between the session and the database to make sure everything
      * gets persisted properly. Works as both the ShoppingCartDAO and the
      * InvoiceOrderDAO.
@@ -258,7 +265,7 @@ public class InvoiceOrderDAO {
      * @throws DataException - if the returned ID is lower than 0; most likely
      * due to no entries existing in database.
      */
-    static int retrieveLatestShoppingCartID() throws DataException
+    public static int retrieveLatestShoppingCartID() throws DataException
     {
         int shoppingCardID = -1;
         
@@ -291,7 +298,7 @@ public class InvoiceOrderDAO {
      * @author Martin Bøgh
      * @return list of all invoices
      */
-    static List<Invoice> retrieveInvoiceList() {
+    public List<Invoice> retrieveInvoiceList() {
         String query = "SELECT * FROM cupcakes.Invoice";
         List<Invoice> invoiceList = new ArrayList<>();
         try {
@@ -318,7 +325,7 @@ public class InvoiceOrderDAO {
      * @author Martin Bøgh
      * @return highest invoice_id
      */
-    static int retrieveLatestInvoiceID() throws DataException{
+    public static int retrieveLatestInvoiceID() throws DataException{
         String query = "SELECT MAX(invoice_id) FROM cupcakes.Invoice";
         int b = -1;
         try {
@@ -345,7 +352,7 @@ public class InvoiceOrderDAO {
      * @author Martin Bøgh
      * @return list of all invoices
      */
-    static List<LineItemsDTO> getShoppingCartFromDB(int cart_id) {
+    public static List<LineItemsDTO> getShoppingCartFromDB(int cart_id) {
         String query = "SELECT * FROM cupcakes.ShoppingCart WHERE cart_id="+cart_id+";";
         List<LineItemsDTO> cartList = new ArrayList<>();
         
