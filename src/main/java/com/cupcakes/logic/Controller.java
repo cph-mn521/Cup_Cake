@@ -133,7 +133,7 @@ public class Controller {
      * @return 
      */
     public List<Invoice> fetchInvoiceList(){
-        return new InvoiceOrderDAO().getAllInvoiceList();
+        return new InvoiceOrderDAO().retrieveInvoiceList();
     }
     
     
@@ -191,7 +191,7 @@ public class Controller {
             System.out.println("putCartInDB: " + ex);
             return -1;
         }
-        return invoice.getLatestInvoiceNumber();
+        return invoice.retrieveLatestInvoiceID();
     }
     
     
