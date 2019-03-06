@@ -14,6 +14,7 @@ CREATE TABLE `User`(
 `password` VARCHAR(45) DEFAULT '1234',
 `email` VARCHAR(45) NOT NULL,
 `balance` DOUBLE(30,2) DEFAULT 0.0,
+`role` ENUM('customer','admin') NOT NULL DEFAULT 'customer',
 PRIMARY KEY(`user_id`)
 );
 

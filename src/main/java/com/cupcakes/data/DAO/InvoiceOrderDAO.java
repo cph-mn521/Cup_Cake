@@ -6,6 +6,7 @@
 package com.cupcakes.data.DAO;
 
 import com.cupcakes.data.DB;
+import com.cupcakes.data.DataException;
 import com.cupcakes.logic.DTO.LineItemsDTO;
 import com.cupcakes.logic.DTO.ShoppingCart;
 import com.cupcakes.logic.DTO.UserDTO;
@@ -30,13 +31,12 @@ public class InvoiceOrderDAO
      * A medium between the session and the database to make sure everything
      * gets persisted properly. Works as both the ShoppingCartDAO and the
      * InvoiceOrderDAO.
-     * 
-     * On object creation, creates a placeholder InvoiceOrder
-     * instance in the database, that needs to be canceled in case the order
-     * isn't completed.
-     * 
-     * Additionally, this Java class also keeps track of and assigns the IDs
-     * for all ShoppingCart entries in the database.
+     *
+     * On object creation, creates a placeholder InvoiceOrder instance in the
+     * database, that needs to be canceled in case the order isn't completed.
+     *
+     * Additionally, this Java class also keeps track of and assigns the IDs for
+     * all ShoppingCart entries in the database.
      *
      * @author Martin Brandstrup
      * @param cart the ShoppingCart with all the Cupcake LineItemsDTO
@@ -144,7 +144,7 @@ public class InvoiceOrderDAO
         }
     }
 
-     /**
+    /**
      * Creates a placeholder entry in the database and provides the ID of this
      * placeholder to the current object, so it can be updated at a later time.
      *
@@ -154,7 +154,7 @@ public class InvoiceOrderDAO
     private int createPlaceholderInvoiceInDB()
     {
         int invoiceID = 1;
-        
+
         try
         {
             String query
@@ -167,8 +167,8 @@ public class InvoiceOrderDAO
             ex.printStackTrace();
             System.out.println(ex);
         }
-        
-        String query = "SELECT MAX(invoice_id) AS highest_invoiceID FROM cupcakes.Invoice";
+
+        String query = "SELECT MAX(invoice_id) AS highest_invoiceID FROM cupcakes.Invoice;";
         try
         {
             ResultSet rs = DB.getConnection().createStatement().executeQuery(query);
@@ -181,7 +181,7 @@ public class InvoiceOrderDAO
             ex.printStackTrace();
             System.out.println(ex);
         }
-        
+
         return invoiceID;
     }
 
@@ -189,20 +189,21 @@ public class InvoiceOrderDAO
      * Saves the ShoppingCart (carried by the current InvoiceOrderDAO object
      * from which this method is called) as well as the Invoice to the Database.
      * Subtracts the total cost of the order from the user's balance account.
-     * 
-     * 
+     *
+     *
      * Warning: Should only be called once at the end of a transaction to avoid
      * duplicates in the database!
      *
      * @author Martin Brandstrup
      */
-    public void saveOrderToDB()
+    public void saveOrderToDB() throws DataException
     {
         if (calculateTransactionCost() == false)
         {
-            return;
+            throw new DataException();
         }
 
+        shoppingCartIdCounter = retrieveLatestShoppingCartID() +1;
         payForOrder();
         saveShoppingCartToDB();
 
@@ -214,11 +215,6 @@ public class InvoiceOrderDAO
                     + "Invoice.`cart_id` = " + shoppingCartIdCounter + ","
                     + "Invoice.`invoice_date` = '" + LocalDateTime.now() + "'"
                     + "WHERE Invoice.`invoice_id` = " + invoiceOrderID + ";";
-            
-//                    = "INSERT INTO `Invoice`(`user_id`,`cart_id`,`invoice_date`) VALUES ("
-//                    + user.getUserId() + ","
-//                    + shoppingCartIdCounter + ", '"
-//                    + LocalDateTime.now() + "')";
 
             int result = DB.getConnection().createStatement().executeUpdate(query);
             System.out.println(result + " rows added");
@@ -227,18 +223,16 @@ public class InvoiceOrderDAO
             ex.printStackTrace();
             System.out.println(ex);
         }
-
-        shoppingCartIdCounter++;
     }
-    
+
     /**
      * Cancels the order and removes the placeholder from the database.
-     * 
-     * 
+     *
+     *
      * Warning: Caution should be used with this method as it makes any
      * subsequent updates to the database on this object's ID impossible. A new
      * object should be made in the worst case.
-     * 
+     *
      * @author Martin Brandstrup
      */
     public void cancelOrder()
@@ -257,7 +251,6 @@ public class InvoiceOrderDAO
             System.out.println(ex);
         }
     }
-    
 
     public int getInvoiceOrderID()
     {
@@ -277,6 +270,42 @@ public class InvoiceOrderDAO
     public double getTotalCost()
     {
         return totalCost;
+    }
+
+    /**
+     * Retrieves the highest ID of ShoppingCarts from the database. Ie. the
+     * latest entry.
+     *
+     * @author Martin Brandstrup
+     * @return the id of the latest ShoppingCart from the database
+     * @throws DataException - if the returned ID is lower than 0; most likely
+     * due to no entries existing in database.
+     */
+    public int retrieveLatestShoppingCartID() throws DataException
+    {
+        int shoppingCardID = -1;
+        
+        String query = "SELECT MAX(cart_id) AS highest_cartID FROM cupcakes.ShoppingCart;";
+        try
+        {
+            ResultSet rs = DB.getConnection().createStatement().executeQuery(query);
+            while (rs.next())
+            {
+                shoppingCardID = rs.getInt("highest_cartID");
+            }
+        } catch (SQLException ex)
+        {
+            ex.printStackTrace();
+            System.out.println(ex);
+        }
+
+        if(shoppingCardID < 0)
+        {
+            System.out.println("The retrieved ID is not legal");
+            throw new DataException();
+        }
+        
+        return shoppingCardID;
     }
 
     /**

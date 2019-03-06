@@ -16,10 +16,11 @@ INSERT INTO `Toppings`(`type`,`price`) VALUES('Orange',8);
 INSERT INTO `Toppings`(`type`,`price`) VALUES('Lemon',8);
 INSERT INTO `Toppings`(`type`,`price`) VALUES('Blue Cheese',9);
 
-INSERT INTO `User`(`username`,`email`,`balance`) VALUES
-('bittie_bertha', 'bertha@testmail.com', 305000.11),
-('halltheprotocol', 'hall@testmail.com', 4000.00),
-('barefooted_brandan', 'brandan@testmail.com', 50.5);
+INSERT INTO `User`(`username`,`email`,`balance`, `role`) VALUES
+('bittie_bertha', 'bertha@testmail.com', 305000.11, 'customer'),
+('halltheprotocol', 'hall@testmail.com', 4000.00, 'customer'),
+('barefooted_brandan', 'brandan@testmail.com', 50.5, 'customer'),
+('admin', 'admin@testmail.com', NULL, 'admin');
 
 INSERT INTO `ShoppingCart`(`cart_id`,`bottom_id`,`topping_id`,`quantity`) VALUES
 (1, 1, 3, 2),
