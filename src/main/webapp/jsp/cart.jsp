@@ -26,6 +26,10 @@
             int quantity = 0;
             Enumeration params = request.getParameterNames();
 
+            session = request.getSession();
+            ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
+            UserDTO user = (UserDTO) session.getAttribute("user");
+
             while (params.hasMoreElements()) {
                 String paramName = (String) params.nextElement();
                 String paramValue = request.getParameter(paramName);
@@ -52,6 +56,20 @@
                         quantity = Integer.parseInt(paramValue);
                         break;
 
+                    case "deal":
+                        if (paramValue != null || !paramValue.isEmpty()) {
+                            if (paramValue.equals("save")) {
+                                cc.putCartInDB(cart, user);
+                                request.getRequestDispatcher("/index.jsp").forward(request, response);
+                            }
+                            else if(paramValue.equals("cancel"))
+                            {
+                                cc.cancelOrder();
+                                request.getRequestDispatcher("/index.jsp").forward(request, response);
+                            }
+                        }
+                        break;
+
                     default:
                         break;
                 }
@@ -61,10 +79,9 @@
              * henter cart objektet fra session eller laver et hvis det ikke
              * eksisterer
              */
-            session = request.getSession();
-            ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
             if (cart == null) {
                 cart = new ShoppingCart();
+
             }
 
             //
@@ -86,28 +103,18 @@
                 if (cc.isCupCakeDuplicate(cart, cake, quantity)) {
                     System.out.println("Kages antal opdateret i lineitems liste");
                 } else {
-
-                    // Fake user
-                    UserDTO user = null;
                     try {
                         user = cc.fetchUser("bittie_bertha");
                     } catch (SQLException ex) {
                         System.out.println("Kunne ikke finde user: " + ex);
                     }
-                    int invoiceID = 0;
-                    if (cart.getLineItems().size() - 1 > 0) {
-                        LineItemsDTO lastLineItem = cart.getLineItems().get(cart.getLineItems().size() - 1);
-                        if (lastLineItem.getInvoice_id() != 0) {
-                            invoiceID = lastLineItem.getInvoice_id();
-                        } else {
-                            invoiceID = cc.putCartInDB(cart, user);
-                        }
-                    }
-                    cart.addLineItem(new LineItemsDTO(cake, quantity, invoiceID));
+
+                    cart.addLineItem(new LineItemsDTO(cake, quantity, cc.getInvoiceID()));
                     System.out.println("Ny kage tilføjet");
                 }
 
                 session.setAttribute("cart", cart);
+                session.setAttribute("user", user);
             }
 
         %>
@@ -132,8 +139,11 @@
                     </thead>
                     <tbody  style="color: black; text-align: center;">
                         <%                    int index = 0;
-                            out.println("Faktura #" + cart.getLineItems().get(cart.getLineItems().size()-1).getInvoice_id() + ":         ");
-                            for (LineItemsDTO l : cart.getLineItems()) {
+                            if (cart.getLineItems().size() == 0) {
+                                out.println("Der er intet i din indkøbsvogn");
+                            } else {
+                                out.println("Faktura #" + cart.getLineItems().get(cart.getLineItems().size() - 1).getInvoice_id() + ":         ");
+                                for (LineItemsDTO l : cart.getLineItems()) {
                         %>
                         <tr>
                             <%
@@ -147,6 +157,7 @@
                             %>
                         </tr>
                         <%}
+                            }
                         %>
                     </tbody>
                 </table>
@@ -158,10 +169,21 @@
 
                 %>
             </h3><br><br>
-            <form  style="color:F5FFFA; text-align: center;" action="control" method="post">
-                <input type="hidden" name="origin" value="shop" />
-                <input type="submit" class="btn btn-primary" value="Shop videre">
-            </form>
+            <center>
+                <form  action="control" method="post">
+                    <input type="hidden" name="origin" value="shop" />
+                    <input type="submit" class="btn btn-primary" value="Shop videre">
+                </form>
+                <form  action="control" method="post">
+                    <input type="hidden" name="origin" value="cart" />
+                    <input type="hidden" name="deal" value="save" />
+                    <input type="submit" class="btn btn-danger" value="Fortsæt til betaling">
+                </form>
+                <form  action="control" method="post">
+                    <input type="hidden" name="origin" value="cart" />
+                    <input type="hidden" name="deal" value="cancel" />
+                    <input type="submit" class="btn btn-primary" value="Fortryd">
+                </form>
+            </center>
         </div>
-    </body>
 </html>

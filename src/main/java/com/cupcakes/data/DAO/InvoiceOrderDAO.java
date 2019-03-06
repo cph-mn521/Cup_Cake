@@ -155,8 +155,8 @@ public class InvoiceOrderDAO {
         try {
             String query
                     = "UPDATE User"
-                    + "SET User.`balance` = " + (user.getBalance() - totalCost)
-                    + "WHERE User.`user_id` = " + user.getUserId() + ";";
+                    + " SET User.`balance` = " + (user.getBalance() - totalCost)
+                    + " WHERE User.`user_id` = " + user.getUserId() + ";";
 
             int result = DB.getConnection().createStatement().executeUpdate(query);
             System.out.println(result + " rows changed");
@@ -228,10 +228,10 @@ public class InvoiceOrderDAO {
         try {
             String query
                     = "UPDATE `Invoice` SET"
-                    + "Invoice.`user_id` = " + user.getUserId() + ","
-                    + "Invoice.`cart_id` = " + shoppingCartIdCounter + ","
-                    + "Invoice.`invoice_date` = '" + LocalDateTime.now() + "'"
-                    + "WHERE Invoice.`invoice_id` = " + invoiceOrderID + ";";
+                    + " Invoice.`user_id` = " + user.getUserId() + ","
+                    + " Invoice.`cart_id` = " + shoppingCartIdCounter + ","
+                    + " Invoice.`invoice_date` = '" + LocalDateTime.now() + "'"
+                    + " WHERE Invoice.`invoice_id` = " + invoiceOrderID + ";";
 
             int result = DB.getConnection().createStatement().executeUpdate(query);
             System.out.println(result + " rows added");
@@ -254,7 +254,7 @@ public class InvoiceOrderDAO {
     public void cancelOrder() {
         try {
             String query
-                    = "DELETE FROM Invoice"
+                    = "DELETE FROM Invoice "
                     + "WHERE Invoice.invoice_id = " + invoiceOrderID + ";";
 
             int result = DB.getConnection().createStatement().executeUpdate(query);
