@@ -17,113 +17,17 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <!--Styling and more-->
         <%@ include file = "/WEB-INF/jspf/header.jspf" %>
-        <%
-            Controller cc = new Controller();
-
-            String topping = null;
-            String bottom = null;
-            int quantity = 0;
-            Enumeration params = request.getParameterNames();
-
-            session = request.getSession();
-            ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
-            UserDTO user = (UserDTO) session.getAttribute("user");
-
-            while (params.hasMoreElements()) {
-                String paramName = (String) params.nextElement();
-                String paramValue = request.getParameter(paramName);
-
-                /**
-                 * Check that there's no default values passed on
-                 */
-                if (paramValue.equals("Vælg topping")
-                        || paramValue.equals("Vælg bund")
-                        || paramValue.equals("Antal")) {
-                    request.getRequestDispatcher("/index.jsp").forward(request, response);
-                    return;
-                }
-                switch (paramName) {
-                    case "Toppings":
-                        topping = paramValue;
-                        break;
-
-                    case "Bottoms":
-                        bottom = paramValue;
-                        break;
-
-                    case "quantity":
-                        quantity = Integer.parseInt(paramValue);
-                        break;
-
-                    case "deal":
-                        if (paramValue != null || !paramValue.isEmpty()) {
-                            if (paramValue.equals("save")) {
-                                cc.putCartInDB(cart, user);
-                                request.getRequestDispatcher("/index.jsp").forward(request, response);
-                            }
-                            else if(paramValue.equals("cancel"))
-                            {
-                                cc.cancelOrder();
-                                request.getRequestDispatcher("/index.jsp").forward(request, response);
-                            }
-                        }
-                        break;
-
-                    default:
-                        break;
-                }
-            }
-
-            /**
-             * henter cart objektet fra session eller laver et hvis det ikke
-             * eksisterer
-             */
-            if (cart == null) {
-                cart = new ShoppingCart();
-
-            }
-
-            //
-            /**
-             * hvis der er parameter værdier så laves et nye ShoppingCart "cart"
-             * objekt. OBS invoice_id værdi opfundet til lejligheden
-             */
-            if (topping != null && !topping.isEmpty()
-                    && bottom != null && !topping.isEmpty()
-                    && quantity != 0) {
-
-                /**
-                 * Add to list of lineitems if not duplicate. Quantity is added
-                 * to lineitem if duplicate
-                 */
-                CupcakeDTO cake = new CupcakeDTO(
-                        new ToppingsDTO(topping),
-                        new BottomDTO(bottom));
-                if (cc.isCupCakeDuplicate(cart, cake, quantity)) {
-                    System.out.println("Kages antal opdateret i lineitems liste");
-                } else {
-                    try {
-                        user = cc.fetchUser("bittie_bertha");
-                    } catch (SQLException ex) {
-                        System.out.println("Kunne ikke finde user: " + ex);
-                    }
-
-                    cart.addLineItem(new LineItemsDTO(cake, quantity, cc.getInvoiceID()));
-                    System.out.println("Ny kage tilføjet");
-                }
-
-                session.setAttribute("cart", cart);
-                session.setAttribute("user", user);
-            }
-
-        %>
-        <link href="css/sb-admin-2.min.css" rel="stylesheet">
-        <link href="css/standard.css" rel="stylesheet">
+        
+        <!--All java cartcontrolling parts-->
+        <%@ include file = "/WEB-INF/jspf/cartController.jspf" %>
     </head>
 
     <body>
+        <!--Page menues-->
         <%@ include file = "/WEB-INF/jspf/menu.jspf" %>
+        
         <div class="container">
             <div id="cart_tabel">
                 <h1 style="color:#F5FFFA; text-align: center;">Indkøbsvogn: </h1>

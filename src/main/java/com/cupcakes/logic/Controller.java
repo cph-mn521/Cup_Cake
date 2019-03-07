@@ -199,8 +199,13 @@ public class Controller {
             return -1;
 
         }
-        return invoice.retrieveLatestInvoiceID();
-
+        try {
+            return invoice.retrieveLatestInvoiceID();
+        } catch (DataException ex) {
+            System.out.println("Controller.putCartInDB error");
+            ex.printStackTrace();
+        }
+        return -1;
     }
 
     /**
@@ -220,7 +225,7 @@ public class Controller {
      * @return invoiceID
      */
     public int getInvoiceID() {
-        //     InvoiceOrderDAO invoice = new InvoiceOrderDAO();
+        InvoiceOrderDAO invoice = new InvoiceOrderDAO();
         return invoice.getInvoiceOrderID();
 
     }

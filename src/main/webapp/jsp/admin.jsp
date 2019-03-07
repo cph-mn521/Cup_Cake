@@ -4,6 +4,8 @@
     Author     : martin
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@page import="java.util.Enumeration"%>
 <%@page import="com.cupcakes.logic.DTO.Invoice"%>
 <%@page import="com.cupcakes.logic.DTO.LineItemsDTO"%>
@@ -18,20 +20,37 @@
         <%
             Controller cc = new Controller();
             int invoice_id = 0;
-
+            
             Enumeration paramAdmin = request.getParameterNames();
             
             while (paramAdmin.hasMoreElements()) {
                 String paramName = (String) paramAdmin.nextElement();
                 String paramValue = request.getParameter(paramName);
-
-                if(paramName.equals("invoice_id")){
-                    invoice_id=Integer.parseInt(paramValue);
+                
+                if (paramName.equals("invoice_id")) {
+                    invoice_id = Integer.parseInt(paramValue);
                 }
             }
+
         %>
     </head>
     <body>
+        <!--Test of including java->javascript-->
+        <% List< String> strList = new ArrayList<String>();
+            strList.add("one");
+            strList.add("two");
+            strList.add("three");
+        %>
+        <p id="demo"></p>
+        <script>
+            var jsArray = [<% for (int i = 0; i < strList.size(); i++) {%>"<%= strList.get(i)%>"<%= i + 1 < strList.size() ? "," : ""%><% } %>];
+                    for (var i = 0; i < jsArray.length; i++) {
+//                document.getElementById("demo").innerHTML = jsArray[i]+"<br>";
+//                document.write(jsArray[i]+"<br>");
+            }
+        </script>
+        <!--Test of including java->javascript-->
+        
         <%@ include file = "/WEB-INF/jspf/menu.jspf" %>
         <h1 style="color:#F5FFFA; text-align: center;">Admin</h1>
         <div class="container">
