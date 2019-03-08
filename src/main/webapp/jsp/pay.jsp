@@ -4,6 +4,7 @@
     Author     : nille
 --%>
 
+<%@page import="com.cupcakes.logic.DTO.ShoppingCart"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,6 +16,14 @@
     <body>
         <%@ include file = "/WEB-INF/jspf/menu.jspf" %>
     <center>
+        
+        <%
+          ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
+          
+          
+           %>
+        
+        
         <h1> DU FÅR INGEN FUCKING CUPCAKES DIN FATTIGE SPASSER</h1>
         <%
             
