@@ -12,7 +12,7 @@
         <%@ include file = "/WEB-INF/jspf/menu.jspf" %>"
         <br>
     <center>
-        hello world! 
+        
     </center>
 </body>
 </html>

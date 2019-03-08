@@ -11,6 +11,7 @@ import com.cupcakes.data.DAO.InvoiceOrderDAO;
 import com.cupcakes.logic.DTO.ShoppingCart;
 import com.cupcakes.logic.DTO.ToppingsDTO;
 import com.cupcakes.data.DAO.UserDAO;
+import com.cupcakes.data.DataException;
 import com.cupcakes.logic.DTO.CupcakeDTO;
 import com.cupcakes.logic.DTO.Invoice;
 import com.cupcakes.logic.DTO.LineItemsDTO;
@@ -82,6 +83,14 @@ public class Controller {
 
     }
 
+    public void cuser(String uname, String mail, String pw) {
+        try {
+            new UserDAO().createUser(uname, pw, mail);
+        } catch (SQLException e) {
+
+        }
+    }
+
     /**
      * Checks if the User with "Username" exists in database and has matching
      * password
@@ -120,6 +129,18 @@ public class Controller {
         return new UserDAO().getUser(Username);
     }
 
+    
+    /**
+     * Henter et User objekt fra data og sender det videre
+     *
+     * @param UserID
+     * @return User objekt
+     * @throws SQLException
+     */
+    public UserDTO fetchUser(int User_id) throws SQLException {
+        return new UserDAO().getUser(User_id);
+    }
+    
     /**
      * Henter et ShoppingCart objekt fra data og sender det videre
      *
@@ -138,6 +159,7 @@ public class Controller {
      */
     public List<LineItemsDTO> fetchCart(int cartID) {
         return new InvoiceOrderDAO().getShoppingCartFromDB(cartID);
+
     }
 
     /**
@@ -149,6 +171,20 @@ public class Controller {
         return new InvoiceOrderDAO().getAllInvoiceList();
     }
 
+        return new InvoiceOrderDAO().retrieveInvoiceList();
+
+    }
+
+    /**
+     * Pull out an invoice
+     *
+     * @param cart_id
+     * @return
+     */
+    public Invoice fetchInvoice(int cart_id) {
+        return  new InvoiceOrderDAO().retrieveInvoice(cart_id);
+    }
+    
     /**
      * Calculates total price of all lineitems
      *
@@ -189,13 +225,62 @@ public class Controller {
      * control talks to DAO layer to save into invoiceDB and getting highest
      * invoice_ID in return
      *
+     * @author martin bøgh
+     *
      * @param cart
      * @param user
-     * @return highest invoice_ID
+     * @return highest invoice_ID, or -1 if error
      */
     public int putCartInDB(ShoppingCart cart, UserDTO user) {
         InvoiceOrderDAO invoice = new InvoiceOrderDAO(cart, user);
-        invoice.saveOrderToDB();
-        return invoice.getLatestInvoiceNumber();
+        try {
+            invoice.saveOrderToDB();
+        } catch (DataException ex) {
+            System.out.println("putCartInDB: " + ex);
+            return -1;
+
+        }
+        try {
+            return invoice.retrieveLatestInvoiceID();
+        } catch (DataException ex) {
+            System.out.println("Controller.putCartInDB error");
+            ex.printStackTrace();
+        }
+        return -1;
     }
+
+    /**
+     * Remove temporary cart from DB
+     *
+     * @author martin bøgh
+     */
+    public void cancelOrder() {
+        InvoiceOrderDAO invoice = new InvoiceOrderDAO();
+        invoice.cancelOrder();
+    }
+
+    /**
+     * Get new invoice ID from DB
+     *
+     * @author martin bøgh
+     * @return invoiceID
+     */
+    public int getInvoiceID() {
+        InvoiceOrderDAO invoice = new InvoiceOrderDAO();
+        return invoice.getInvoiceOrderID();
+
+    }
+
+    public static void main(String[] args) {
+        try {
+            Boolean a = new Controller().createUser("a", "b", "b", "c@d.e");
+            System.out.println(a);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+
+        }
+    }
+
 }

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
+ * Servlet implementation class LoginCommand
  *
  * @author martin bøgh
  */
@@ -34,7 +35,7 @@ public class LoginCommand implements Command {
         // Creating switch statement to check what login page should be loaded:
         HttpSession session = request.getSession();
         if (session.getAttribute("login") == null) {
-            firstlogin(response,session);
+            firstlogin(response, session);
         } else {
             String loggedin = (String) session.getAttribute("login");
 
@@ -69,7 +70,7 @@ public class LoginCommand implements Command {
 
     }
 
-    private void firstlogin(HttpServletResponse response,HttpSession session) throws IOException {
+    private void firstlogin(HttpServletResponse response, HttpSession session) throws IOException {
         PrintWriter out = response.getWriter();
         session.setAttribute("login", "false");
         /* TODO output your page here. You may use following sample code. */

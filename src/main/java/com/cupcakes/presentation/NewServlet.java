@@ -25,7 +25,6 @@ public class NewServlet extends HttpServlet {
     /**
      * Object declaration for use when java dynamic pages needs to be created
      */
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,10 +39,10 @@ public class NewServlet extends HttpServlet {
         Controller C = new Controller();
         response.setContentType("text/html;charset=UTF-8");
         String origin = request.getParameter("origin");
-        
+
         /**
-         * Depending on the value of parameter "origin" dispatches to different pages
-         * or java classes
+         * Depending on the value of parameter "origin" dispatches to different
+         * pages or java classes
          */
         switch (origin) {
             /**
@@ -56,6 +55,11 @@ public class NewServlet extends HttpServlet {
                 else{
                         request.getRequestDispatcher("jsp/login.jsp").forward(request, response);
                         }
+                request.getRequestDispatcher("jsp/login.jsp").forward(request, response);
+                break;
+
+            case "validate":
+                request.getRequestDispatcher("jsp/validate.jsp").forward(request, response);
                 break;
 
             /**
@@ -65,8 +69,12 @@ public class NewServlet extends HttpServlet {
                 request.getRequestDispatcher("jsp/registration.jsp").forward(request, response);
                 break;
 
+            case "createUser":
+                request.getRequestDispatcher("jsp/regValidator.jsp").forward(request, response);
+                break;
+
             /**
-             * admin page - 
+             * admin page -
              */
             case "admin":
                 request.getRequestDispatcher("jsp/admin.jsp").include(request, response);

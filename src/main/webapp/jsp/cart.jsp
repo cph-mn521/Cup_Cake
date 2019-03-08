@@ -3,120 +3,22 @@
     Created on : Mar 4, 2019, 5:31:16 PM
     Author     : martin
 --%>
-
-<%@page import="com.cupcakes.logic.DTO.LineItemsDTO"%>
-<%@page import="java.sql.SQLException"%>
-<%@page import="com.cupcakes.logic.DTO.UserDTO"%>
-<%@page import="com.cupcakes.logic.DTO.BottomDTO"%>
-<%@page import="com.cupcakes.logic.DTO.ToppingsDTO"%>
-<%@page import="com.cupcakes.logic.DTO.CupcakeDTO"%>
-<%@page import="com.cupcakes.logic.DTO.ShoppingCart"%>
-<%@page import="java.util.Enumeration"%>
-<%@page import="com.cupcakes.logic.Controller"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
+        <!--Styling and more-->
         <%@ include file = "/WEB-INF/jspf/header.jspf" %>
-        <%
-            Controller cc = new Controller();
+        
+        <!--All java cartcontrolling parts -->
+        <%@ include file = "/WEB-INF/jspf/cartController.jspf" %>
 
-            String topping = null;
-            String bottom = null;
-            int quantity = 0;
-            Enumeration params = request.getParameterNames();
-
-            while (params.hasMoreElements()) {
-                String paramName = (String) params.nextElement();
-                String paramValue = request.getParameter(paramName);
-
-                /**
-                 * Check that there's no default values passed on
-                 */
-                if (paramValue.equals("Vælg topping")
-                        || paramValue.equals("Vælg bund")
-                        || paramValue.equals("Antal")) {
-                    request.getRequestDispatcher("/index.jsp").forward(request, response);
-                    return;
-                }
-                switch (paramName) {
-                    case "Toppings":
-                        topping = paramValue;
-                        break;
-
-                    case "Bottoms":
-                        bottom = paramValue;
-                        break;
-
-                    case "quantity":
-                        quantity = Integer.parseInt(paramValue);
-                        break;
-
-                    default:
-                        break;
-                }
-            }
-
-            /**
-             * henter cart objektet fra session eller laver et hvis det ikke
-             * eksisterer
-             */
-            session = request.getSession();
-            ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
-            if (cart == null) {
-                cart = new ShoppingCart();
-            }
-
-            //
-            /**
-             * hvis der er parameter værdier så laves et nye ShoppingCart "cart"
-             * objekt. OBS invoice_id værdi opfundet til lejligheden
-             */
-            if (topping != null && !topping.isEmpty()
-                    && bottom != null && !topping.isEmpty()
-                    && quantity != 0) {
-
-                /**
-                 * Add to list of lineitems if not duplicate. Quantity is added
-                 * to lineitem if duplicate
-                 */
-                CupcakeDTO cake = new CupcakeDTO(
-                        new ToppingsDTO(topping),
-                        new BottomDTO(bottom));
-                if (cc.isCupCakeDuplicate(cart, cake, quantity)) {
-                    System.out.println("Kages antal opdateret i lineitems liste");
-                } else {
-
-                    // Fake user
-                    UserDTO user = null;
-                    try {
-                        user = cc.fetchUser("bittie_bertha");
-                    } catch (SQLException ex) {
-                        System.out.println("Kunne ikke finde user: " + ex);
-                    }
-                    int invoiceID = 0;
-                    if (cart.getLineItems().size() - 1 > 0) {
-                        LineItemsDTO lastLineItem = cart.getLineItems().get(cart.getLineItems().size() - 1);
-                        if (lastLineItem.getInvoice_id() != 0) {
-                            invoiceID = lastLineItem.getInvoice_id();
-                        } else {
-                            invoiceID = cc.putCartInDB(cart, user);
-                        }
-                    }
-                    cart.addLineItem(new LineItemsDTO(cake, quantity, invoiceID));
-                    System.out.println("Ny kage tilføjet");
-                }
-
-                session.setAttribute("cart", cart);
-            }
-
-        %>
-        <link href="css/sb-admin-2.min.css" rel="stylesheet">
-        <link href="css/standard.css" rel="stylesheet">
     </head>
 
     <body>
+        <!--Page menues-->
         <%@ include file = "/WEB-INF/jspf/menu.jspf" %>
+        
         <div class="container">
             <div id="cart_tabel">
                 <h1 style="color:#F5FFFA; text-align: center;">Indkøbsvogn: </h1>
@@ -132,8 +34,11 @@
                     </thead>
                     <tbody  style="color: black; text-align: center;">
                         <%                    int index = 0;
-                            out.println("Faktura #" + cart.getLineItems().get(cart.getLineItems().size()-1).getInvoice_id() + ":         ");
-                            for (LineItemsDTO l : cart.getLineItems()) {
+                            if (cart.getLineItems().size() == 0) {
+                                out.println("Der er intet i din indkøbsvogn");
+                            } else {
+                                out.println("Faktura #" + cart.getLineItems().get(cart.getLineItems().size() - 1).getInvoice_id() + ":         ");
+                                for (LineItemsDTO l : cart.getLineItems()) {
                         %>
                         <tr>
                             <%
@@ -147,6 +52,7 @@
                             %>
                         </tr>
                         <%}
+                            }
                         %>
                     </tbody>
                 </table>
@@ -158,10 +64,21 @@
 
                 %>
             </h3><br><br>
-            <form  style="color:F5FFFA; text-align: center;" action="control" method="post">
-                <input type="hidden" name="origin" value="shop" />
-                <input type="submit" class="btn btn-primary" value="Shop videre">
-            </form>
+            <center>
+                <form  action="control" method="post">
+                    <input type="hidden" name="origin" value="shop" />
+                    <input type="submit" class="btn btn-primary" value="Shop videre">
+                </form>
+                <form  action="control" method="post">
+                    <input type="hidden" name="origin" value="cart" />
+                    <input type="hidden" name="deal" value="save" />
+                    <input type="submit" class="btn btn-danger" value="Fortsæt til betaling">
+                </form>
+                <form  action="control" method="post">
+                    <input type="hidden" name="origin" value="cart" />
+                    <input type="hidden" name="deal" value="cancel" />
+                    <input type="submit" class="btn btn-primary" value="Fortryd">
+                </form>
+            </center>
         </div>
-    </body>
 </html>
