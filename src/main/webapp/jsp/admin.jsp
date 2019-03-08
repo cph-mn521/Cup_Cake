@@ -40,7 +40,7 @@
         %>
 
         <!--javascript syntax error handler-->
-        <!--<script src="./js/errorhandler.js"></script>-->
+        <!--<script src="./js/syntaxErrorHandler.js"></script>-->
         <script src="./js/makeTables.js"></script>
 
     </head>
@@ -61,7 +61,7 @@
 
         <%@ include file = "/WEB-INF/jspf/menu.jspf" %>
         <h1 style="color:#F5FFFA; text-align: center;">Admin</h1>
-        <p id="demo">test</p>
+        <!--<p id="demo">test</p>-->
         <script>
             <% // Java declaration
                 String indexInvoice;
@@ -77,7 +77,7 @@
 //            document.write(makeTableHTML(invoiceArray));
         </script>
 
-        <div class="container">
+<!--        <div class="container">
             <h2>Striped Rows</h2>
             <p>The .table-striped class adds zebra-stripes to a table:</p>            
             <table class="table table-striped">
@@ -85,8 +85,8 @@
                     document.write(makeNodeTable(invoiceArray));
                 </script>
             </table>
-        </div>
-        <h1>------------------------------------</h1>
+        </div>-->
+        <!--<h1>------------------------------------</h1>-->
         <div class="container">
             <div class="row">
                 <div class="col-sm">
