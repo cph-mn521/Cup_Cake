@@ -20,7 +20,6 @@
 
             session = request.getSession();
             ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
-//            UserDTO user = (UserDTO) session.getAttribute("user");
 
             while (params.hasMoreElements()) {
                 String paramName = (String) params.nextElement();
@@ -95,11 +94,11 @@
                 if (cc.isCupCakeDuplicate(cart, cake, quantity)) {
                     System.out.println("Kages antal opdateret i lineitems liste");
                 } else {
-                    try {
-                        user = cc.fetchUser("bittie_bertha");
-                    } catch (SQLException ex) {
-                        System.out.println("Kunne ikke finde user: " + ex);
-                    }
+//                    try {
+//                        user = cc.fetchUser("bittie_bertha");
+//                    } catch (SQLException ex) {
+//                        System.out.println("Kunne ikke finde user: " + ex);
+//                    }
 
                     cart.addLineItem(new LineItemsDTO(cake, quantity, cc.getInvoiceID()));
                     System.out.println("Ny kage tilføjet");
