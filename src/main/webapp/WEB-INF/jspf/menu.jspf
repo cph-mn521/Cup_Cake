@@ -49,7 +49,7 @@
     <% if (loggedIn)
         {
     %>
-    <button class="buttonGreen" onclick="window.location.href = 'control?origin=login&action=logout'">Logout</button>
+    <button class="buttonGreen" onclick="window.location.href = 'control?origin=login'">Logout</button>
     <%
     } else
     {
@@ -57,10 +57,12 @@
     <button class="buttonGreen" onclick="window.location.href = 'control?origin=login'">Login</button>
     <%
         }
+        
+        if(!loggedIn){
     %>
-
+    
     <button class="buttonBlue" onclick="window.location.href = 'control?origin=registration'">Registrering</button>
-
+    <%}%>
     <button class="buttonGreen" onclick="window.location.href = 'control?origin=shop'">Shop</button>
 
     <button class="buttonBlue" onclick="window.location.href = 'control?origin=cart'">Cart</button>

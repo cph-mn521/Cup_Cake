@@ -65,17 +65,16 @@ public class Controller {
                 req.setAttribute("registrationMessage", "Passwords must match!");
                 return false;
             }
-            */
-            try{
+             */
+            try {
                 db.getUser(Username);
                 req.setAttribute("registrationMessage", "Username in use");
                 return false;
-            }
-            catch(SQLException e){
-            db.createUser(Username, Email, Password);
-            req.getSession().setAttribute("user",db.getUser(Username));
-            req.setAttribute("registrationMessage", "Gz! registerd as user!");
-            return true;
+            } catch (SQLException e) {
+                db.createUser(Username, Email, Password);
+                req.getSession().setAttribute("user", db.getUser(Username));
+                req.setAttribute("registrationMessage", "Gz! registerd as user!");
+                return true;
             }
         } catch (SQLException e) {
             req.setAttribute("registrationMessage", "No connection to database.");
@@ -106,6 +105,12 @@ public class Controller {
         try {
 
             UserDTO user = new UserDAO().getUser(Username);
+
+            if (req.getSession().getAttribute("user") != null) {
+                req.getSession().setAttribute("user", null);
+                return false;
+            }
+
             if (user.getPassword().equals(Password)) {
                 req.getSession().setAttribute("user", user);
                 return true;
@@ -130,7 +135,6 @@ public class Controller {
         return new UserDAO().getUser(Username);
     }
 
-    
     /**
      * Henter et User objekt fra data og sender det videre
      *
@@ -141,7 +145,7 @@ public class Controller {
     public UserDTO fetchUser(int User_id) throws SQLException {
         return new UserDAO().getUser(User_id);
     }
-    
+
     /**
      * Henter et ShoppingCart objekt fra data og sender det videre
      *
@@ -173,7 +177,6 @@ public class Controller {
 
     }
 
-
     /**
      * Pull out an invoice
      *
@@ -181,9 +184,9 @@ public class Controller {
      * @return
      */
     public Invoice fetchInvoice(int cart_id) {
-        return  new InvoiceOrderDAO().retrieveInvoice(cart_id);
+        return new InvoiceOrderDAO().retrieveInvoice(cart_id);
     }
-    
+
     /**
      * Calculates total price of all lineitems
      *
@@ -269,7 +272,7 @@ public class Controller {
         return invoice.getInvoiceOrderID();
 
     }
-/*
+    /*
     public static void main(String[] args) {
         try {
             Boolean a = new Controller().createUser("a", "b", "b", "c@d.e");
@@ -281,6 +284,6 @@ public class Controller {
 
         }
     }
-*/
+     */
 
 }
