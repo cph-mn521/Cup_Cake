@@ -57,27 +57,28 @@ public class Controller {
      * @return String with information about creation.
      * @throws java.lang.Exception
      */
-    public static boolean createUser(String Username, String Password, String PasswordCheck, String Email, HttpServletRequest req) {
+    public static boolean createUser(String Username, String Password, String Email, HttpServletRequest req) {
         try {
             UserDAO db = new UserDAO(); // Include request så vi kan Skrive til usern.
-
+            /*
             if (!Password.equals(PasswordCheck)) {
                 req.setAttribute("registrationMessage", "Passwords must match!");
                 return false;
             }
-            if (!Email.matches(".+@.+\\..+")) {
-                req.setAttribute("registrationMessage", "Email error!");
-                return false;
-            }
-            if (Username.equals(db.getUser(Username))) {
+            */
+            try{
+                db.getUser(Username);
                 req.setAttribute("registrationMessage", "Username in use");
                 return false;
             }
+            catch(SQLException e){
             db.createUser(Username, Email, Password);
-            req.setAttribute("loginMessage", "Gz! registerd as user!");
+            req.getSession().setAttribute("user",db.getUser(Username));
+            req.setAttribute("registrationMessage", "Gz! registerd as user!");
             return true;
+            }
         } catch (SQLException e) {
-            req.setAttribute("registrationMessage", "some error");
+            req.setAttribute("registrationMessage", "No connection to database.");
             return false;
         }
 

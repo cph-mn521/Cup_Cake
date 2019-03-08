@@ -13,13 +13,13 @@
     <center>
         <fieldset>
             <legend>Registrering:</legend>
-            <form action="control?origin=createUser" method="post">
+            <form action="control?origin=registration" method="post">
                 Indtast brugernavn: <input type="text" name="username" placeholder="Username" required> <BR>
                 Indtast kodeord : <input type="password" name="password" placeholder="Password" required> <BR>
                 Indtast email : <input type="email" name="email" placeholder="Email" required> <BR>
                 <input type="submit" />
             </form>
-            <%= response.getAttribute("message");
+            <%= request.getAttribute("registrationMessage")
             
             %>
         </fieldset>
