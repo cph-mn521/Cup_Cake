@@ -17,8 +17,9 @@
             String bottom = null;
             int quantity = 0;
             Enumeration params = request.getParameterNames();
-
+            
             session = request.getSession();
+            UserDTO user = (UserDTO) session.getAttribute("user");
             ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
 
             while (params.hasMoreElements()) {
