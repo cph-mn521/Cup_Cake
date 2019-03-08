@@ -11,10 +11,9 @@
 <link rel="stylesheet" href="css/standard.css">
 <%
     session = request.getSession();
-    String login = (String) session.getAttribute("login");
+    String login = (String) session.getAttribute("user");
     if (login == null || login.isEmpty())
     {
-        login = "False";
     }
     UserDTO user = (UserDTO) session.getAttribute("user");
 %>
