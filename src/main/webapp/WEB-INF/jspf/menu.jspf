@@ -14,9 +14,7 @@
         </script>
     </a>
 
-<<<<<<< HEAD
 
-=======
     <%
     boolean loggedIn = false;
     UserDTO User = null;
@@ -34,7 +32,6 @@
     %>
     <h2 style="float: right"> <%=User.getName()%></h2>
     <%     }  %>
->>>>>>> a50cf95ea07ba7e6561daa34b2c96833b6e041dc
 
 </center>
 
@@ -52,10 +49,10 @@
 
     <!--Menu buttons and login name-->
     <!--Login name (login and user object comes from header.jspf) placed somewhere on screen-->
-    <% if (login.equals("True") && user != null)
+    <% if (loggedIn)
         {
     %>
-    <h2 style="color: whitesmoke"> <%=user.getName()%>
+    <h2 style="color: whitesmoke"> <%=User.getName()%>
     <%     }  %>
 
 
