@@ -113,6 +113,18 @@ public class Controller {
         return new UserDAO().getUser(Username);
     }
 
+    
+    /**
+     * Henter et User objekt fra data og sender det videre
+     *
+     * @param UserID
+     * @return User objekt
+     * @throws SQLException
+     */
+    public UserDTO fetchUser(int User_id) throws SQLException {
+        return new UserDAO().getUser(User_id);
+    }
+    
     /**
      * Henter et ShoppingCart objekt fra data og sender det videre
      *
@@ -144,6 +156,16 @@ public class Controller {
 
     }
 
+    /**
+     * Pull out an invoice
+     *
+     * @param cart_id
+     * @return
+     */
+    public Invoice fetchInvoice(int cart_id) {
+        return  new InvoiceOrderDAO().retrieveInvoice(cart_id);
+    }
+    
     /**
      * Calculates total price of all lineitems
      *

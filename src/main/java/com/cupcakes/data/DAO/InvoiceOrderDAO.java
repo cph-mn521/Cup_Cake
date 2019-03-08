@@ -22,7 +22,8 @@ import java.util.List;
  *
  * @author Martin Brandstrup
  */
-public class InvoiceOrderDAO {
+public class InvoiceOrderDAO
+{
 
     private ShoppingCart cart;
     private UserDTO user;
@@ -32,11 +33,13 @@ public class InvoiceOrderDAO {
 
     /**
      * Short constructor to access method not needing objects
+     *
      * @author Martin Bøgh
      */
-    public InvoiceOrderDAO(){
+    public InvoiceOrderDAO()
+    {
     }
-    
+
     /**
      * A medium between the session and the database to make sure everything
      * gets persisted properly. Works as both the ShoppingCartDAO and the
@@ -52,8 +55,10 @@ public class InvoiceOrderDAO {
      * @param cart the ShoppingCart with all the Cupcake LineItemsDTO
      * @param user the current user logged in the session
      */
-    public InvoiceOrderDAO(ShoppingCart cart, UserDTO user) {
-        if (cart == null || user == null) {
+    public InvoiceOrderDAO(ShoppingCart cart, UserDTO user)
+    {
+        if (cart == null || user == null)
+        {
             throw new IllegalArgumentException();
         }
         this.cart = cart;
@@ -67,13 +72,16 @@ public class InvoiceOrderDAO {
      *
      * @author Martin Brandstrup
      */
-    private void saveShoppingCartToDB() {
-        for (LineItemsDTO cake : cart.getLineItems()) {
+    private void saveShoppingCartToDB()
+    {
+        for (LineItemsDTO cake : cart.getLineItems())
+        {
             int bottomId = cake.getCupcake().getBottom().getId();
             int toppingId = cake.getCupcake().getTopping().getId();
             int quantity = cake.getQuantity();
 
-            try {
+            try
+            {
                 String query
                         = "INSERT INTO `ShoppingCart`(`cart_id`,`bottom_id`,`topping_id`,`quantity`) VALUES ("
                         + shoppingCartIdCounter + ", "
@@ -83,7 +91,8 @@ public class InvoiceOrderDAO {
 
                 int result = DB.getConnection().createStatement().executeUpdate(query);
                 System.out.println(result + " rows added");
-            } catch (SQLException ex) {
+            } catch (SQLException ex)
+            {
                 ex.printStackTrace();
                 System.out.println(ex);
             }
@@ -96,14 +105,17 @@ public class InvoiceOrderDAO {
      * @author Martin Brandstrup
      * @return true if the user can afford the order
      */
-    private boolean calculateTransactionCost() {
-        for (LineItemsDTO cake : cart.getLineItems()) {
+    private boolean calculateTransactionCost()
+    {
+        for (LineItemsDTO cake : cart.getLineItems())
+        {
             float bottomPrice = cake.getCupcake().getBottom().getPrice();
             float toppingPrice = cake.getCupcake().getTopping().getPrice();
             int quantity = cake.getQuantity();
 
             //Guard. Er der flere conditions der skal tilføjes? Skal den kaste en exception istedet?
-            if (bottomPrice < 1 || toppingPrice < 1 || quantity < 1) {
+            if (bottomPrice < 1 || toppingPrice < 1 || quantity < 1)
+            {
                 System.out.println("There was a problem with your data");
                 return false;
             }
@@ -111,11 +123,13 @@ public class InvoiceOrderDAO {
             double cakeCost = (bottomPrice + toppingPrice) * quantity;
             totalCost += cakeCost;
         }
-        if (totalCost > user.getBalance()) {
+        if (totalCost > user.getBalance())
+        {
             //Skal der kastes en IllegalArguementException her?
             System.out.println("The user cannot afford the order");
             return false;
-        } else {
+        } else
+        {
             return true;
         }
     }
@@ -125,8 +139,10 @@ public class InvoiceOrderDAO {
      *
      * @author Martin Brandstrup
      */
-    private void payForOrder() {
-        try {
+    private void payForOrder()
+    {
+        try
+        {
             String query
                     = "UPDATE User"
                     + " SET User.`balance` = " + (user.getBalance() - totalCost)
@@ -134,7 +150,8 @@ public class InvoiceOrderDAO {
 
             int result = DB.getConnection().createStatement().executeUpdate(query);
             System.out.println(result + " rows changed");
-        } catch (SQLException ex) {
+        } catch (SQLException ex)
+        {
             ex.printStackTrace();
             System.out.println(ex);
         }
@@ -147,7 +164,8 @@ public class InvoiceOrderDAO {
      * @author Martin Brandstrup
      * @return the id of the placeholder instance
      */
-    private int createPlaceholderInvoiceInDB() {
+    private int createPlaceholderInvoiceInDB()
+    {
         int invoiceID = 1;
 
         try
@@ -157,7 +175,8 @@ public class InvoiceOrderDAO {
 
             int result = DB.getConnection().createStatement().executeUpdate(query);
             System.out.println(result + " rows added");
-        } catch (SQLException ex) {
+        } catch (SQLException ex)
+        {
             ex.printStackTrace();
             System.out.println(ex);
         }
@@ -166,10 +185,12 @@ public class InvoiceOrderDAO {
         try
         {
             ResultSet rs = DB.getConnection().createStatement().executeQuery(query);
-            while (rs.next()) {
+            while (rs.next())
+            {
                 invoiceID = rs.getInt("highest_invoiceID");
             }
-        } catch (SQLException ex) {
+        } catch (SQLException ex)
+        {
             ex.printStackTrace();
             System.out.println(ex);
         }
@@ -196,11 +217,12 @@ public class InvoiceOrderDAO {
             throw new DataException();
         }
 
-        shoppingCartIdCounter = retrieveLatestShoppingCartID() +1;
+        shoppingCartIdCounter = retrieveLatestShoppingCartID() + 1;
         payForOrder();
         saveShoppingCartToDB();
 
-        try {
+        try
+        {
             String query
                     = "UPDATE `Invoice` SET"
                     + " Invoice.`user_id` = " + user.getUserId() + ","
@@ -210,15 +232,16 @@ public class InvoiceOrderDAO {
 
             int result = DB.getConnection().createStatement().executeUpdate(query);
             System.out.println(result + " rows added");
-        } catch (SQLException ex) {
+        } catch (SQLException ex)
+        {
             ex.printStackTrace();
             System.out.println(ex);
         }
     }
 
     /**
-     * Cancels the order and removes the placeholder from the database.
-     * Must be called on the main InvoiceOrderDAO object in order to work.
+     * Cancels the order and removes the placeholder from the database. Must be
+     * called on the main InvoiceOrderDAO object in order to work.
      *
      * Warning: Caution should be used with this method as it makes any
      * subsequent updates to the database on this object's ID impossible. A new
@@ -226,33 +249,40 @@ public class InvoiceOrderDAO {
      *
      * @author Martin Brandstrup
      */
-    public void cancelOrder() {
-        try {
+    public void cancelOrder()
+    {
+        try
+        {
             String query
                     = "DELETE FROM Invoice "
                     + "WHERE Invoice.invoice_id = " + invoiceOrderID + ";";
 
             int result = DB.getConnection().createStatement().executeUpdate(query);
             System.out.println(result + " rows removed");
-        } catch (SQLException ex) {
+        } catch (SQLException ex)
+        {
             ex.printStackTrace();
             System.out.println(ex);
         }
     }
 
-    public int getInvoiceOrderID() {
+    public int getInvoiceOrderID()
+    {
         return invoiceOrderID;
     }
 
-    public ShoppingCart getCart() {
+    public ShoppingCart getCart()
+    {
         return cart;
     }
 
-    public UserDTO getUser() {
+    public UserDTO getUser()
+    {
         return user;
     }
 
-    public double getTotalCost() {
+    public double getTotalCost()
+    {
         return totalCost;
     }
 
@@ -268,7 +298,7 @@ public class InvoiceOrderDAO {
     public static int retrieveLatestShoppingCartID() throws DataException
     {
         int shoppingCardID = -1;
-        
+
         String query = "SELECT MAX(cart_id) AS highest_cartID FROM cupcakes.ShoppingCart;";
         try
         {
@@ -283,88 +313,134 @@ public class InvoiceOrderDAO {
             System.out.println(ex);
         }
 
-        if(shoppingCardID < 0)
+        if (shoppingCardID < 0)
         {
             System.out.println("The retrieved ID is not legal");
             throw new DataException();
         }
-        
+
         return shoppingCardID;
     }
 
     /**
-     * Query for list of all invoices
+     * Query for list of all invoices mixed with user info
      *
      * @author Martin Bøgh
-     * @return list of all invoices
+     * @return list of all invoices incl user info
      */
-    public List<Invoice> retrieveInvoiceList() {
-        String query = "SELECT * FROM cupcakes.Invoice";
+    public List<Invoice> retrieveInvoiceList()
+    {
+        String query = "SELECT * FROM cupcakes.Invoice NATURAL JOIN cupcakes.`User`";
         List<Invoice> invoiceList = new ArrayList<>();
-        try {
+        try
+        {
             ResultSet rs = DB.getConnection().createStatement().executeQuery(query);
-            while (rs.next()) {
+            while (rs.next())
+            {
                 invoiceList.add(new Invoice(
                         rs.getInt("invoice_id"),
                         rs.getInt("user_id"),
                         rs.getInt("cart_id"),
-                        rs.getDate("invoice_date")
+                        rs.getDate("invoice_date"),
+                        rs.getString("username"),
+                        rs.getString("email"),
+                        rs.getString("balance")
                 ));
             }
-        } catch (SQLException ex) {
+        } catch (SQLException ex)
+        {
             System.out.println("Fejl InvoiceOrderDAO.getLatestInvoiceNumber " + ex);
         }
         return invoiceList;
     }
 
-    
-    
+    /**
+     * Query for list of all invoices mixed with user info
+     *
+     * @author Martin Bøgh
+     * @return list of all invoices incl user info
+     */
+    public Invoice retrieveInvoice(int cart_id)
+    {
+        Invoice i = null;
+        String query = "SELECT * FROM cupcakes.Invoice NATURAL JOIN cupcakes.`User` WHERE `cart_id`=" + cart_id + ";";
+
+        try
+        {
+            ResultSet rs = DB.getConnection().createStatement().executeQuery(query);
+            while (rs.next())
+            {
+                i = new Invoice(
+                        rs.getInt("invoice_id"),
+                        rs.getInt("user_id"),
+                        rs.getInt("cart_id"),
+                        rs.getDate("invoice_date"),
+                        rs.getString("username"),
+                        rs.getString("email"),
+                        rs.getString("balance")
+                );
+            }
+        } catch (SQLException ex)
+        {
+            System.out.println("Fejl InvoiceOrderDAO.retrieveInvoice(int cart_id) " + ex);
+        }
+        return i;
+    }
+
     /**
      * Query for highest invoice_id in Invoice table
      *
      * @author Martin Bøgh
      * @return highest invoice_id
      */
-    public static int retrieveLatestInvoiceID() throws DataException{
+    public static int retrieveLatestInvoiceID() throws DataException
+    {
         String query = "SELECT MAX(invoice_id) FROM cupcakes.Invoice";
         int b = -1;
-        try {
+        try
+        {
             ResultSet rs = DB.getConnection().createStatement().executeQuery(query);
-            while (rs.next()) {
+            while (rs.next())
+            {
                 b = rs.getInt("MAX(invoice_id)");
             }
-        } catch (SQLException ex) {
+        } catch (SQLException ex)
+        {
             System.out.println("Fejl InvoiceOrderDAO.getLatestInvoiceNumber " + ex);
         }
-        
-        if(b < 0)
+
+        if (b < 0)
         {
             System.out.println("The retrieved ID is not legal");
             throw new DataException();
         }
-        
+
         return b;
     }
 
-     /**
+    /**
      * Get the ShoppingCart from the Database.
      *
      * @author Martin Bøgh
      * @return list of all invoices
      */
-    public static List<LineItemsDTO> getShoppingCartFromDB(int cart_id) {
-        String query = "SELECT * FROM cupcakes.ShoppingCart WHERE cart_id="+cart_id+";";
+    public static List<LineItemsDTO> getShoppingCartFromDB(int cart_id)
+    {
+        String query = "SELECT * FROM cupcakes.ShoppingCart WHERE cart_id=" + cart_id + ";";
         List<LineItemsDTO> cartList = new ArrayList<>();
-        
+
         CupcakeDAO cup = new CupcakeDAO();
-        
-        try {
+
+        try
+        {
             ResultSet rs = DB.getConnection().createStatement().executeQuery(query);
-            while (rs.next()) {
+            while (rs.next())
+            {
                 CupcakeDTO cupcake = new CupcakeDTO(cup.getTopping(rs.getInt("topping_id")), cup.getBottom(rs.getInt("bottom_id")));
                 cartList.add(new LineItemsDTO(cupcake, rs.getInt("quantity"), rs.getInt("cart_id")));
             }
-        } catch (SQLException ex) {
+        } catch (SQLException ex)
+        {
             System.out.println("Fejl InvoiceOrderDAO.getLatestInvoiceNumber " + ex);
         }
         return cartList;

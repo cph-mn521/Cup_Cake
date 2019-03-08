@@ -3,16 +3,6 @@
     Created on : Mar 4, 2019, 5:31:16 PM
     Author     : martin
 --%>
-
-<%@page import="com.cupcakes.logic.DTO.LineItemsDTO"%>
-<%@page import="java.sql.SQLException"%>
-<%@page import="com.cupcakes.logic.DTO.UserDTO"%>
-<%@page import="com.cupcakes.logic.DTO.BottomDTO"%>
-<%@page import="com.cupcakes.logic.DTO.ToppingsDTO"%>
-<%@page import="com.cupcakes.logic.DTO.CupcakeDTO"%>
-<%@page import="com.cupcakes.logic.DTO.ShoppingCart"%>
-<%@page import="java.util.Enumeration"%>
-<%@page import="com.cupcakes.logic.Controller"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -20,8 +10,9 @@
         <!--Styling and more-->
         <%@ include file = "/WEB-INF/jspf/header.jspf" %>
         
-        <!--All java cartcontrolling parts-->
+        <!--All java cartcontrolling parts -->
         <%@ include file = "/WEB-INF/jspf/cartController.jspf" %>
+
     </head>
 
     <body>
