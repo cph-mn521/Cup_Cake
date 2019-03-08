@@ -83,13 +83,6 @@ public class Controller {
 
     }
 
-    public void cuser(String uname, String mail, String pw) {
-        try {
-            new UserDAO().createUser(uname, pw, mail);
-        } catch (SQLException e) {
-
-        }
-    }
 
     /**
      * Checks if the User with "Username" exists in database and has matching

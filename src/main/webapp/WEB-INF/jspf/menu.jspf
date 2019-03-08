@@ -84,6 +84,11 @@
     <%
         }
     %>
+    <%
+        if(loggedIn){
+    %>
+    <button class="buttonBlue" onclick="window.location.href = 'control?origin=account'">Account</button>
+    <%}%>
 </h2>
 </div>
 
