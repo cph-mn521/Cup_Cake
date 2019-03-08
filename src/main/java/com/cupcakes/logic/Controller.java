@@ -26,18 +26,17 @@ public class Controller {
 
     /**
      * Pass on list of ToppingsDTO objects
-     * 
+     *
      * @author martin bøgh
-     * @return  list of BottomDTO objects
+     * @return list of BottomDTO objects
      */
     public List<BottomDTO> fetchBottoms() {
         return new CupcakeDAO().getBottoms();
     }
 
-    
     /**
      * Pass on list of ToppingsDTO objects
-     * 
+     *
      * @author martin bøgh
      * @return list of ToppingsDTO objects
      */
@@ -57,23 +56,30 @@ public class Controller {
      * @return String with information about creation.
      * @throws java.lang.Exception
      */
-    public static boolean createUser(String Username, String Password, String PasswordCheck, String Email) throws Exception {
-        UserDAO db = new UserDAO();
-        if (!Password.equals(PasswordCheck)) {
-            throw new Exception("Passwords must match!");
-        }
-        if (!Email.matches(".+@.+\\..+")) {
-            throw new Exception("Email error!");
-        }
-        if (Username.equals(db.getUser(Username))) {
-            throw new Exception("Username in use");
-        }
+    public static boolean createUser(String Username, String Password, String PasswordCheck, String Email, HttpServletRequest req) {
         try {
+            UserDAO db = new UserDAO(); // Include request så vi kan Skrive til usern.
+
+            if (!Password.equals(PasswordCheck)) {
+                req.setAttribute("registrationMessage", "Passwords must match!");
+                return false;
+            }
+            if (!Email.matches(".+@.+\\..+")) {
+                req.setAttribute("registrationMessage", "Email error!");
+                return false;
+            }
+            if (Username.equals(db.getUser(Username))) {
+                req.setAttribute("registrationMessage", "Username in use");
+                return false;
+            }
             db.createUser(Username, Email, Password);
+            req.setAttribute("loginMessage", "Gz! registerd as user!");
+            return true;
         } catch (SQLException e) {
+            req.setAttribute("registrationMessage", "some error");
             return false;
         }
-        return true;
+
     }
 
     /**
@@ -86,14 +92,14 @@ public class Controller {
      * @return boolean for successful login
      */
     public static boolean loginCheck(String Username, String Password, HttpServletRequest req) {
-        
+
         try {
-            
+
             UserDTO user = new UserDAO().getUser(Username);
-            if(user.getPassword().equals(Password)){
+            if (user.getPassword().equals(Password)) {
                 req.getSession().setAttribute("user", user);
                 return true;
-            }else {
+            } else {
                 req.setAttribute("loginMessage", "Failed to login, invalid password");
                 return false;
             }
@@ -105,51 +111,49 @@ public class Controller {
 
     /**
      * Henter et User objekt fra data og sender det videre
-     * 
+     *
      * @param Username
      * @return User objekt
-     * @throws SQLException 
+     * @throws SQLException
      */
-    public UserDTO fetchUser(String Username) throws SQLException{
+    public UserDTO fetchUser(String Username) throws SQLException {
         return new UserDAO().getUser(Username);
     }
-    
-    
+
     /**
      * Henter et ShoppingCart objekt fra data og sender det videre
-     * 
+     *
      * @author martin bøgh
-     * @return 
+     * @return
      */
-    public ShoppingCart fetchCart(){
+    public ShoppingCart fetchCart() {
         return new ShoppingCart();
     }
- 
-      /**
+
+    /**
      * Henter et ShoppingCart objekt fra data og sender det videre
-     * 
+     *
      * @author martin bøgh
-     * @return 
+     * @return
      */
-    public List<LineItemsDTO> fetchCart(int cartID){
+    public List<LineItemsDTO> fetchCart(int cartID) {
         return new InvoiceOrderDAO().getShoppingCartFromDB(cartID);
     }
-    
-    
+
     /**
      * Pull out a list of total invoices
-     * @return 
+     *
+     * @return
      */
-    public List<Invoice> fetchInvoiceList(){
+    public List<Invoice> fetchInvoiceList() {
         return new InvoiceOrderDAO().getAllInvoiceList();
     }
-    
-    
+
     /**
      * Calculates total price of all lineitems
-     * 
+     *
      * @author martin bøgh
-     * @return 
+     * @return
      */
     public float fetchTotalPrice(ShoppingCart cart) {
         float totalPrice = 0;
@@ -159,38 +163,37 @@ public class Controller {
         }
         return totalPrice;
     }
-    
+
     /**
      * Check if cupcake is already in list then adds to quantity of the cake
-     * 
+     *
      * @author martin bøgh
      * @param cart
      * @param cake
      * @param quantity
      * @return false is not duplicate, true if duplicate and quantity is updated
      */
-    public boolean isCupCakeDuplicate(ShoppingCart cart, CupcakeDTO cake, int quantity){
+    public boolean isCupCakeDuplicate(ShoppingCart cart, CupcakeDTO cake, int quantity) {
         for (LineItemsDTO l : cart.getLineItems()) {
-            if(l.getCupcake().getTopping().getType().equals(cake.getTopping().getType()) &&
-                    l.getCupcake().getBottom().getType().equals(cake.getBottom().getType())){
-                
-                l.setQuantity(l.getQuantity()+quantity);
+            if (l.getCupcake().getTopping().getType().equals(cake.getTopping().getType())
+                    && l.getCupcake().getBottom().getType().equals(cake.getBottom().getType())) {
+
+                l.setQuantity(l.getQuantity() + quantity);
                 return true;
             }
         }
         return false;
     }
-    
-    
+
     /**
-     * control talks to DAO layer to save into invoiceDB and getting highest invoice_ID
-     * in return
-     * 
+     * control talks to DAO layer to save into invoiceDB and getting highest
+     * invoice_ID in return
+     *
      * @param cart
      * @param user
      * @return highest invoice_ID
      */
-    public int putCartInDB(ShoppingCart cart, UserDTO user){
+    public int putCartInDB(ShoppingCart cart, UserDTO user) {
         InvoiceOrderDAO invoice = new InvoiceOrderDAO(cart, user);
         invoice.saveOrderToDB();
         return invoice.getLatestInvoiceNumber();
