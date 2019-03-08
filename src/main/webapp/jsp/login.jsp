@@ -16,11 +16,15 @@
         <%@ include file = "/WEB-INF/jspf/menu.jspf" %>"
        
         <center>
-            <form action="control?origin=validate" method="post">
+            <form action="control?origin=login" method="post">
                 Enter username : <input type="text" name="username" placeholder="Username" required> <BR>
                 Enter password : <input type="password" name="password" placeholder="Password" required> <BR>
                 <input type="submit" value="Login"/>
             </form>
-        </center>        
+
+            <p> <%= request.getAttribute("loginMessage")
+             %></p>
+        </center>
+
     </body>
 </html>
