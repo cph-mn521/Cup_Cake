@@ -92,7 +92,9 @@ public class NewServlet extends HttpServlet {
             case "shop":
                 request.getRequestDispatcher("jsp/shopping.jsp").forward(request, response);
                 break;
-
+            case "account":
+                request.getRequestDispatcher("jsp/Account.jsp").forward(request, response);
+                break;
             /**
              * Page for summing up the shopping cart Java dynamic page starts
              */
