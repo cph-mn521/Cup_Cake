@@ -23,9 +23,6 @@
     loggedIn = (User != null || User.getName().isEmpty());
     }
 %>
-    
-    
-    
 
 </center>
 
@@ -52,7 +49,7 @@
               
     <h2 style="color: whitesmoke"> <%=User.getName()%>
         
-    <h2 style="color: whitesmoke"> Balance: <%=User.getBalance()%>
+        <br> Balance: <%=User.getBalance()%></h2>
         
         <%     }  %>
 </div>
@@ -86,7 +83,7 @@
         }
     %>
      
-</h2>
+
 </div>
 
 <br><br>

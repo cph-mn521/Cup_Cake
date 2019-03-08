@@ -38,7 +38,6 @@
                                     out.println("<option value=\"" + bottom.getType() + "\">" + bottom.getType() + "</option>");
                                 }
                             %>
-                            <option>Choose topping</option>
                         </select>
                         <select id='quantity' name='quantity' required>
                             <option>Number</option>

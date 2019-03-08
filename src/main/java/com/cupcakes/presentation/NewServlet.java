@@ -50,7 +50,7 @@ public class NewServlet extends HttpServlet {
              */
             case "login":
                 if (Controller.loginCheck(request.getParameter("username"), request.getParameter("password"), request)) {
-                    response.sendRedirect("/cupcake");
+                    response.sendRedirect("/CupCake");
                 } else {
                     request.getRequestDispatcher("jsp/login.jsp").forward(request, response);
                 }
@@ -66,7 +66,7 @@ public class NewServlet extends HttpServlet {
             case "registration":
                 if (Controller.createUser(request.getParameter("username"), request.getParameter("password"),
                         request.getParameter("email"), request)) {
-                    response.sendRedirect("/cupcake");
+                    response.sendRedirect("/CupCake");
                 } else {
                     request.getRequestDispatcher("jsp/registration.jsp").forward(request, response);
                 }
