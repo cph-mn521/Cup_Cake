@@ -50,7 +50,7 @@ public class NewServlet extends HttpServlet {
              */
             case "login":
                 if (Controller.loginCheck(request.getParameter("username"), request.getParameter("password"), request)) {
-                    response.sendRedirect("/cupcake");
+                    response.sendRedirect("/CupCake");
                 } else {
                     request.getRequestDispatcher("jsp/login.jsp").forward(request, response);
                 }
@@ -66,14 +66,10 @@ public class NewServlet extends HttpServlet {
             case "registration":
                 if (Controller.createUser(request.getParameter("username"), request.getParameter("password"),
                         request.getParameter("email"), request)) {
-                    response.sendRedirect("/cupcake");
+                    response.sendRedirect("/CupCake");
                 } else {
                     request.getRequestDispatcher("jsp/registration.jsp").forward(request, response);
                 }
-                break;
-
-            case "createUser":
-                request.getRequestDispatcher("jsp/regValidator.jsp").forward(request, response);
                 break;
 
             /**
@@ -83,6 +79,7 @@ public class NewServlet extends HttpServlet {
                 request.getRequestDispatcher("jsp/admin.jsp").include(request, response);
                 //bruges indtil der laves noget på admin siden. admin siden tror den er i root folderen
                 //men den er i /admin folderen
+                
 //                response.sendRedirect("admin/index.html");
                 break;
 
@@ -105,6 +102,8 @@ public class NewServlet extends HttpServlet {
             case "pay":
                 request.getRequestDispatcher("jsp/pay.jsp").forward(request, response);
                 break;
+            
+               
 
             /**
              *

@@ -1,4 +1,4 @@
-new Function CalculateItemsValue() {
+function CalculateItemsValue() {
 	var total = 0;
 	list = document.getElementsByClassName("price");
 	for (price : list){
@@ -9,3 +9,4 @@ new Function CalculateItemsValue() {
 
 
 }
+ 
