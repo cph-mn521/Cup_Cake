@@ -10,7 +10,7 @@
             var c = document.getElementById("myCanvas");
             var ctx = c.getContext("2d");
             ctx.font = "40px arial";
-            ctx.strokeText("Velkommen til en verden af Cupcakes", 10, 50);
+            ctx.strokeText("Welcome to a world of cupcakes", 10, 40);
         </script>
     </a>
 
