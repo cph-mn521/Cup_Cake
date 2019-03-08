@@ -1,5 +1,6 @@
 <%-- any content can be specified here e.g.: --%>
 <%@page import="com.cupcakes.logic.DTO.UserDTO"%>
+
 <meta charset="utf-8">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -11,10 +12,15 @@
 <link rel="stylesheet" href="css/standard.css">
 <%
     session = request.getSession();
-    String login = (String) session.getAttribute("login");
+    String login = (String) session.getAttribute("user");
     if (login == null || login.isEmpty())
     {
-        login = "False";
     }
-    UserDTO user = (UserDTO) session.getAttribute("user");
+    UserDTO user = (UserDTO) session.getAttribute("userDTO");
+    if(user != null){
+        
+     //  out.print("din peng: "+user.getBalance());
+      // out.print("din navn: "+user.getName());
+        
+    }   
 %>

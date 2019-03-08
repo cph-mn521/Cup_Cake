@@ -21,9 +21,10 @@
                 Enter password : <input type="password" name="password" placeholder="Password" required> <BR>
                 <input type="submit" value="Login"/>
             </form>
+
             <p> <%= request.getAttribute("loginMessage")
              %></p>
         </center>
-        
+
     </body>
 </html>

@@ -5,15 +5,15 @@
 --%>
 <html>
     <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-    
+    <<%@page import="com.cupcakes.logic.DTO.UserDTO"%>
     <head>
         <%@ include file = "/WEB-INF/jspf/header.jspf" %>
     </head>
     <body>
         <%@ include file = "/WEB-INF/jspf/menu.jspf" %>"
-        <br>
-    <center>
-        <p><%= request.getSession().getAttribute("user").getUsername() %></p>
-                
-</body>
+        <br>    
+        <center>
+            <!--<p><%=((UserDTO) request.getSession().getAttribute("user")).getName() %></p>-->
+        </center> 
+    </body>
 </html>
