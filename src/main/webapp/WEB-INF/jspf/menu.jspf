@@ -14,12 +14,7 @@
         </script>
     </a>
 
-    <!--Login name i upper right corner-->
-    <% if (login.equals("True") && user != null)
-        {
-    %>
-    <h2 style="float: right"> <%=user.getName()%></h2>
-    <%     }  %>
+
 
 </center>
 
@@ -34,7 +29,14 @@
 
     <br><br><br><br>
 
-    <!--Menu knapper-->
+    <!--Menu buttons and login name-->
+    <!--Login name (login and user object comes from header.jspf) placed somewhere on screen-->
+    <% if (login.equals("True") && user != null)
+        {
+    %>
+    <h2 style="color: whitesmoke"> <%=user.getName()%>
+    <%     }  %>
+
     <% if (login.equals("True"))
         {
     %>
@@ -61,7 +63,7 @@
     <%
         }
     %>
-
+</h2>
 </div>
 
 <br><br>
