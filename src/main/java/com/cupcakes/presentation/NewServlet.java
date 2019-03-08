@@ -49,26 +49,27 @@ public class NewServlet extends HttpServlet {
              * Dispatched to jsp page
              */
             case "login":
-                if(Controller.loginCheck(request.getParameter("username"), request.getParameter("password"),request)){
-                response.sendRedirect("/cupcake");
+                if (Controller.loginCheck(request.getParameter("username"), request.getParameter("password"), request)) {
+                    response.sendRedirect("/cupcake");
+                } else {
+                    request.getRequestDispatcher("jsp/login.jsp").forward(request, response);
                 }
-                else request.getRequestDispatcher("jsp/login.jsp").forward(request, response);
                 break;
 
             case "validate":
                 request.getRequestDispatcher("jsp/validate.jsp").forward(request, response);
                 break;
 
-
             /**
              * Starter registration page
              */
             case "registration":
-                if(Controller.createUser(request.getParameter("username"), request.getParameter("password"),
-                        request.getParameter("email"), request)){
+                if (Controller.createUser(request.getParameter("username"), request.getParameter("password"),
+                        request.getParameter("email"), request)) {
                     response.sendRedirect("/cupcake");
+                } else {
+                    request.getRequestDispatcher("jsp/registration.jsp").forward(request, response);
                 }
-                else request.getRequestDispatcher("jsp/registration.jsp").forward(request, response);
                 break;
 
             case "createUser":
@@ -97,6 +98,10 @@ public class NewServlet extends HttpServlet {
              */
             case "cart":
                 request.getRequestDispatcher("jsp/cart.jsp").forward(request, response);
+                break;
+
+            case "pay":
+                request.getRequestDispatcher("jsp/pay.jsp").forward(request, response);
                 break;
 
             /**

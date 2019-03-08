@@ -29,9 +29,9 @@
                 /**
                  * Check that there's no default values passed on
                  */
-                if (paramValue.equals("Vælg topping")
-                        || paramValue.equals("Vælg bund")
-                        || paramValue.equals("Antal")) {
+                if (paramValue.equals("Top")
+                        || paramValue.equals("Bottom")
+                        || paramValue.equals("Number")) {
                     request.getRequestDispatcher("/index.jsp").forward(request, response);
                     return;
                 }

@@ -26,12 +26,6 @@
     
     
     
-    <!--Login name in upper right corner-->
-    <% if (loggedIn)
-        {  
-    %>
-    <h2 style="float: right"> <%=User.getName()%></h2>
-    <%     }  %>
 
 </center>
 
@@ -44,18 +38,25 @@
     <img src="img/cc4.jpg" alt="4">
     <img src="img/cc5.jpg" alt="5">
 
-    <br><br><br><br>
+    <br>
 
 
     <!--Menu buttons and login name-->
-    <!--Login name (login and user object comes from header.jspf) placed somewhere on screen-->
-    <% if (loggedIn)
+<div>
+<% if (loggedIn)
         {
     %>
+   
+          <!--Login name (login and user object comes from header.jspf) placed somewhere on screen-->
+          
+              
     <h2 style="color: whitesmoke"> <%=User.getName()%>
-    <%     }  %>
-
-
+        
+    <h2 style="color: whitesmoke"> Balance: <%=User.getBalance()%>
+        
+        <%     }  %>
+</div>
+        
     <% if (loggedIn)
         {
     %>
@@ -84,6 +85,7 @@
     <%
         }
     %>
+     
 </h2>
 </div>
 
