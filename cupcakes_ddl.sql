@@ -10,7 +10,7 @@ DROP TABLE IF EXISTS `User`;
 
 CREATE TABLE `User`(
 `user_id` INT NOT NULL AUTO_INCREMENT, 
-`username` VARCHAR(45) NOT NULL,
+`username` VARCHAR(45) NOT NULL UNIQUE,
 `password` VARCHAR(45) DEFAULT '1234',
 `email` VARCHAR(45) NOT NULL,
 `balance` DOUBLE(30,2) DEFAULT 0.0,
@@ -18,7 +18,7 @@ CREATE TABLE `User`(
 PRIMARY KEY(`user_id`)
 );
 
-CREATE INDEX `username` ON `User`(`username`);
+#CREATE INDEX `username` ON `User`(`username`);
 
 CREATE TABLE `Bottom`(
 `bottom_id` INT AUTO_INCREMENT,

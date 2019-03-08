@@ -14,7 +14,27 @@
         </script>
     </a>
 
+<<<<<<< HEAD
 
+=======
+    <%
+    boolean loggedIn = false;
+    UserDTO User = null;
+    if(session.getAttribute("user")!=null){
+    User = (UserDTO) session.getAttribute("user");
+    loggedIn = (User != null || User.getName().isEmpty());
+    }
+%>
+    
+    
+    
+    <!--Login name in upper right corner-->
+    <% if (loggedIn)
+        {  
+    %>
+    <h2 style="float: right"> <%=User.getName()%></h2>
+    <%     }  %>
+>>>>>>> a50cf95ea07ba7e6561daa34b2c96833b6e041dc
 
 </center>
 
@@ -29,6 +49,7 @@
 
     <br><br><br><br>
 
+
     <!--Menu buttons and login name-->
     <!--Login name (login and user object comes from header.jspf) placed somewhere on screen-->
     <% if (login.equals("True") && user != null)
@@ -37,10 +58,11 @@
     <h2 style="color: whitesmoke"> <%=user.getName()%>
     <%     }  %>
 
-    <% if (login.equals("True"))
+
+    <% if (loggedIn)
         {
     %>
-    <button class="buttonGreen" onclick="window.location.href = 'control?origin=login'">Logout</button>
+    <button class="buttonGreen" onclick="window.location.href = 'control?origin=login&action=logout'">Logout</button>
     <%
     } else
     {
@@ -56,7 +78,7 @@
 
     <button class="buttonBlue" onclick="window.location.href = 'control?origin=cart'">Cart</button>
 
-    <% if (login.equals("True"))
+    <% if (loggedIn && User.getName().equalsIgnoreCase("admin"))
         {
     %>
     <button class="buttonGreen" onclick="window.location.href = 'control?origin=admin'">Admin</button>

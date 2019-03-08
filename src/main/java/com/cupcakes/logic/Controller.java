@@ -18,8 +18,7 @@ import com.cupcakes.logic.DTO.LineItemsDTO;
 import com.cupcakes.logic.DTO.UserDTO;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Controls IO from data to presentation
@@ -58,23 +57,30 @@ public class Controller {
      * @return String with information about creation.
      * @throws java.lang.Exception
      */
-    public static boolean createUser(String Username, String Password, String PasswordCheck, String Email) throws Exception {
-        UserDAO db = new UserDAO();
-        if (!Password.equals(PasswordCheck)) {
-            throw new Exception("Passwords must match!");
-        }
-        if (!Email.matches(".+@.+\\..+")) {
-            throw new Exception("Email error!");
-        }
-        if (Username.equals(db.getUser(Username))) {
-            throw new Exception("Username in use");
-        }
+    public static boolean createUser(String Username, String Password, String PasswordCheck, String Email, HttpServletRequest req) {
         try {
+            UserDAO db = new UserDAO(); // Include request så vi kan Skrive til usern.
+
+            if (!Password.equals(PasswordCheck)) {
+                req.setAttribute("registrationMessage", "Passwords must match!");
+                return false;
+            }
+            if (!Email.matches(".+@.+\\..+")) {
+                req.setAttribute("registrationMessage", "Email error!");
+                return false;
+            }
+            if (Username.equals(db.getUser(Username))) {
+                req.setAttribute("registrationMessage", "Username in use");
+                return false;
+            }
             db.createUser(Username, Email, Password);
+            req.setAttribute("loginMessage", "Gz! registerd as user!");
+            return true;
         } catch (SQLException e) {
+            req.setAttribute("registrationMessage", "some error");
             return false;
         }
-        return true;
+
     }
 
     public void cuser(String uname, String mail, String pw) {
@@ -94,10 +100,20 @@ public class Controller {
      * @param Password Password to match with username
      * @return boolean for successful login
      */
-    public static boolean loginCheck(String Username, String Password) {
+    public static boolean loginCheck(String Username, String Password, HttpServletRequest req) {
+
         try {
-            return new UserDAO().getUser(Username).getPassword().equals(Password);
+
+            UserDTO user = new UserDAO().getUser(Username);
+            if (user.getPassword().equals(Password)) {
+                req.getSession().setAttribute("user", user);
+                return true;
+            } else {
+                req.setAttribute("loginMessage", "Failed to login, invalid password");
+                return false;
+            }
         } catch (SQLException e) {
+            req.setAttribute("loginMessage", "Failed to login, invalid username");
             return false;
         }
     }
@@ -155,6 +171,7 @@ public class Controller {
         return new InvoiceOrderDAO().retrieveInvoiceList();
 
     }
+
 
     /**
      * Pull out an invoice
@@ -251,7 +268,7 @@ public class Controller {
         return invoice.getInvoiceOrderID();
 
     }
-
+/*
     public static void main(String[] args) {
         try {
             Boolean a = new Controller().createUser("a", "b", "b", "c@d.e");
@@ -263,5 +280,6 @@ public class Controller {
 
         }
     }
+*/
 
 }
