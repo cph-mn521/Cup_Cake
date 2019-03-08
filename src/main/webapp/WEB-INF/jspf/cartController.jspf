@@ -29,9 +29,9 @@
                 /**
                  * Check that there's no default values passed on
                  */
-                if (paramValue.equals("Vælg topping")
-                        || paramValue.equals("Vælg bund")
-                        || paramValue.equals("Antal")) {
+                if (paramValue.equals("Top")
+                        || paramValue.equals("Bottom")
+                        || paramValue.equals("Number")) {
                     request.getRequestDispatcher("/index.jsp").forward(request, response);
                     return;
                 }
@@ -93,7 +93,7 @@
                         new ToppingsDTO(topping),
                         new BottomDTO(bottom));
                 if (cc.isCupCakeDuplicate(cart, cake, quantity)) {
-                    System.out.println("Kages antal opdateret i lineitems liste");
+                    out.println("Kages antal opdateret i lineitems liste");
                 } else {
 //                    try {
 //                        user = cc.fetchUser("bittie_bertha");
@@ -102,7 +102,7 @@
 //                    }
 
                     cart.addLineItem(new LineItemsDTO(cake, quantity, cc.getInvoiceID()));
-                    System.out.println("Ny kage tilføjet");
+                    out.println("Ny kage tilføjet");
                 }
 
                 session.setAttribute("cart", cart);

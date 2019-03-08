@@ -21,23 +21,23 @@
         
         <div class="container">
             <div id="cart_tabel">
-                <h1 style="color:#F5FFFA; text-align: center;">Indkøbsvogn: </h1>
+                <h1 style="color:#F5FFFA; text-align: center;">Shopping Cart </h1>
                 <table class="table table-striped">
                     <thead  style="color:#F5FFFA; text-align: center;">
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Antal</th>
-                            <th scope="col">Toppe</th>
-                            <th scope="col">Bunde</th>
-                            <th scope="col">Pris</th>
+                            <th scope="col">Number</th>
+                            <th scope="col">Top</th>
+                            <th scope="col">Bottom</th>
+                            <th scope="col">Price</th>
                         </tr>
                     </thead>
                     <tbody  style="color: black; text-align: center;">
                         <%                    int index = 0;
                             if (cart.getLineItems().size() == 0) {
-                                out.println("Der er intet i din indkøbsvogn");
+                                out.println("Shopping cart is empty.");
                             } else {
-                                out.println("Faktura #" + cart.getLineItems().get(cart.getLineItems().size() - 1).getInvoice_id() + ":         ");
+                                out.println("Invoice #" + cart.getLineItems().get(cart.getLineItems().size() - 1).getInvoice_id() + ":         ");
                                 for (LineItemsDTO l : cart.getLineItems()) {
                         %>
                         <tr>
@@ -65,19 +65,19 @@
                 %>
             </h3><br><br>
             <center>
-                <form  action="control" method="post">
+                <form  action="control?origin=shop" method="post">
                     <input type="hidden" name="origin" value="shop" />
-                    <input type="submit" class="btn btn-primary" value="Shop videre">
+                    <input type="submit" class="btn btn-primary" value="Keep shopping">
                 </form>
                 <form  action="control" method="post">
                     <input type="hidden" name="origin" value="cart" />
                     <input type="hidden" name="deal" value="save" />
-                    <input type="submit" class="btn btn-danger" value="Fortsæt til betaling">
+                    <input type="submit" class="btn btn-danger" value="Payment">
                 </form>
                 <form  action="control" method="post">
                     <input type="hidden" name="origin" value="cart" />
                     <input type="hidden" name="deal" value="cancel" />
-                    <input type="submit" class="btn btn-primary" value="Fortryd">
+                    <input type="submit" class="btn btn-primary" value="Back">
                 </form>
             </center>
         </div>
