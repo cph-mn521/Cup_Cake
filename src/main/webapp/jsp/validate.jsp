@@ -26,6 +26,7 @@
                     
                        if(status.equals("success")){
                            Session.setAttribute("login", "True");
+                           Session.setAttribute("user", c.fetchUser(uname));
                          %>
     
             <h4>Login Successful.</h4>

@@ -1,4 +1,6 @@
-<%-- any content can be specified here e.g.: --%>
+
+<%@page import="com.cupcakes.logic.DTO.UserDTO"%>
+
 <center>
     <a id="a_logo" href="index.jsp">
         <canvas id="myCanvas" width="696" height="70">
@@ -11,7 +13,16 @@
             ctx.strokeText("Velkommen til en verden af Cupcakes", 10, 50);
         </script>
     </a>
+
+    <!--Login name i upper right corner-->
+    <% if (login.equals("True") && user != null)
+        {
+    %>
+    <h2 style="float: right"> <%=user.getName()%></h2>
+    <%     }  %>
+
 </center>
+
 <div id="menu_box">
     <br><br>
 
@@ -23,8 +34,19 @@
 
     <br><br><br><br>
 
-
+    <!--Menu knapper-->
+    <% if (login.equals("True"))
+        {
+    %>
+    <button class="buttonGreen" onclick="window.location.href = 'control?origin=login'">Logout</button>
+    <%
+    } else
+    {
+    %>
     <button class="buttonGreen" onclick="window.location.href = 'control?origin=login'">Login</button>
+    <%
+        }
+    %>
 
     <button class="buttonBlue" onclick="window.location.href = 'control?origin=registration'">Registrering</button>
 
@@ -32,8 +54,13 @@
 
     <button class="buttonBlue" onclick="window.location.href = 'control?origin=cart'">Cart</button>
 
+    <% if (login.equals("True"))
+        {
+    %>
     <button class="buttonGreen" onclick="window.location.href = 'control?origin=admin'">Admin</button>
-
+    <%
+        }
+    %>
 
 </div>
 

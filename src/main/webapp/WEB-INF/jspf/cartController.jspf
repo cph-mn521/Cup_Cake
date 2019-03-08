@@ -20,7 +20,7 @@
 
             session = request.getSession();
             ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
-            UserDTO user = (UserDTO) session.getAttribute("user");
+//            UserDTO user = (UserDTO) session.getAttribute("user");
 
             while (params.hasMoreElements()) {
                 String paramName = (String) params.nextElement();
