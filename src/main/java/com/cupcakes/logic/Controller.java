@@ -168,12 +168,10 @@ public class Controller {
      * @return
      */
     public List<Invoice> fetchInvoiceList() {
-        return new InvoiceOrderDAO().getAllInvoiceList();
-    }
-
         return new InvoiceOrderDAO().retrieveInvoiceList();
 
     }
+
 
     /**
      * Pull out an invoice
@@ -270,7 +268,7 @@ public class Controller {
         return invoice.getInvoiceOrderID();
 
     }
-
+/*
     public static void main(String[] args) {
         try {
             Boolean a = new Controller().createUser("a", "b", "b", "c@d.e");
@@ -282,5 +280,6 @@ public class Controller {
 
         }
     }
+*/
 
 }

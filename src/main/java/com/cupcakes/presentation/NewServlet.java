@@ -52,10 +52,7 @@ public class NewServlet extends HttpServlet {
                 if(Controller.loginCheck(request.getParameter("username"), request.getParameter("password"),request)){
                 request.getRequestDispatcher("jsp/success.jsp").forward(request, response);
                 }
-                else{
-                        request.getRequestDispatcher("jsp/login.jsp").forward(request, response);
-                        }
-                request.getRequestDispatcher("jsp/login.jsp").forward(request, response);
+                else request.getRequestDispatcher("jsp/login.jsp").forward(request, response);
                 break;
 
             case "validate":

@@ -5,6 +5,7 @@
 --%>
 <html>
     <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+    
     <head>
         <%@ include file = "/WEB-INF/jspf/header.jspf" %>
     </head>
@@ -12,7 +13,7 @@
         <%@ include file = "/WEB-INF/jspf/menu.jspf" %>"
         <br>
     <center>
-        
-    </center>
+        <p><%= request.getSession().getAttribute("user").getUsername() %></p>
+                
 </body>
 </html>
