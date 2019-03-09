@@ -72,10 +72,6 @@ public class NewServlet extends HttpServlet {
                 }
                 break;
 
-            case "createUser":
-                request.getRequestDispatcher("jsp/regValidator.jsp").forward(request, response);
-                break;
-
             /**
              * admin page -
              */
@@ -83,6 +79,7 @@ public class NewServlet extends HttpServlet {
                 request.getRequestDispatcher("jsp/admin.jsp").include(request, response);
                 //bruges indtil der laves noget på admin siden. admin siden tror den er i root folderen
                 //men den er i /admin folderen
+                
 //                response.sendRedirect("admin/index.html");
                 break;
 
@@ -92,7 +89,9 @@ public class NewServlet extends HttpServlet {
             case "shop":
                 request.getRequestDispatcher("jsp/shopping.jsp").forward(request, response);
                 break;
-
+            case "account":
+                request.getRequestDispatcher("jsp/Account.jsp").forward(request, response);
+                break;
             /**
              * Page for summing up the shopping cart Java dynamic page starts
              */
@@ -103,6 +102,8 @@ public class NewServlet extends HttpServlet {
             case "pay":
                 request.getRequestDispatcher("jsp/pay.jsp").forward(request, response);
                 break;
+            
+               
 
             /**
              *

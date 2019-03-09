@@ -1,0 +1,22 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+
+<!--invoiceList comes from mother jsp page-->
+<script>
+    header = ['#', 'Antal'];
+    <% // Java declaration
+        String indexInvoice;
+        String invoiceDate; %>
+
+    header = ['Invoice#', 'Dato'];
+    invoiceArray = [
+    <% for (int i = 0; i < invoiceList.size(); i++)
+        {
+            indexInvoice = "" + invoiceList.get(i).getCart_id();
+            invoiceDate = "" + invoiceList.get(i).getInvoice_date();
+    %>
+    [<%=indexInvoice%>, '<%= invoiceDate%>']
+    <%= i + 1 < invoiceList.size() ? "," : ""%>
+    <%}%>
+    ];
+</script>

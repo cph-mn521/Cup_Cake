@@ -1,65 +1,82 @@
-function createTable(tableData)
+function createTable(headerNames, tableContent, tableID)
 {
-    var table = document.createElement('table');
-    var tableBody = document.createElement('tbody');
+//    creting fixpoint for table
+    var table = document.getElementById(tableID);
 
-    tableData.forEach(function (rowData)
+    console.log("tableID: " + tableID);
+    console.log("table: " + table);
+    console.log("HeaderNames: " + headerNames);
+    console.log("tableContent: " + tableContent);
+
+//    creating header
+    var thead = document.createElement('thead');
+    var row = thead.insertRow(0);
+    var cell;
+    for (var i = 0; i < headerNames.length; i++)
     {
-        var row = document.createElement('tr');
+        cell = row.insertCell(i);
+        cell.innerHTML = headerNames[i];
+    }
 
-        rowData.forEach(function (cellData)
+    console.log(thead);
+
+//    appending header to table
+    table.appendChild(thead);
+
+//    creating body of table
+    var tbody = document.createElement('tbody');
+
+//    rows
+    for (var i = 0; i < tableContent.length; i++)
+    {
+        var tr = tbody.insertRow();
+//        column
+        for (var j = 0; j < tableContent[0].length; j++)
         {
-            var cell = document.createElement('td');
-            cell.appendChild(document.createTextNode(cellData));
-            row.appendChild(cell);
-        });
+            var indexCellValue = tableContent[i][0];
+            var td = tr.insertCell(j);
+            if (j == 0)
+            {
+                td.onclick = function ()
+                {
+                    var url = "control?origin=admin&cart_id=" + this.innerHTML;
+                    window.location.href = url;
+                };
+            } else
+            {
+                td.onclick = function ()
+                {
+                    var url = "control?origin=admin&cart_id=" + this.previousElementSibling.innerHTML;
+                    window.location.href = url;
+                };
+            }
+            td.appendChild(document.createTextNode(tableContent[i][j]));
+            console.log(indexCellValue);
+        }
+    }
 
-        tableBody.appendChild(row);
-    });
+//    appending body to tables
+    table.appendChild(tbody);
 
-    table.appendChild(tableBody);
-    document.body.appendChild(table);
+//    fixing styles
+//    table
+    table.classList.add('table', 'table-hover', 'table-condensed', 'table-striped', 'text-center');
+
+//    head
+    thead.classList.add('table');
+    thead.style.color = 'white';
+    thead.style.background = 'grey';
+
+//    body
+    tbody.classList.add('table-bordered');
+
+    console.log(tbody);
 }
 
 
-function makeTableHTML(myArray)
+function getval(cel)
 {
-    var result = "<table border=1>";
-    for (var i = 0; i < myArray.length; i++)
-    {
-        result += "<tr>";
-        for (var j = 0; j < myArray[i].length; j++)
-        {
-            result += "<td id=\"col" + i + "_row" + j + "\">" + myArray[i][j] + "</td>";
-        }
-        result += "</tr>";
-    }
-    result += "</table>";
-
-    return result;
-}
-
-
-function makeNodeTable(myArray)
-{
-    var result = "<thead>\n";
-    result += "<tr>\n";
-    result += "th>Firstname</th>\n";
-    result += "<th>Lastname</th>\n";
-    result += "<th>Email</th>\n";
-    result += "</tr>\n";
-    result += "</thead>\n";
-    result += "tbody>\n";
-    for (var i = 0; i < myArray.length; i++)
-    {
-        result += "<tr>";
-        for (var j = 0; j < myArray[i].length; j++)
-        {
-            result += "<td id=\"col" + i + "_row" + j + "\"></td>";
-        }
-        result += "</tr>";
-    }
-    result += "</tbody>";
+    return cel.innerHTML;
 }
 
 

@@ -34,128 +34,66 @@
                 if (paramName.equals("cart_id"))
                 {
                     cart_id = Integer.parseInt(paramValue);
+                    if (cart_id > 0)
+                    {%>
+
+        <!--map java users invoice to javascript array-->
+        <%@ include file = "/WEB-INF/jspf/java2javascriptUserInvoice.jspf" %>
+        <%
+                    }
                 }
             }
-
         %>
 
-        <!--javascript syntax error handler-->
-        <!--<script src="./js/syntaxErrorHandler.js"></script>-->
         <script src="./js/makeTables.js"></script>
+
+        <!--map java invoiceList to javascript array-->
+        <%@ include file = "/WEB-INF/jspf/java2javascriptAllInvoices.jspf" %>
+
 
     </head>
 
-
-
-
     <body>
-        <!--Fill javascript array from Java-->
-        <script>
-
-
-//            document.getElementById("demo").innerHTML = createTable(invoiceArray);
-
-//            a.sort(sortFunction);            
-        </script>
-
-
         <%@ include file = "/WEB-INF/jspf/menu.jspf" %>
         <h1 style="color:#F5FFFA; text-align: center;">Admin</h1>
-        <!--<p id="demo">test</p>-->
-        <script>
-            <% // Java declaration
-                String indexInvoice;
-                String invoiceDate;
-                String insertlink; %>
-            var invoiceArray = [<% for (int i = 0; i < invoiceList.size(); i++)
-                {
-                    insertlink = "<a href=\"control?origin=admin&invoice_id=";
-                    indexInvoice = insertlink + invoiceList.get(i).getCart_id() + ">" + invoiceList.get(i).getCart_id() + "</a>";
-                    invoiceDate = insertlink + invoiceList.get(i).getCart_id() + ">" + invoiceList.get(i).getInvoice_date() + "</a>";
-            %>[<%=indexInvoice%>, '<%= invoiceDate%>']<%= i + 1 < invoiceList.size() ? "," : ""%><%} %>];
-//            document.getElementById("demo").innerHTML = makeTableHTML(invoiceArray);
-//            document.write(makeTableHTML(invoiceArray));
-        </script>
 
-<!--        <div class="container">
-            <h2>Striped Rows</h2>
-            <p>The .table-striped class adds zebra-stripes to a table:</p>            
-            <table class="table table-striped">
-                <script>
-                    document.write(makeNodeTable(invoiceArray));
-                </script>
-            </table>
-        </div>-->
-        <!--<h1>------------------------------------</h1>-->
         <div class="container">
             <div class="row">
                 <div class="col-sm">
-                    <div id="cart_tabel" style="text-align: left; width: 45%;">
-                        <table class="table table-striped">
-                            <thead  style="color:#F5FFFA; text-align: center;">
-                                <tr>
-                                    <th scope="col">Faktura#</th>
-                                    <th scope="col">Dato</th>
-                                </tr>
-                            </thead>
-                            <tbody  style="color: black; text-align: center;">
-                                <%  int index = 0;
-                                    for (Invoice i : cc.fetchInvoiceList())
-                                    {
-                                %>
-                                <tr>
-                                    <th scope="row"><a href="control?origin=admin&cart_id=<%=i.getCart_id()%>"><%=i.getCart_id()%></a></th>
-                                    <td><a href="control?origin=admin&cart_id=<%=i.getCart_id()%>"><%=i.getInvoice_date()%></a></td>
-                                </tr> 
-                                <% }
-                                %>
-                            </tbody>
-                        </table>
-                    </div>
+                    <table id="tableAllInvoices" ></table>
                 </div>
+
+                <script>
+//                    header and array comes from java2javascriptAllInvoices.jspf
+                    createTable(header, invoiceArray, 'tableAllInvoices');
+                </script>
+
+
                 <div class="col-sm">
                     <%
-                        List<LineItemsDTO> cartList = cc.fetchCart(cart_id);
                         if (cart_id > 0)
                         {
+                            List<LineItemsDTO> cartList = cc.fetchCart(cart_id);
                             userInvoice = cc.fetchInvoice(cart_id);
                     %>
-
                     <h4>Faktura# <%=cart_id%></h4>
                     <h5>Køber: <%=userInvoice.getUsername()%></h5>
                     <h5>Email: <%=userInvoice.getEmail()%></h5>
                     <h5>Balance: <%=userInvoice.getBalance()%></h5>
                     <h5>Købsdato: <%=userInvoice.getInvoice_date()%></h5>
-                    <div id="cart_tabel" style="text-align: left; width: 45%;">
-                        <table class="table table-striped">
-                            <thead  style="color:#F5FFFA; text-align: center;">
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Top</th>
-                                    <th scope="col">Bund</th>
-                                    <th scope="col">Antal</th>
-                                </tr>
-                            </thead>
-                            <tbody  style="color: black; text-align: center;">
-                                <%
 
-                                    int index2 = 0;
-                                    for (LineItemsDTO l : cartList)
-                                    {
-                                %>
-                                <tr>
-                                    <th scope="row"><%=++index2%></th>
-                                    <td><%=l.getCupcake().getTopping().getType()%></td>
-                                    <td><%=l.getCupcake().getBottom().getType()%></td>
-                                    <td><%=l.getQuantity()%></td>
-                                </tr>
-                                <%
-                                        };
-                                    }
-                                %>
-                            </tbody>
-                        </table>
+                    <div id="cart_tabel" style="text-align: left; width: 45%;">
+                        <%
+                            }
+                        %>
                     </div>
+
+                    <div class="col-sm">
+                        <table id="tableUserInvoice" ></table>
+                    </div>
+                    <script>
+                        createTable(headerAll, userInvoiceArray, 'tableUserInvoice');
+                    </script>
                 </div>
             </div>
         </div>

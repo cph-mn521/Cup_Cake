@@ -3,14 +3,16 @@
 
 <center>
     <a id="a_logo" href="index.jsp">
-        <canvas id="myCanvas" width="696" height="70">
+        <canvas id="myCanvas" width= "645" height="70">
             Your browser does not support the HTML5 canvas tag.
         </canvas>
         <script>
             var c = document.getElementById("myCanvas");
             var ctx = c.getContext("2d");
             ctx.font = "40px arial";
-            ctx.strokeText("Velkommen til en verden af Cupcakes", 10, 50);
+            
+            ctx.strokeText("FANFUCKINGTASTIC CUPCAKES", 10, 50);
+            
         </script>
     </a>
 
@@ -82,6 +84,11 @@
     <%
         }
     %>
+    <%
+        if(loggedIn){
+    %>
+    <button class="buttonBlue" onclick="window.location.href = 'control?origin=account'">Account</button>
+    <%}%>
      
 
 </div>

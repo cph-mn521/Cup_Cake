@@ -69,7 +69,7 @@
                     <input type="hidden" name="origin" value="shop" />
                     <input type="submit" class="btn btn-primary" value="Keep shopping">
                 </form>
-                <form  action="control" method="post">
+                <form  action="control?origin=pay" method="post">
                     <input type="hidden" name="origin" value="cart" />
                     <input type="hidden" name="deal" value="save" />
                     <input type="submit" class="btn btn-danger" value="Payment">
