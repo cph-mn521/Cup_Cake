@@ -1,0 +1,33 @@
+<%-- any content can be specified here e.g.: --%>
+<%@page import="java.util.Enumeration"%>
+<%@page import="java.util.List"%>
+<%@page import="com.cupcakes.logic.DTO.Invoice"%>
+<%@page import="com.cupcakes.logic.Controller"%>
+<%@ page pageEncoding="UTF-8" %>
+<%
+//    Part of admin.jsp
+    Controller cc = new Controller();
+    int cart_id = 0;
+    Invoice userInvoice;
+    List<Invoice> invoiceList = cc.fetchInvoiceList();
+
+    Enumeration paramAdmin = request.getParameterNames();
+
+    while (paramAdmin.hasMoreElements())
+    {
+        String paramName = (String) paramAdmin.nextElement();
+        String paramValue = request.getParameter(paramName);
+
+        if (paramName.equals("cart_id"))
+        {
+            cart_id = Integer.parseInt(paramValue);
+            if (cart_id > 0)
+            {%>
+
+<!--map java users invoice to javascript array-->
+<%@ include file = "/WEB-INF/jspf/java2javascriptUserInvoice.jspf" %>
+<%
+            }
+        }
+    }
+%>
