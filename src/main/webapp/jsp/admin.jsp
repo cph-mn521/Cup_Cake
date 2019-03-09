@@ -70,6 +70,7 @@
 
 
                 <div class="col-sm">
+                    <!--fectching user info.....and yes it has to be here!-->
                     <%
                         if (cart_id > 0)
                         {
@@ -81,16 +82,14 @@
                     <h5>Email: <%=userInvoice.getEmail()%></h5>
                     <h5>Balance: <%=userInvoice.getBalance()%></h5>
                     <h5>Købsdato: <%=userInvoice.getInvoice_date()%></h5>
-
-                    <div id="cart_tabel" style="text-align: left; width: 45%;">
-                        <%
-                            }
-                        %>
-                    </div>
-
-                    <div class="col-sm">
-                        <table id="tableUserInvoice" ></table>
-                    </div>
+                    <%
+                        }
+                    %>
+                    
+                    <!--Inserting place for user invoice table-->
+                    <table id="tableUserInvoice" ></table>
+                    
+                    <!--creating user invoice table...arrays comes from header jspf file-->
                     <script>
                         createTable(headerAll, userInvoiceArray, 'tableUserInvoice');
                     </script>
