@@ -8,22 +8,26 @@
 //    Part of admin.jsp
     Controller cc = new Controller();
     int invoice_id = 0;
+    int cart_id=0;
     Invoice userInvoice = null;
     List<Invoice> invoiceList = cc.fetchInvoiceList();
 
     Enumeration paramAdmin = request.getParameterNames();
 
+//    get parameters from request
     while (paramAdmin.hasMoreElements())
     {
         String paramName = (String) paramAdmin.nextElement();
         String paramValue = request.getParameter(paramName);
-
+        
+//        if parameter is invoice_id fill out javascript array
         if (paramName.equals("invoice_id"))
         {
             invoice_id = Integer.parseInt(paramValue);
             if (invoice_id > 0)
             {
                 userInvoice = cc.fetchInvoice(invoice_id);
+                cart_id = userInvoice.getCart_id();
 %>
 <!--map java users invoice to javascript array-->
 <%@ include file = "/WEB-INF/jspf/java2javascriptUserInvoice.jspf" %>

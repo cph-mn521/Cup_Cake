@@ -176,8 +176,8 @@ public class Controller {
      * @param cart_id
      * @return
      */
-    public Invoice fetchInvoice(int cart_id) {
-        return new InvoiceOrderDAO().retrieveInvoice(cart_id);
+    public Invoice fetchInvoice(int invoice_id) {
+        return new InvoiceOrderDAO().retrieveInvoice(invoice_id);
     }
 
     /**

@@ -1,4 +1,4 @@
-function createTable(headerNames, tableContent, tableID)
+function createTable(headerNames, tableContent, tableID, boolMakeClickable)
 {
 //    creting fixpoint for table
     var table = document.getElementById(tableID);
@@ -35,20 +35,26 @@ function createTable(headerNames, tableContent, tableID)
         {
             var indexCellValue = tableContent[i][0];
             var td = tr.insertCell(j);
-            if (j == 0)
+
+//            if boolMakeClickable is true make cells clickable. Click will
+//            send invoice_id value back to admin.jsp page
+            if (boolMakeClickable)
             {
-                td.onclick = function ()
+                if (j == 0)
                 {
-                    var url = "control?origin=admin&invoice_id=" + this.innerHTML;
-                    window.location.href = url;
-                };
-            } else
-            {
-                td.onclick = function ()
+                    td.onclick = function ()
+                    {
+                        var url = "control?origin=admin&invoice_id=" + this.innerHTML;
+                        window.location.href = url;
+                    };
+                } else
                 {
-                    var url = "control?origin=admin&invoice_id=" + this.previousElementSibling.innerHTML;
-                    window.location.href = url;
-                };
+                    td.onclick = function ()
+                    {
+                        var url = "control?origin=admin&invoice_id=" + this.previousElementSibling.innerHTML;
+                        window.location.href = url;
+                    };
+                }
             }
             td.appendChild(document.createTextNode(tableContent[i][j]));
             console.log(indexCellValue);

@@ -50,14 +50,15 @@
                     <!--Inserting place for user invoice table-->
                     <table id="tableUserInvoice" ></table>
 
-                    <!--creating user invoice table...arrays comes from header jspf file-->
-                    <!--must be at the bottom after html tags has been plaves-->
                 </div>
             </div>
         </div>
+            <!--must be at the bottom after html tags has been plaves-->
         <script>
-            createTable(header, invoiceArray, 'tableAllInvoices');
-            createTable(headerAll, userInvoiceArray, 'tableUserInvoice');
+            <!--creating all invoice-table...arrays comes from header jspf file-->
+            createTable(header, invoiceArray, 'tableAllInvoices', true);
+            <!--creating user invoice tables...arrays comes from header jspf file-->
+            createTable(headerAll, userInvoiceArray, 'tableUserInvoice', false);
         </script>
     </body>
 </html>
