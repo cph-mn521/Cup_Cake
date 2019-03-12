@@ -1,0 +1,29 @@
+@startuml
+
+title "Messages - Sequence Diagram"
+
+actor User
+boundary "CupCake Website" as GUI
+control "Controller" as ctrl
+
+database "SQL Database" as SQL
+
+User -> GUI : login
+GUI -> ctrl : authenticate user
+ctrl -> SQL : retrieve user information
+User <-- SQL
+User -> GUI : start transaction
+GUI -> ctrl : initiate order
+create entity "Shopping Cart" as SC
+ctrl -> SC : <<create>>\nnew shopping cart
+User <-- SC : show order
+User -> ctrl : manage order
+ctrl -> SC : populate cart
+User <-- SC
+User -> ctrl : confirm order
+ctrl <->o SQL : check user balance
+ctrl -> SC : persist data
+SQL <-- SC : save order to database
+User <-- SC : display order
+
+@enduml
