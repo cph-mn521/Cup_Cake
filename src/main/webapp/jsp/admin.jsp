@@ -19,10 +19,10 @@
 
         <!--map java invoiceList to javascript array-->
         <%@ include file = "/WEB-INF/jspf/java2javascriptAllInvoices.jspf" %>
-
     </head>
 
     <body>
+        <!--importing top of page and menu buttons-->
         <%@ include file = "/WEB-INF/jspf/menu.jspf" %>
         <h1 style="color:#F5FFFA; text-align: center;">Admin</h1>
 
@@ -32,15 +32,11 @@
                     <!--Inserting place for user invoice table-->
                     <table id="tableAllInvoices" ></table>
                 </div>
-
-
                 <div class="col-sm">
                     <!--fectching user info.....and yes it has to be here!-->
                     <%
                         if (invoice_id > 0)
                         {
-                            List<LineItemsDTO> cartList = cc.fetchCart(invoice_id);
-                            userInvoice = cc.fetchInvoice(invoice_id);
                     %>
                     <h4>Faktura# <%=invoice_id%></h4>
                     <h5>Køber: <%=userInvoice.getUsername()%></h5>
@@ -55,15 +51,13 @@
                     <table id="tableUserInvoice" ></table>
 
                     <!--creating user invoice table...arrays comes from header jspf file-->
-                    <script>
-//                        javascript to populate the two invoice tables
-//                        must be at the bottom 
-    //                    header and array comes from java2javascriptAllInvoices.jspf
-                        createTable(header, invoiceArray, 'tableAllInvoices');
-                        createTable(headerAll, userInvoiceArray, 'tableUserInvoice');
-                    </script>
+                    <!--must be at the bottom after html tags has been plaves-->
                 </div>
             </div>
         </div>
+        <script>
+            createTable(header, invoiceArray, 'tableAllInvoices');
+            createTable(headerAll, userInvoiceArray, 'tableUserInvoice');
+        </script>
     </body>
 </html>

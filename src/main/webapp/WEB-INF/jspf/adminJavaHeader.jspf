@@ -8,7 +8,7 @@
 //    Part of admin.jsp
     Controller cc = new Controller();
     int invoice_id = 0;
-    Invoice userInvoice;
+    Invoice userInvoice = null;
     List<Invoice> invoiceList = cc.fetchInvoiceList();
 
     Enumeration paramAdmin = request.getParameterNames();
@@ -22,12 +22,14 @@
         {
             invoice_id = Integer.parseInt(paramValue);
             if (invoice_id > 0)
-            {%>
-
+            {
+                userInvoice = cc.fetchInvoice(invoice_id);
+%>
 <!--map java users invoice to javascript array-->
 <%@ include file = "/WEB-INF/jspf/java2javascriptUserInvoice.jspf" %>
 <%
             }
         }
     }
+
 %>
