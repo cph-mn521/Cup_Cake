@@ -1,0 +1,17 @@
+@startuml
+|Admin|
+start
+:Login;
+|#AntiqueWhite|Server|
+:Validering;
+|Admin|
+:Logged in;
+:Admin;
+|#AntiqueWhite|Server|
+:Invoices;
+|Admin|
+:Choose invoice;
+|#AntiqueWhite|Server|
+:Show invoice;
+stop
+@enduml
