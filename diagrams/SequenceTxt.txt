@@ -15,7 +15,7 @@ User <-- SQL
 User -> GUI : start transaction
 GUI -> ctrl : initiate order
 create entity "Shopping Cart" as SC
-ctrl -> SC : <<create>>\nnew shopping cart
+ctrl --> SC : <<create>>\nnew shopping cart
 User <-- SC : show order
 User -> ctrl : manage order
 ctrl -> SC : populate cart
