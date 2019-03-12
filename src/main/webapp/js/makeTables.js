@@ -39,14 +39,14 @@ function createTable(headerNames, tableContent, tableID)
             {
                 td.onclick = function ()
                 {
-                    var url = "control?origin=admin&cart_id=" + this.innerHTML;
+                    var url = "control?origin=admin&invoice_id=" + this.innerHTML;
                     window.location.href = url;
                 };
             } else
             {
                 td.onclick = function ()
                 {
-                    var url = "control?origin=admin&cart_id=" + this.previousElementSibling.innerHTML;
+                    var url = "control?origin=admin&invoice_id=" + this.previousElementSibling.innerHTML;
                     window.location.href = url;
                 };
             }
@@ -71,32 +71,4 @@ function createTable(headerNames, tableContent, tableID)
     tbody.classList.add('table-bordered');
 
     console.log(tbody);
-}
-
-
-function getval(cel)
-{
-    return cel.innerHTML;
-}
-
-
-function sortFirstColumn(a, b)
-{
-    if (a[0] === b[0])
-    {
-        return 0;
-    } else
-    {
-        return (a[0] < b[0]) ? -1 : 1;
-    }
-}
-function sortSecondColumn(a, b)
-{
-    if (a[1] === b[1])
-    {
-        return 0;
-    } else
-    {
-        return (a[1] < b[1]) ? -1 : 1;
-    }
 }

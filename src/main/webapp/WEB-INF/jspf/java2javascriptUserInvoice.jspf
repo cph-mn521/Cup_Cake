@@ -1,7 +1,8 @@
 <%-- any content can be specified here e.g.: --%>
 <%@ page pageEncoding="UTF-8" %>
 
-<!--cart_id comes from mother jsp page-->
+<!--invoice_id comes from mother jsp page-->
+<!--makes javascript array from java - user invoice-->
 <script>
     <% // Java declaration
 
@@ -10,7 +11,7 @@
         String topping;
         String bottom;
         String quantity;
-        List<LineItemsDTO> cartList = cc.fetchCart(cart_id);%>
+        List<LineItemsDTO> cartList = cc.fetchCart(invoice_id);%>
 
     headerAll = ['#', 'Top', 'Bund', 'Antal'];
     userInvoiceArray = [

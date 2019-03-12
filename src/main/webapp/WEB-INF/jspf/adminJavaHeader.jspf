@@ -7,7 +7,7 @@
 <%
 //    Part of admin.jsp
     Controller cc = new Controller();
-    int cart_id = 0;
+    int invoice_id = 0;
     Invoice userInvoice;
     List<Invoice> invoiceList = cc.fetchInvoiceList();
 
@@ -18,10 +18,10 @@
         String paramName = (String) paramAdmin.nextElement();
         String paramValue = request.getParameter(paramName);
 
-        if (paramName.equals("cart_id"))
+        if (paramName.equals("invoice_id"))
         {
-            cart_id = Integer.parseInt(paramValue);
-            if (cart_id > 0)
+            invoice_id = Integer.parseInt(paramValue);
+            if (invoice_id > 0)
             {%>
 
 <!--map java users invoice to javascript array-->
