@@ -13,5 +13,7 @@ start
 :Choose invoice;
 |#AntiqueWhite|Server|
 :Show invoice;
+|Admin|
+:Logout;
 stop
 @enduml
