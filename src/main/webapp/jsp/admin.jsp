@@ -33,7 +33,7 @@
                     <table id="tableAllInvoices" ></table>
                 </div>
                 <div class="col-sm">
-                    <!--fectching user info.....and yes it has to be here!-->
+                    <!--fectching user info-->
                     <%
                         if (invoice_id > 0)
                         {
@@ -53,10 +53,11 @@
                 </div>
             </div>
         </div>
-            <!--must be at the bottom after html tags has been plaves-->
+            <!--must be at the bottom after html tags has been placses-->
         <script>
             <!--creating all invoice-table...arrays comes from header jspf file-->
             createTable(header, invoiceArray, 'tableAllInvoices', true);
+            
             <!--creating user invoice tables...arrays comes from header jspf file-->
             createTable(headerAll, userInvoiceArray, 'tableUserInvoice', false);
         </script>
