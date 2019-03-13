@@ -3,7 +3,7 @@
 
 <center>
     <a id="a_logo" href="index.jsp">
-        <canvas id="myCanvas" width= "645" height="70">
+        <canvas id="myCanvas" width= "245" height="70">
             Your browser does not support the HTML5 canvas tag.
         </canvas>
         <script>
