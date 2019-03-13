@@ -1,0 +1,19 @@
+@startuml
+|User|
+start
+:Login;
+|#AntiqueWhite|Server|
+:Validering;
+|Client|
+:Logged in;
+:Shopping;
+|#AntiqueWhite|Server|
+:Shopping cart;
+|Client|
+:Pay;
+|#AntiqueWhite|Server|
+:Payment;
+|Client|
+:Invoice;
+stop
+@enduml

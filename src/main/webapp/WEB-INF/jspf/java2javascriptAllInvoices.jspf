@@ -2,6 +2,7 @@
 <%@ page pageEncoding="UTF-8" %>
 
 <!--invoiceList comes from mother jsp page-->
+<!--makes javascript array from java - all invoices-->
 <script>
     header = ['#', 'Antal'];
     <% // Java declaration
@@ -12,7 +13,7 @@
     invoiceArray = [
     <% for (int i = 0; i < invoiceList.size(); i++)
         {
-            indexInvoice = "" + invoiceList.get(i).getCart_id();
+            indexInvoice = "" + invoiceList.get(i).getInvoice_id();
             invoiceDate = "" + invoiceList.get(i).getInvoice_date();
     %>
     [<%=indexInvoice%>, '<%= invoiceDate%>']

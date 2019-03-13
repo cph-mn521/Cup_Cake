@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.cupcakes.data.DAO;
 
 import com.cupcakes.data.DB;
@@ -360,10 +355,10 @@ public class InvoiceOrderDAO
      * @author Martin Bøgh
      * @return list of all invoices incl user info
      */
-    public Invoice retrieveInvoice(int cart_id)
+    public Invoice retrieveInvoice(int invoice_id)
     {
         Invoice i = null;
-        String query = "SELECT * FROM cupcakes.Invoice NATURAL JOIN cupcakes.`User` WHERE `cart_id`=" + cart_id + ";";
+        String query = "SELECT * FROM cupcakes.Invoice NATURAL JOIN cupcakes.`User` WHERE `invoice_id`=" + invoice_id + ";";
 
         try
         {
@@ -382,7 +377,7 @@ public class InvoiceOrderDAO
             }
         } catch (SQLException ex)
         {
-            System.out.println("Fejl InvoiceOrderDAO.retrieveInvoice(int cart_id) " + ex);
+            System.out.println("Fejl InvoiceOrderDAO.retrieveInvoice(int invoice_id) " + ex);
         }
         return i;
     }

@@ -1,0 +1,43 @@
+@startuml
+[*] -> login.jsp
+login.jsp -> Validation
+
+state Registration {
+  state registration.jsp{
+    registration.jsp --> login.jsp
+  }
+}
+
+state Validation {
+  Validation -> User
+  Validation -> Admin
+  Validation -> Registration
+  }
+  
+state Admin {
+  state admin.jsp{
+    Invoice --> CartInfo
+  }
+}
+  
+CartInfo --> logout.jsp
+
+state User {
+  
+  state shopping.jsp {
+	 ChooseCake --> cart.jsp
+  }
+  
+  state cart.jsp{
+    ShopMore --> ChooseCake
+    Pay --> pay.jsp
+pay.jsp --> logout.jsp
+  }
+
+
+  state account.jsp{
+CheckBalance --> logout.jsp
+  }
+}
+
+@enduml

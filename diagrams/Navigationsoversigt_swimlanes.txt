@@ -1,0 +1,35 @@
+@startuml
+title Oversigt
+
+|#AntiqueWhite|Logout|
+|Login|
+
+|#AntiqueWhite|Registrering|
+start
+
+|Login|
+:login;
+:validering;
+if (Admin?) then (yes)
+  |Admin|
+:Admin side;
+:Check faktura;
+|#AntiqueWhite|Logout|
+:logout;
+stop
+
+|#AntiqueWhite|Shop|
+else (no)
+:Udvælg kager;
+
+|Cart|
+:Betal;
+
+|#AntiqueWhite|Account|
+:Check balance;
+
+|#AntiqueWhite|Logout|
+:logout;
+stop
+
+@enduml

@@ -3,7 +3,7 @@
 
 <center>
     <a id="a_logo" href="index.jsp">
-        <canvas id="myCanvas" width= "645" height="70">
+        <canvas id="myCanvas" width= "245" height="70">
             Your browser does not support the HTML5 canvas tag.
         </canvas>
         <script>
@@ -11,7 +11,7 @@
             var ctx = c.getContext("2d");
             ctx.font = "40px arial";
             
-            ctx.strokeText("FANFUCKINGTASTIC CUPCAKES", 10, 50);
+            ctx.strokeText("CUPCAKES", 10, 50);
             
         </script>
     </a>

@@ -10,7 +10,7 @@
 <html>
     <head>
         <%@ include file = "/WEB-INF/jspf/header.jspf" %>
-        
+
         <!--java init stuff -->
         <%@ include file = "/WEB-INF/jspf/adminJavaHeader.jspf" %>
 
@@ -19,10 +19,10 @@
 
         <!--map java invoiceList to javascript array-->
         <%@ include file = "/WEB-INF/jspf/java2javascriptAllInvoices.jspf" %>
-
     </head>
 
     <body>
+        <!--importing top of page and menu buttons-->
         <%@ include file = "/WEB-INF/jspf/menu.jspf" %>
         <h1 style="color:#F5FFFA; text-align: center;">Admin</h1>
 
@@ -32,21 +32,13 @@
                     <!--Inserting place for user invoice table-->
                     <table id="tableAllInvoices" ></table>
                 </div>
-
-                <script>
-//                    header and array comes from java2javascriptAllInvoices.jspf
-                    createTable(header, invoiceArray, 'tableAllInvoices');
-                </script>
-
                 <div class="col-sm">
-                    <!--fectching user info.....and yes it has to be here!-->
+                    <!--fectching user info-->
                     <%
-                        if (cart_id > 0)
+                        if (invoice_id > 0)
                         {
-                            List<LineItemsDTO> cartList = cc.fetchCart(cart_id);
-                            userInvoice = cc.fetchInvoice(cart_id);
                     %>
-                    <h4>Faktura# <%=cart_id%></h4>
+                    <h4>Faktura# <%=invoice_id%></h4>
                     <h5>Køber: <%=userInvoice.getUsername()%></h5>
                     <h5>Email: <%=userInvoice.getEmail()%></h5>
                     <h5>Balance: <%=userInvoice.getBalance()%></h5>
@@ -58,12 +50,16 @@
                     <!--Inserting place for user invoice table-->
                     <table id="tableUserInvoice" ></table>
 
-                    <!--creating user invoice table...arrays comes from header jspf file-->
-                    <script>
-                        createTable(headerAll, userInvoiceArray, 'tableUserInvoice');
-                    </script>
                 </div>
             </div>
         </div>
+            <!--must be at the bottom after html tags has been placses-->
+        <script>
+            <!--creating all invoice-table...arrays comes from header jspf file-->
+            createTable(header, invoiceArray, 'tableAllInvoices', true);
+            
+            <!--creating user invoice tables...arrays comes from header jspf file-->
+            createTable(headerAll, userInvoiceArray, 'tableUserInvoice', false);
+        </script>
     </body>
 </html>

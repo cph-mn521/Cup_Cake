@@ -2,6 +2,7 @@
 <%@ page pageEncoding="UTF-8" %>
 
 <!--cart_id comes from mother jsp page-->
+<!--makes javascript array from java - user invoice-->
 <script>
     <% // Java declaration
 
