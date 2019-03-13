@@ -23,10 +23,10 @@ public class ToppingsDTO {
     int id;
 
     public ToppingsDTO(String type) {
-       ToppingsDTO t = new CupcakeDAO().getTopping(type);
+        ToppingsDTO t = new CupcakeDAO().getTopping(type);
         this.type = type;
-        this.price=(float) t.getPrice();
-        this.id=t.getId();
+        this.price = (float) t.getPrice();
+        this.id = t.getId();
     }
 
     public ToppingsDTO(String type, float price, int id) {
@@ -47,19 +47,16 @@ public class ToppingsDTO {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 
-    public int getId()
-    {
+    public int getId() {
         return id;
     }
 
-    public void setId(int id)
-    {
+    public void setId(int id) {
         this.id = id;
     }
-    
-    
+
 }

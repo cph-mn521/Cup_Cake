@@ -41,8 +41,8 @@ public class CupcakeDAO {
     }
 
     /**
-     *  Maps single bottom from DB to BottomDTO from String
-     * 
+     * Maps single bottom from DB to BottomDTO from String
+     *
      * @param bottomType
      * @return BottomDTO objekt
      */
@@ -64,10 +64,10 @@ public class CupcakeDAO {
         }
         return b;
     }
-    
-     /**
-     *  Maps single bottom from DB to BottomDTO from integer
-     * 
+
+    /**
+     * Maps single bottom from DB to BottomDTO from integer
+     *
      * @param bottomType
      * @return BottomDTO objekt
      */
@@ -92,7 +92,7 @@ public class CupcakeDAO {
 
     /**
      * Creates list with ToppingsDTO objects mapped from DB
-     * 
+     *
      * @return liste med alle toppings
      */
     public List<ToppingsDTO> getToppings() {
@@ -116,7 +116,7 @@ public class CupcakeDAO {
 
     /**
      * Maps single topping from DB to ToppingsDTO from String
-     * 
+     *
      * @param toppingType
      * @return enkelt ToppingsDTO objekt
      */
@@ -138,10 +138,9 @@ public class CupcakeDAO {
         return t;
     }
 
-    
-     /**
+    /**
      * Maps single topping from DB to ToppingsDTO from integer
-     * 
+     *
      * @param toppingType
      * @return enkelt ToppingsDTO objekt
      */
@@ -162,8 +161,7 @@ public class CupcakeDAO {
         }
         return t;
     }
-    
-    
+
     /**
      * Der er ikke brug for at add'e kager til databasen men det er lavet for at
      * se om det virker og hvis vi skulle få lyst til at lave nye kager (med gul
@@ -187,7 +185,7 @@ public class CupcakeDAO {
 
     /**
      * Helper method for adding things to DB
-     * 
+     *
      * @param query
      */
     public void addToDB(String query) {
@@ -195,7 +193,7 @@ public class CupcakeDAO {
             int result = DB.getConnection().createStatement().executeUpdate(query);
             System.out.println("result from adding to database: \n" + result);
         } catch (SQLException ex) {
-            System.out.println("Fejl recipeDAO addToDB:\n" + ex);
+            System.out.println("Fejl CupcakeDAO addToDB:\n" + ex);
         }
     }
 
