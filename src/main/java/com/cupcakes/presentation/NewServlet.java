@@ -36,7 +36,6 @@ public class NewServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Controller C = new Controller();
         response.setContentType("text/html;charset=UTF-8");
         String origin = request.getParameter("origin");
 
@@ -79,7 +78,7 @@ public class NewServlet extends HttpServlet {
                 request.getRequestDispatcher("jsp/admin.jsp").include(request, response);
                 //bruges indtil der laves noget på admin siden. admin siden tror den er i root folderen
                 //men den er i /admin folderen
-                
+
 //                response.sendRedirect("admin/index.html");
                 break;
 
@@ -102,8 +101,6 @@ public class NewServlet extends HttpServlet {
             case "pay":
                 request.getRequestDispatcher("jsp/pay.jsp").forward(request, response);
                 break;
-            
-               
 
             /**
              *

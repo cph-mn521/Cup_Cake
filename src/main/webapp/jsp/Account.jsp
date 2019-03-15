@@ -21,10 +21,11 @@
         <title>Account</title>
     </head>
     <body>
+    <center>
         <%@ include file = "/WEB-INF/jspf/menu.jspf" %>"
         <h1>Hello <%= user.getName()%> This is page displays info about your current session! </h1>
         <h2>Your current balance is on <%=user.getBalance()%> </h2>
-    <center>
+    
         <p> Current invoices: <p>
             <%  
                 
@@ -48,7 +49,7 @@
             %>
             <%= table.toString()%>
         <form action="control?origin=addMoneyBank" method="post">
-            Enter username : <input type="text" name="added" placeholder="Amount" required> <BR>
+            Enter amount to add: <input type="text" name="added" placeholder="Amount" required> <BR>
             <input type="submit" value="Add Balance"/>
         </form>
 
