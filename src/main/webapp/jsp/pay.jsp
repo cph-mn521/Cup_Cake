@@ -30,6 +30,7 @@
           for(LineItemsDTO l: cart.getLineItems()){
               p += l.getCupcake().getTotalPrice() * l.getQuantity();
           }
+          if( p == 0) return;
           
           if(p > user.getBalance()){
               %>
@@ -39,7 +40,7 @@
           //Doesn't actuallyy do anything.
 
             %>
-            <h1>Please pay at the counter.</h1>
+            <h1>Order placed. <br>Please pay at the counter.</h1>
               
               <%
             }

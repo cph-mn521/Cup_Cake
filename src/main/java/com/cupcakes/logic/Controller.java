@@ -52,10 +52,9 @@ public class Controller {
      *
      * @param Username Username to create
      * @param Password Password.
-     * @param PasswordCheck Password confirmation.
+     * @param req
      * @param Email User email.
      * @return String with information about creation.
-     * @throws java.lang.Exception
      */
     public static boolean createUser(String Username, String Password, String Email, HttpServletRequest req) {
         try {
@@ -73,7 +72,7 @@ public class Controller {
             } catch (SQLException e) {
                 db.createUser(Username, Email, Password);
                 req.getSession().setAttribute("user", db.getUser(Username));
-                req.setAttribute("registrationMessage", "Gz! registerd as user!");
+                req.setAttribute("registrationMessage", "Gz! registered as user!");
                 return true;
             }
         } catch (SQLException e) {
@@ -83,7 +82,6 @@ public class Controller {
 
     }
 
-
     /**
      * Checks if the User with "Username" exists in database and has matching
      * password
@@ -91,6 +89,7 @@ public class Controller {
      * @author Niels Bang
      * @param Username Username of the user to check.
      * @param Password Password to match with username
+     * @param req
      * @return boolean for successful login
      */
     public static boolean loginCheck(String Username, String Password, HttpServletRequest req) {
@@ -131,7 +130,7 @@ public class Controller {
     /**
      * Henter et User objekt fra data og sender det videre
      *
-     * @param UserID
+     * @param User_id
      * @return User objekt
      * @throws SQLException
      */
@@ -156,7 +155,7 @@ public class Controller {
      * @return
      */
     public List<LineItemsDTO> fetchCart(int cartID) {
-        return new InvoiceOrderDAO().getShoppingCartFromDB(cartID);
+        return InvoiceOrderDAO.getShoppingCartFromDB(cartID);
 
     }
 
@@ -173,7 +172,7 @@ public class Controller {
     /**
      * Pull out an invoice
      *
-     * @param cart_id
+     * @param invoice_id
      * @return
      */
     public Invoice fetchInvoice(int invoice_id) {
@@ -184,6 +183,7 @@ public class Controller {
      * Calculates total price of all lineitems
      *
      * @author martin bøgh
+     * @param cart
      * @return
      */
     public float fetchTotalPrice(ShoppingCart cart) {
@@ -236,10 +236,9 @@ public class Controller {
 
         }
         try {
-            return invoice.retrieveLatestInvoiceID();
+            return InvoiceOrderDAO.retrieveLatestInvoiceID();
         } catch (DataException ex) {
             System.out.println("Controller.putCartInDB error");
-            ex.printStackTrace();
         }
         return -1;
     }

@@ -67,7 +67,6 @@ public class UserDAO {
 
     }
 
-    
     /**
      * Method for extracting a user from the database.
      *
@@ -99,8 +98,7 @@ public class UserDAO {
         return user;
 
     }
-    
-    
+
     /**
      * Method for adding users to the database.
      *
@@ -128,7 +126,8 @@ public class UserDAO {
         }
     }
 
-    // Main for testing DAO
+    /*
+// Main for testing DAO
     public static void main(String[] args) {
         try {
             new UserDAO().createUser("This user", "Is created ", "in Java");
@@ -139,5 +138,5 @@ public class UserDAO {
             e.printStackTrace();
         }
     }
-
+     */
 }
